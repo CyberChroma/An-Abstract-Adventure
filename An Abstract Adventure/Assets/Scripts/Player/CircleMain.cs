@@ -8,7 +8,7 @@ public class CircleMain : MonoBehaviour
     private PlayerJump playerJump;
     private PlayerDoubleJump playerDoubleJump;
 
-    void Start()
+    void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
         playerJump = GetComponent<PlayerJump>();
@@ -22,8 +22,13 @@ public class CircleMain : MonoBehaviour
         playerJump.Jump();
     }
 
-    void FixedUpdate()
+    void OnEnable()
     {
-        playerJump.Fall();
+        playerMove.active = true;
+    }
+
+    void OnDisable()
+    {
+        playerMove.active = false;
     }
 }

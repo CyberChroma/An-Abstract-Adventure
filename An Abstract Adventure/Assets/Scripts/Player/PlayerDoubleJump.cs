@@ -10,7 +10,7 @@ public class PlayerDoubleJump : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }

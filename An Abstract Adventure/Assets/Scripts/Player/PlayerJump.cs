@@ -13,7 +13,7 @@ public class PlayerJump : MonoBehaviour
     private PlayerGroundCheck playerGroundCheck;
     private PlayerDoubleJump playerDoubleJump;
 
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
@@ -24,6 +24,7 @@ public class PlayerJump : MonoBehaviour
     void FixedUpdate()
     {
         rb.AddForce(transform.up * -gravityMultiplier * 10);
+        Fall();
     }
 
     public void Jump()
@@ -39,7 +40,7 @@ public class PlayerJump : MonoBehaviour
         }
     }
 
-    public void Fall ()
+    void Fall ()
     {
         if (!playerGroundCheck.isGrounded) {
             if (rb.velocity.y >= 0 && !Input.GetKey(KeyCode.Space))

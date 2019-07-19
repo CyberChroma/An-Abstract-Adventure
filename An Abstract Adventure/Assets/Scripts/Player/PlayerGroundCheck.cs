@@ -10,7 +10,7 @@ public class PlayerGroundCheck : MonoBehaviour
 
     private PlayerDoubleJump playerDoubleJump;
 
-    void Start()
+    void Awake()
     {
         playerDoubleJump = GetComponentInParent<PlayerDoubleJump>();
     }

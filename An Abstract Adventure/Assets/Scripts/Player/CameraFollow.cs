@@ -2,49 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class PlayerInfo
-{
-    public float smoothing;
-    public float height;
-}
-
-[System.Serializable]
-public class LookAtInfo
-{
-    public float smoothing;
-    public Transform target;
-}
-
 public class CameraFollow : MonoBehaviour
 {
-    public enum Mode
-    {
-        Player,
-        LookAt
-    }
+    public float smoothing;
+    public float offsetHeight;
+    public float zoom;
+    public float zoomSmoothing;
 
-    public Mode mode;
-    public PlayerInfo player;
-    public LookAtInfo lookAt;
+    [HideInInspector] public Transform target;
+    [HideInInspector] public float tSmoothing;
+    [HideInInspector] public float tOffsetHeight;
+    [HideInInspector] public float tZoom;
+    [HideInInspector] public float tZoomSmoothing;
 
     private Vector3 movePos;
-    private Transform playerObj;
+    private Vector3 camVelocity;
+    private float zoomVelocity;
+    private Camera mCam;
+    private Transform player;
 
-    void Start()
+    void Awake()
     {
-        playerObj = GameObject.Find("Kall").transform;
+        player = GameObject.Find("Kall").transform;
+        mCam = GetComponent<Camera>();
+        GetComponent<Camera>().orthographicSize = zoom;
     }
 
     void LateUpdate()
     {
-        if (mode == Mode.Player)
+        if (target == null)
         {
-            movePos = Vector3.Lerp(transform.position, new Vector3(playerObj.position.x, playerObj.position.y + player.height, -10), player.smoothing * Time.deltaTime);
+            movePos = Vector3.SmoothDamp(transform.position, new Vector3(player.position.x, player.position.y + offsetHeight, -10), ref camVelocity, smoothing, Mathf.Infinity, Time.deltaTime);
+            mCam.orthographicSize = Mathf.SmoothDamp(mCam.orthographicSize, zoom, ref zoomVelocity, zoomSmoothing, Mathf.Infinity, Time.deltaTime);
         }
         else
         {
-            movePos = Vector3.Lerp(transform.position, new Vector3(lookAt.target.position.x, lookAt.target.position.y, -10), lookAt.smoothing * Time.deltaTime);
+            movePos = Vector3.SmoothDamp(transform.position, new Vector3(target.position.x, target.position.y + tOffsetHeight, -10), ref camVelocity, tSmoothing, Mathf.Infinity, Time.deltaTime);
+            mCam.orthographicSize = Mathf.SmoothDamp(mCam.orthographicSize, tZoom, ref zoomVelocity, tZoomSmoothing, Mathf.Infinity, Time.deltaTime);
         }
         transform.position = movePos;
     }

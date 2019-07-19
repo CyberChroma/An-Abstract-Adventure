@@ -8,14 +8,25 @@ public class PlayerMove : MonoBehaviour
     public float moveSmoothness;
     public float stopSmoothness;
 
+    [HideInInspector] public bool active;
+
     private bool frontRight;
     private Vector3 moveDir = Vector3.zero;
     private PlayerGroundCheck playerGroundCheck;
 
-    void Start()
+    void Awake()
     {
         frontRight = true;
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
+    }
+
+    private void Update()
+    {
+        if (!active && moveDir != Vector3.zero)
+        {
+            moveDir = Vector3.Lerp(moveDir, Vector3.zero, stopSmoothness * Time.deltaTime);
+            transform.position += moveDir * speed * Time.deltaTime;
+        }
     }
 
     public void Move ()
@@ -51,7 +62,7 @@ public class PlayerMove : MonoBehaviour
             }
             moveDir = Vector3.Lerp(moveDir, -transform.right, moveSmoothness * Time.deltaTime);
         }
-        else
+        else if (moveDir != Vector3.zero)
         {
             moveDir = Vector3.Lerp(moveDir, Vector3.zero, stopSmoothness * Time.deltaTime);
         }
