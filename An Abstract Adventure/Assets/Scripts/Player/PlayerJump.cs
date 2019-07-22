@@ -24,19 +24,18 @@ public class PlayerJump : MonoBehaviour
     void FixedUpdate()
     {
         rb.AddForce(transform.up * -gravityMultiplier * 10);
+        rb.velocity = new Vector2(rb.velocity.x * 0.5f, rb.velocity.y);
         Fall();
     }
 
     public void Jump()
     {
-        if (playerGroundCheck.isGrounded)
+        if (playerGroundCheck.isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                rb.AddForce(transform.up * jumpForce * 10, ForceMode2D.Impulse);
-                playerGroundCheck.isGrounded = false;
-                playerDoubleJump.canDoubleJump = true;
-            }
+            rb.velocity = Vector3.zero;
+            rb.AddForce(transform.up * jumpForce * 10, ForceMode2D.Impulse);
+            playerGroundCheck.isGrounded = false;
+            playerDoubleJump.canDoubleJump = true;
         }
     }
 

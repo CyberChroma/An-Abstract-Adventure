@@ -26,7 +26,7 @@ public class PlayerGroundCheck : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (!isGrounded && collision.gameObject.layer == 8)
+        if (isGrounded && collision.gameObject.layer == 8)
         {
             StopAllCoroutines();
             StartCoroutine(WaitToFall());
