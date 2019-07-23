@@ -88,9 +88,10 @@ GameObject:
   - component: {fileID: 4010378348238694572}
   - component: {fileID: 4010378348238694574}
   - component: {fileID: 4010378348238694560}
+  - component: {fileID: 1518674929}
   m_Layer: 0
   m_Name: Que
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,6 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6612e9bdfc0c4cc4ea48f0a95fcae50b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activePlayer: 0
 --- !u!114 &4010378348238694572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +226,7 @@ MonoBehaviour:
   speed: 15
   moveSmoothness: 8
   stopSmoothness: 6
+  active: 0
 --- !u!114 &4010378348238694574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +257,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doubleJumpForce: 2.5
   canDoubleJump: 0
+--- !u!114 &1518674929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010378348238694568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5a47816bda3d848a29e4407ba9327e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flickerTime: 1.5
+  flickerNum: 15
+  reloadDelay: 2
+  knockbackHeight: 3
+  disableTime: 0.1
+  healthUI: {fileID: 0}
 --- !u!1 &4203413966011958821
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +286,7 @@ GameObject:
   - component: {fileID: 5901649715015429436}
   - component: {fileID: 7918027139384071029}
   m_Layer: 0
-  m_Name: Inside
+  m_Name: Inside 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -344,7 +365,7 @@ GameObject:
   - component: {fileID: 7241771252546830781}
   - component: {fileID: 7241771252546830780}
   m_Layer: 0
-  m_Name: Inside (1)
+  m_Name: Inside 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

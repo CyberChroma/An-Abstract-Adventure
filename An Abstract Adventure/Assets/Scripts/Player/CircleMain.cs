@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CircleMain : MonoBehaviour
 {
+    [HideInInspector] public bool activePlayer;
+
     private PlayerMove playerMove;
     private PlayerJump playerJump;
     private PlayerDoubleJump playerDoubleJump;
@@ -17,9 +19,12 @@ public class CircleMain : MonoBehaviour
 
     void Update()
     {
-        playerMove.Move();
-        playerDoubleJump.DoubleJump();
-        playerJump.Jump();
+        if (activePlayer)
+        {
+            playerMove.Move();
+            playerDoubleJump.DoubleJump();
+            playerJump.Jump();
+        }
     }
 
     void OnEnable()

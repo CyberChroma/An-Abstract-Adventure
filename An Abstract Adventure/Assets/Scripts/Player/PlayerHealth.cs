@@ -22,11 +22,10 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = healthUI.maxHealth;
         canBeDamaged = true;
-        images = new SpriteRenderer[4];
+        images = new SpriteRenderer[3];
         images[0] = GetComponent<SpriteRenderer>();
         images[1] = transform.Find("Inside 1").GetComponent<SpriteRenderer>();
         images[2] = transform.Find("Inside 2").GetComponent<SpriteRenderer>();
-        images[3] = GameObject.Find(gameObject.name + " Trail").GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         circleMain = GetComponent<CircleMain>();
     }

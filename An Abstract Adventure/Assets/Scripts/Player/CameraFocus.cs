@@ -16,21 +16,32 @@ public class CameraFocus : MonoBehaviour
     public bool oneTime = true;
 
     private CameraFollow cameraFollow;
-    private CircleMain circleMain;
+    private CircleMain kallMain;
+    private CircleMain queMain;
 
     void Awake()
     {
         cameraFollow = FindObjectOfType<CameraFollow>();
-        circleMain = FindObjectOfType<CircleMain>();
+        kallMain = FindObjectsOfType<CircleMain>()[0];
+        queMain = FindObjectsOfType<CircleMain>()[1];
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(ChangeTarget());
+        if (collision.CompareTag("Player"))
+        {
+            StartCoroutine(ChangeTarget());
+        }
     }
 
     IEnumerator ChangeTarget() {
-        circleMain.enabled = false;
+        if (kallMain)
+        {
+            kallMain.enabled = false;
+        } else if (queMain)
+        {
+            queMain.enabled = false;
+        }
         yield return new WaitForSeconds(startDelay);
         cameraFollow.target = targetToSet;
         cameraFollow.tSmoothing = smoothing;
@@ -40,7 +51,14 @@ public class CameraFocus : MonoBehaviour
         yield return new WaitForSeconds(focusTime);
         cameraFollow.target = null;
         yield return new WaitForSeconds(endDelay);
-        circleMain.enabled = true;
+        if (kallMain)
+        {
+            kallMain.enabled = true;
+        }
+        else if (queMain)
+        {
+            queMain.enabled = true;
+        }
         if (oneTime)
         {
             Destroy(gameObject);
