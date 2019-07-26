@@ -13,26 +13,26 @@ public class PlayerChange : MonoBehaviour
     public ActivePlayer activePlayer;
 
     private CameraFollow cameraFollow;
-    private Transform kall;
-    private Transform que;
+    private CircleMain kall;
+    private SquareMain que;
 
     // Start is called before the first frame update
     void Awake()
     {
         cameraFollow = GetComponent<CameraFollow>();
-        kall = GameObject.Find("Kall").transform;
-        que = GameObject.Find("Que").transform;
+        kall = FindObjectOfType<CircleMain>();
+        que = FindObjectOfType<SquareMain>();
         if (activePlayer == ActivePlayer.Kall)
         {
-            kall.GetComponent<CircleMain>().activePlayer = true;
-            que.GetComponent<CircleMain>().activePlayer = false;
-            cameraFollow.player = kall;
+            kall.activePlayer = true;
+            que.activePlayer = false;
+            cameraFollow.player = kall.transform;
         }
         else
         {
-            kall.GetComponent<CircleMain>().activePlayer = false;
-            que.GetComponent<CircleMain>().activePlayer = true;
-            cameraFollow.player = que;
+            kall.activePlayer = false;
+            que.activePlayer = true;
+            cameraFollow.player = que.transform;
         }
     }
 
@@ -44,16 +44,16 @@ public class PlayerChange : MonoBehaviour
             if (activePlayer == ActivePlayer.Kall)
             {
                 activePlayer = ActivePlayer.Que;
-                kall.GetComponent<CircleMain>().activePlayer = false;
-                que.GetComponent<CircleMain>().activePlayer = true;
-                cameraFollow.player = que;
+                kall.activePlayer = false;
+                que.activePlayer = true;
+                cameraFollow.player = que.transform;
             }
             else
             {
                 activePlayer = ActivePlayer.Kall;
-                que.GetComponent<CircleMain>().activePlayer = false;
-                kall.GetComponent<CircleMain>().activePlayer = true;
-                cameraFollow.player = kall;
+                que.activePlayer = false;
+                kall.activePlayer = true;
+                cameraFollow.player = kall.transform;
             }
         }
     }

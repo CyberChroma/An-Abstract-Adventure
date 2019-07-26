@@ -17,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
     private SpriteRenderer[] images;
     private Rigidbody2D rb;
     private CircleMain circleMain;
+    private SquareMain squareMain;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class PlayerHealth : MonoBehaviour
         images[2] = transform.Find("Inside 2").GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         circleMain = GetComponent<CircleMain>();
+        squareMain = GetComponent<SquareMain>();
     }
 
     void OnTriggerStay2D(Collider2D collision)
@@ -49,7 +51,14 @@ public class PlayerHealth : MonoBehaviour
             currentHealth--;
             if (currentHealth <= 0)
             {
-                circleMain.enabled = false;
+                if (circleMain)
+                {
+                    circleMain.enabled = false;
+                }
+                else
+                {
+                    squareMain.enabled = false;
+                }
                 StartCoroutine(Death());
             }
             else
@@ -94,8 +103,22 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator TempDisable ()
     {
-        circleMain.enabled = false;
+        if (circleMain)
+        {
+            circleMain.enabled = false;
+        }
+        else
+        {
+            squareMain.enabled = false;
+        }
         yield return new WaitForSeconds(disableTime);
-        circleMain.enabled = true;
+        if (circleMain)
+        {
+            circleMain.enabled = true;
+        }
+        else
+        {
+            squareMain.enabled = true;
+        }
     }
 }
