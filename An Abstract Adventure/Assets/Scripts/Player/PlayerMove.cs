@@ -9,15 +9,17 @@ public class PlayerMove : MonoBehaviour
     public float stopSmoothness;
 
     [HideInInspector] public bool active;
+    [HideInInspector] public bool frontRight;
 
-    private bool frontRight;
     private Vector3 moveDir = Vector3.zero;
     private PlayerGroundCheck playerGroundCheck;
+    private GameObject attackCollider;
 
     void Awake()
     {
         frontRight = true;
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
+        attackCollider = transform.Find("Attack Hit Box").gameObject;
     }
 
     private void Update()
@@ -33,8 +35,9 @@ public class PlayerMove : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            if (!frontRight)
+            if (!attackCollider.activeSelf && !frontRight)
             {
+                transform.localScale = new Vector3(1, 1, 1);
                 frontRight = true;
                 if (playerGroundCheck.isGrounded)
                 {
@@ -48,8 +51,9 @@ public class PlayerMove : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            if (frontRight)
+            if (!attackCollider.activeSelf && frontRight)
             {
+                transform.localScale = new Vector3(-1, 1, 1);
                 frontRight = false;
                 if (playerGroundCheck.isGrounded)
                 {

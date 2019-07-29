@@ -9,12 +9,14 @@ public class SquareMain : MonoBehaviour
     private PlayerMove playerMove;
     private PlayerJump playerJump;
     private PlayerDoubleJump playerDoubleJump;
+    private PlayerAttack playerAttack;
 
     void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
         playerJump = GetComponent<PlayerJump>();
         playerDoubleJump = GetComponent<PlayerDoubleJump>();
+        playerAttack = GetComponent<PlayerAttack>();
     }
 
     void Update()
@@ -24,6 +26,7 @@ public class SquareMain : MonoBehaviour
             playerMove.Move();
             playerDoubleJump.DoubleJump();
             playerJump.Jump();
+            playerAttack.Attack();
         }
     }
 
