@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823672539}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.06, z: 0}
-  m_LocalScale: {x: 3.5, y: 1.1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalScale: {x: 3.5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4010378348238694571}
   m_RootOrder: 3
@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 4010378348238694560}
   - component: {fileID: 1518674929}
   - component: {fileID: 1598257670}
+  - component: {fileID: 29003827}
   m_Layer: 0
   m_Name: Que
   m_TagString: Player
@@ -311,7 +312,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.01
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -332,6 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activePlayer: 0
+  playerMove: {fileID: 0}
 --- !u!114 &4010378348238694572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,11 +346,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e66a8461819b1f5478b9e1143b2f8d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 50
   moveSmoothness: 8
   stopSmoothness: 6
   active: 0
   frontRight: 0
+  moveDir: {x: 0, y: 0}
 --- !u!114 &4010378348238694574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,6 +414,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTime: 0.5
   attackWait: 0.2
+--- !u!114 &29003827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010378348238694568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b1e8239388af1449aefb141c72c6b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallJumpHForce: 4
+  wallJumpVForce: 2.5
+  canWallJump: 0
 --- !u!1 &4203413966011958821
 GameObject:
   m_ObjectHideFlags: 0

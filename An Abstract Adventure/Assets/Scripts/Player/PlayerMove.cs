@@ -10,66 +10,76 @@ public class PlayerMove : MonoBehaviour
 
     [HideInInspector] public bool active;
     [HideInInspector] public bool frontRight;
+    [HideInInspector] public Vector2 moveDir = Vector2.zero;
+    [HideInInspector] public bool moveOverride;
 
-    private Vector3 moveDir = Vector3.zero;
+    private Rigidbody2D rb;
     private PlayerGroundCheck playerGroundCheck;
     private GameObject attackCollider;
 
     void Awake()
     {
         frontRight = true;
+        rb = GetComponent<Rigidbody2D>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
         attackCollider = transform.Find("Attack Hit Box").gameObject;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (!active && moveDir != Vector3.zero)
+        if (!active && moveDir != Vector2.zero)
         {
-            moveDir = Vector3.Lerp(moveDir, Vector3.zero, stopSmoothness * Time.deltaTime);
-            transform.position += moveDir * speed * Time.deltaTime;
+            moveDir = Vector2.Lerp(moveDir, Vector2.zero, stopSmoothness * Time.deltaTime);
+            rb.AddForce (moveDir * speed  * 10 * Time.deltaTime, ForceMode2D.Impulse);
         }
     }
 
     public void Move ()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (active)
         {
-            if (!attackCollider.activeSelf && !frontRight)
+            if (!moveOverride)
             {
-                transform.localScale = new Vector3(1, 1, 1);
-                frontRight = true;
-                if (playerGroundCheck.isGrounded)
+                if (Input.GetKey(KeyCode.D))
                 {
-                    moveDir = Vector3.Lerp(moveDir, transform.right, moveSmoothness * Time.deltaTime);
-                } else
+                    if (!attackCollider.activeSelf && !frontRight)
+                    {
+                        transform.localScale = new Vector2(1, 1);
+                        frontRight = true;
+                        if (playerGroundCheck.isGrounded)
+                        {
+                            moveDir = Vector2.Lerp(moveDir, transform.right, moveSmoothness * Time.deltaTime);
+                        }
+                        else
+                        {
+                            moveDir = Vector2.zero;
+                        }
+                    }
+                    moveDir = Vector2.Lerp(moveDir, transform.right, moveSmoothness * Time.deltaTime);
+                }
+                else if (Input.GetKey(KeyCode.A))
                 {
-                    moveDir = Vector3.zero;
+                    if (!attackCollider.activeSelf && frontRight)
+                    {
+                        transform.localScale = new Vector2(-1, 1);
+                        frontRight = false;
+                        if (playerGroundCheck.isGrounded)
+                        {
+                            moveDir = Vector2.Lerp(moveDir, -transform.right, moveSmoothness * Time.deltaTime);
+                        }
+                        else
+                        {
+                            moveDir = Vector2.zero;
+                        }
+                    }
+                    moveDir = Vector2.Lerp(moveDir, -transform.right, moveSmoothness * Time.deltaTime);
+                }
+                else if (moveDir != Vector2.zero)
+                {
+                    moveDir = Vector2.Lerp(moveDir, Vector2.zero, stopSmoothness * Time.deltaTime);
                 }
             }
-            moveDir = Vector3.Lerp(moveDir, transform.right, moveSmoothness * Time.deltaTime);
+            rb.AddForce(moveDir * speed * 10 * Time.deltaTime, ForceMode2D.Impulse);
         }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            if (!attackCollider.activeSelf && frontRight)
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-                frontRight = false;
-                if (playerGroundCheck.isGrounded)
-                {
-                    moveDir = Vector3.Lerp(moveDir, -transform.right, moveSmoothness * Time.deltaTime);
-                }
-                else
-                {
-                    moveDir = Vector3.zero;
-                }
-            }
-            moveDir = Vector3.Lerp(moveDir, -transform.right, moveSmoothness * Time.deltaTime);
-        }
-        else if (moveDir != Vector3.zero)
-        {
-            moveDir = Vector3.Lerp(moveDir, Vector3.zero, stopSmoothness * Time.deltaTime);
-        }
-        transform.position += moveDir * speed * Time.deltaTime;
     }
 }

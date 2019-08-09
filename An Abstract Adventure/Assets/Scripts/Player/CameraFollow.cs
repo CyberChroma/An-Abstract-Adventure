@@ -38,7 +38,7 @@ public class CameraFollow : MonoBehaviour
         mCam.orthographicSize = zoom;
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (target == null)
         {

@@ -25,13 +25,17 @@ public class PlayerChange : MonoBehaviour
         if (activePlayer == ActivePlayer.Kall)
         {
             kall.activePlayer = true;
+            kall.playerMove.active = true;
             que.activePlayer = false;
+            que.playerMove.active = false;
             cameraFollow.player = kall.transform;
         }
         else
         {
             kall.activePlayer = false;
+            kall.playerMove.active = false;
             que.activePlayer = true;
+            que.playerMove.active = true;
             cameraFollow.player = que.transform;
         }
     }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class CircleMain : MonoBehaviour
 {
     [HideInInspector] public bool activePlayer;
+    [HideInInspector] public PlayerMove playerMove;
 
-    private PlayerMove playerMove;
     private PlayerJump playerJump;
     private PlayerDoubleJump playerDoubleJump;
     private PlayerAttack playerAttack;
@@ -19,14 +19,21 @@ public class CircleMain : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
     }
 
-    void Update()
+    private void Update()
+    {
+        if (activePlayer)
+        {
+            playerDoubleJump.DoubleJump();
+            playerJump.Jump();
+            playerAttack.Attack();
+        }
+    }
+
+    void FixedUpdate()
     {
         if (activePlayer)
         {
             playerMove.Move();
-            playerDoubleJump.DoubleJump();
-            playerJump.Jump();
-            playerAttack.Attack();
         }
     }
 
