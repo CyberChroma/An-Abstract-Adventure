@@ -312,9 +312,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0.01
+  m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: -1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -349,9 +349,11 @@ MonoBehaviour:
   speed: 50
   moveSmoothness: 8
   stopSmoothness: 6
+  airStopSmoothness: 2
   active: 0
   frontRight: 0
   moveDir: {x: 0, y: 0}
+  moveOverride: 0
 --- !u!114 &4010378348238694574
 MonoBehaviour:
   m_ObjectHideFlags: 0

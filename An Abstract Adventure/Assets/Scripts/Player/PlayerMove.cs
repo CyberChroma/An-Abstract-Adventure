@@ -7,6 +7,7 @@ public class PlayerMove : MonoBehaviour
     public float speed;
     public float moveSmoothness;
     public float stopSmoothness;
+    public float airStopSmoothness;
 
     [HideInInspector] public bool active;
     [HideInInspector] public bool frontRight;
@@ -29,7 +30,13 @@ public class PlayerMove : MonoBehaviour
     {
         if (!active && moveDir != Vector2.zero)
         {
-            moveDir = Vector2.Lerp(moveDir, Vector2.zero, stopSmoothness * Time.deltaTime);
+            if (playerGroundCheck.isGrounded)
+            {
+                moveDir = Vector2.Lerp(moveDir, Vector2.zero, stopSmoothness * Time.deltaTime);
+            } else
+            {
+                moveDir = Vector2.Lerp(moveDir, Vector2.zero, airStopSmoothness * Time.deltaTime);
+            }
             rb.AddForce (moveDir * speed  * 10 * Time.deltaTime, ForceMode2D.Impulse);
         }
     }
@@ -76,7 +83,14 @@ public class PlayerMove : MonoBehaviour
                 }
                 else if (moveDir != Vector2.zero)
                 {
-                    moveDir = Vector2.Lerp(moveDir, Vector2.zero, stopSmoothness * Time.deltaTime);
+                    if (playerGroundCheck.isGrounded)
+                    {
+                        moveDir = Vector2.Lerp(moveDir, Vector2.zero, stopSmoothness * Time.deltaTime);
+                    }
+                    else
+                    {
+                        moveDir = Vector2.Lerp(moveDir, Vector2.zero, airStopSmoothness * Time.deltaTime);
+                    }
                 }
             }
             rb.AddForce(moveDir * speed * 10 * Time.deltaTime, ForceMode2D.Impulse);

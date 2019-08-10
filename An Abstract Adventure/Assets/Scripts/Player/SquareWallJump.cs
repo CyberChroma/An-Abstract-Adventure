@@ -13,6 +13,8 @@ public class SquareWallJump : MonoBehaviour
     private PlayerGroundCheck playerGroundCheck;
     private PlayerMove playerMove;
     private SquareMain squareMain;
+    private bool wallContact;
+    private bool otherContact;
 
     void Awake()
     {
@@ -20,7 +22,6 @@ public class SquareWallJump : MonoBehaviour
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
         playerMove = GetComponent<PlayerMove>();
         squareMain = GetComponent<SquareMain>();
-        canWallJump = true;
     }
 
 
@@ -33,12 +34,12 @@ public class SquareWallJump : MonoBehaviour
             if (playerMove.frontRight)
             {
                 rb.AddForce(transform.up * wallJumpVForce * 10 + -transform.right * wallJumpHForce * 10, ForceMode2D.Impulse);
-                StartCoroutine(InputOveride(0.5f, -transform.right));
+                StartCoroutine(InputOveride(0.3f, -transform.right));
             }
             else
             {
                 rb.AddForce(transform.up * wallJumpVForce * 10 + transform.right * wallJumpHForce * 10, ForceMode2D.Impulse);
-                StartCoroutine(InputOveride(0.5f, transform.right));
+                StartCoroutine(InputOveride(0.3f, transform.right));
 
             }
             rb.gravityScale = 1;
@@ -49,13 +50,50 @@ public class SquareWallJump : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(collision.contacts[0].normal);
-        if (collision.gameObject.layer == 8 && Mathf.Abs(collision.contacts[0].normal.x) >= 0.9f)
+        if (collision.gameObject.layer == 8)
         {
-            StartCoroutine(WaitToTestCollision());
+            if (Mathf.Abs(collision.contacts[0].normal.x) >= 0.9f)
+            {
+                StartCoroutine(WaitToTestCollision());
+                if (wallContact)
+                {
+                    otherContact = true;
+                }
+                else
+                {
+                    wallContact = true;
+                }
+            }
+            else
+            {
+                otherContact = true;
+            }
+        }
+    }  
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 8)
+        {
+            if (canWallJump)
+            {
+                StopAllCoroutines();
+                rb.gravityScale = 1;
+                canWallJump = false;
+                playerMove.moveOverride = false;
+            }
+            if (otherContact)
+            {
+                otherContact = false;
+                canWallJump = true;
+            }
+            else
+            {
+                wallContact = false;
+            }
         }
     }
-    
+
     IEnumerator WaitToTestCollision()
     {
         yield return new WaitForSeconds(0.01f);
@@ -69,18 +107,6 @@ public class SquareWallJump : MonoBehaviour
         else
         {
             canWallJump = false;
-        }
-
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (canWallJump && collision.gameObject.layer == 8)
-        {
-            StopAllCoroutines();
-            rb.gravityScale = 1;
-            canWallJump = false;
-            playerMove.moveOverride = false;
         }
     }
 
