@@ -45,6 +45,8 @@ public class SquareWallJump : MonoBehaviour
             rb.gravityScale = 1;
             playerMove.frontRight = !playerMove.frontRight;
             canWallJump = false;
+            wallContact = false;
+            otherContact = false;
         }
     }
 
@@ -85,7 +87,10 @@ public class SquareWallJump : MonoBehaviour
             if (otherContact)
             {
                 otherContact = false;
-                canWallJump = true;
+                if (wallContact)
+                {
+                    canWallJump = true;
+                }
             }
             else
             {

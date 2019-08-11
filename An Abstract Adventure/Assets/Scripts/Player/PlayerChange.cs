@@ -22,6 +22,10 @@ public class PlayerChange : MonoBehaviour
         cameraFollow = GetComponent<CameraFollow>();
         kall = FindObjectOfType<CircleMain>();
         que = FindObjectOfType<SquareMain>();
+    }
+
+    void Start()
+    {
         if (activePlayer == ActivePlayer.Kall)
         {
             kall.activePlayer = true;
