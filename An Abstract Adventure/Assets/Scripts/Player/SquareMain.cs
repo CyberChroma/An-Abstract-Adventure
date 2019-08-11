@@ -6,6 +6,7 @@ public class SquareMain : MonoBehaviour
 {
     [HideInInspector] public bool activePlayer;
     [HideInInspector] public PlayerMove playerMove;
+    [HideInInspector] public PlayerLineUp playerLineUp;
 
     private PlayerJump playerJump;
     private PlayerDoubleJump playerDoubleJump;
@@ -18,6 +19,7 @@ public class SquareMain : MonoBehaviour
         playerJump = GetComponent<PlayerJump>();
         playerDoubleJump = GetComponent<PlayerDoubleJump>();
         playerAttack = GetComponent<PlayerAttack>();
+        playerLineUp = GetComponent<PlayerLineUp>();
         squareWallJump = GetComponent<SquareWallJump>();
     }
 
@@ -25,6 +27,7 @@ public class SquareMain : MonoBehaviour
     {
         if (activePlayer)
         {
+            playerLineUp.LineUp();
             playerDoubleJump.DoubleJump();
             squareWallJump.WallJump();
             playerJump.Jump();

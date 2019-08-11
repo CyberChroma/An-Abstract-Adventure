@@ -6,6 +6,7 @@ public class CircleMain : MonoBehaviour
 {
     [HideInInspector] public bool activePlayer;
     [HideInInspector] public PlayerMove playerMove;
+    [HideInInspector] public PlayerLineUp playerLineUp;
 
     private PlayerJump playerJump;
     private PlayerDoubleJump playerDoubleJump;
@@ -17,12 +18,14 @@ public class CircleMain : MonoBehaviour
         playerJump = GetComponent<PlayerJump>();
         playerDoubleJump = GetComponent<PlayerDoubleJump>();
         playerAttack = GetComponent<PlayerAttack>();
+        playerLineUp = GetComponent<PlayerLineUp>();
     }
 
     private void Update()
     {
         if (activePlayer)
         {
+            playerLineUp.LineUp();
             playerDoubleJump.DoubleJump();
             playerJump.Jump();
             playerAttack.Attack();

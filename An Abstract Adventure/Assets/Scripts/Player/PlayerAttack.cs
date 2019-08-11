@@ -22,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack ()
     {
-        if (canAttack && Input.GetKeyDown(KeyCode.J))
+        if (canAttack && Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(WaitToAttack());
         }

@@ -68,6 +68,14 @@ public class PlayerHealth : MonoBehaviour
                 StartCoroutine(TempDisable());
                 StartCoroutine(Flicker());
             }
+            if (circleMain)
+            {
+                circleMain.playerLineUp.DisableArrow();
+            }
+            else
+            {
+                squareMain.playerLineUp.DisableArrow();
+            }
             healthUI.HealthChange(currentHealth);
         }
     }
