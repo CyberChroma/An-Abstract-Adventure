@@ -7,8 +7,8 @@ public class PlayerLineUp : MonoBehaviour
     public float rotSmoothing;
     public GameObject arrow;
 
-    [HideInInspector] private bool aiming;
-    [HideInInspector] private bool released;
+    [HideInInspector] public bool aiming;
+    [HideInInspector] public bool released;
 
     private float rotation;
     private bool inputRecieved;
@@ -30,17 +30,17 @@ public class PlayerLineUp : MonoBehaviour
     {
         inputRecieved = false;
         rotation = 360;
-        if (Input.GetKey(KeyCode.I))
+        if (Input.GetKey(KeyCode.K))
         {
             inputRecieved = true;
             rotation = 0;
         }
-        else if (Input.GetKey(KeyCode.K))
+        else if (Input.GetKey(KeyCode.I))
         {
             inputRecieved = true;
             rotation = 180;
         }
-        if (Input.GetKey(KeyCode.L))
+        if (Input.GetKey(KeyCode.J))
         {
             inputRecieved = true;
             if (rotation == 0)
@@ -56,7 +56,7 @@ public class PlayerLineUp : MonoBehaviour
                 rotation = 270;
             }
         }
-        else if (Input.GetKey(KeyCode.J))
+        else if (Input.GetKey(KeyCode.L))
         {
             inputRecieved = true;
             if (rotation == 0)

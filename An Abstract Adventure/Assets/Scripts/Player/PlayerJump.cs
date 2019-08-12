@@ -23,7 +23,7 @@ public class PlayerJump : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.AddForce(transform.up * -gravityMultiplier * 10);
+        rb.AddForce(transform.up * -gravityMultiplier * rb.gravityScale * 10);
         rb.velocity = new Vector2(rb.velocity.x * 0.5f, rb.velocity.y);
         Fall();
     }
