@@ -9,6 +9,7 @@ public class PlayerLineUp : MonoBehaviour
 
     [HideInInspector] public bool aiming;
     [HideInInspector] public bool released;
+    [HideInInspector] public bool canAim;
 
     private float rotation;
     private bool inputRecieved;
@@ -16,6 +17,7 @@ public class PlayerLineUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canAim = true;
         arrow.SetActive(false);
     }
 
@@ -28,66 +30,69 @@ public class PlayerLineUp : MonoBehaviour
 
     public void LineUp ()
     {
-        inputRecieved = false;
-        rotation = 360;
-        if (Input.GetKey(KeyCode.K))
+        if (canAim)
         {
-            inputRecieved = true;
-            rotation = 0;
-        }
-        else if (Input.GetKey(KeyCode.I))
-        {
-            inputRecieved = true;
-            rotation = 180;
-        }
-        if (Input.GetKey(KeyCode.J))
-        {
-            inputRecieved = true;
-            if (rotation == 0)
+            inputRecieved = false;
+            rotation = 360;
+            if (Input.GetKey(KeyCode.K))
             {
-                rotation = 315;
+                inputRecieved = true;
+                rotation = 0;
             }
-            else if (rotation == 180)
+            else if (Input.GetKey(KeyCode.I))
             {
-                rotation = 225;
+                inputRecieved = true;
+                rotation = 180;
             }
-            else
+            if (Input.GetKey(KeyCode.J))
             {
-                rotation = 270;
+                inputRecieved = true;
+                if (rotation == 0)
+                {
+                    rotation = 315;
+                }
+                else if (rotation == 180)
+                {
+                    rotation = 225;
+                }
+                else
+                {
+                    rotation = 270;
+                }
             }
-        }
-        else if (Input.GetKey(KeyCode.L))
-        {
-            inputRecieved = true;
-            if (rotation == 0)
+            else if (Input.GetKey(KeyCode.L))
             {
-                rotation = 45;
+                inputRecieved = true;
+                if (rotation == 0)
+                {
+                    rotation = 45;
+                }
+                else if (rotation == 180)
+                {
+                    rotation = 135;
+                }
+                else
+                {
+                    rotation = 90;
+                }
             }
-            else if (rotation == 180)
+            if (inputRecieved)
             {
-                rotation = 135;
+                if (!aiming)
+                {
+                    arrow.SetActive(true);
+                    aiming = true;
+                    arrow.transform.rotation = Quaternion.Euler(Vector3.forward * rotation);
+                }
+                arrow.transform.position = transform.position;
+                arrow.transform.rotation = Quaternion.Slerp(arrow.transform.rotation, Quaternion.Euler(Vector3.forward * rotation), rotSmoothing * Time.deltaTime);
             }
-            else
+            else if (aiming)
             {
-                rotation = 90;
+                aiming = false;
+                released = true;
+                arrow.SetActive(false);
             }
-        }
-        if (inputRecieved)
-        {
-            if (!aiming)
-            {
-                arrow.SetActive(true);
-                aiming = true;
-                released = false;
-            }
-            arrow.transform.position = transform.position;
-            arrow.transform.rotation = Quaternion.Slerp(arrow.transform.rotation, Quaternion.Euler(Vector3.forward * rotation), rotSmoothing * Time.deltaTime);
-        }
-        else if (aiming)
-        {
-            aiming = false;
-            released = true;
-            arrow.SetActive(false);
         }
     }
 }

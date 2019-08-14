@@ -13,6 +13,7 @@ public class PlayerMove : MonoBehaviour
     [HideInInspector] public bool frontRight;
     [HideInInspector] public Vector2 moveDir = Vector2.zero;
     [HideInInspector] public bool moveOverride;
+    [HideInInspector] public bool noDrag;
 
     private Rigidbody2D rb;
     private PlayerGroundCheck playerGroundCheck;
@@ -28,6 +29,10 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!noDrag)
+        {
+            rb.velocity = new Vector2(rb.velocity.x * 0.5f, rb.velocity.y);
+        }
         if (!active && moveDir != Vector2.zero)
         {
             if (playerGroundCheck.isGrounded)

@@ -126,7 +126,7 @@ public class SquareWallJump : MonoBehaviour
     IEnumerator SlowFall(float delay)
     {
         rb.velocity = Vector2.zero;
-        rb.gravityScale = -2;
+        rb.gravityScale = 0.1f;
         yield return new WaitForSeconds(delay);
         rb.gravityScale = 1;
     }

@@ -7,10 +7,11 @@ public class CircleMain : MonoBehaviour
     [HideInInspector] public bool activePlayer;
     [HideInInspector] public PlayerMove playerMove;
     [HideInInspector] public PlayerLineUp playerLineUp;
-
+    
     private PlayerJump playerJump;
     private PlayerDoubleJump playerDoubleJump;
     private PlayerAttack playerAttack;
+    private CircleLungeSlash circleLungeSlash;
 
     void Awake()
     {
@@ -19,6 +20,7 @@ public class CircleMain : MonoBehaviour
         playerDoubleJump = GetComponent<PlayerDoubleJump>();
         playerAttack = GetComponent<PlayerAttack>();
         playerLineUp = GetComponent<PlayerLineUp>();
+        circleLungeSlash = GetComponent<CircleLungeSlash>();
     }
 
     private void Update()
@@ -26,6 +28,7 @@ public class CircleMain : MonoBehaviour
         if (activePlayer)
         {
             playerLineUp.LineUp();
+            circleLungeSlash.LungeSlash();
             playerDoubleJump.DoubleJump();
             playerJump.Jump();
             playerAttack.Attack();
