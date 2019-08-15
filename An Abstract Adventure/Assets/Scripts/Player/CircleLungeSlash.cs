@@ -9,15 +9,15 @@ public class CircleLungeSlash : MonoBehaviour
     public float lungeDelay;
 
     private PlayerLineUp playerLineUp;
-    private Rigidbody2D rb;
     private PlayerMove playerMove;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Awake()
     {
         playerLineUp = GetComponent<PlayerLineUp>();
-        rb = GetComponent<Rigidbody2D>();
         playerMove = GetComponent<PlayerMove>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public void LungeSlash()
