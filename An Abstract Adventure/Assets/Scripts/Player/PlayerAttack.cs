@@ -6,6 +6,7 @@ public class PlayerAttack : MonoBehaviour
 {
     public float attackTime;
     public float attackWait;
+    public float airBoost;
 
     private bool canAttack = true;
     private Transform attackCollider;
@@ -22,7 +23,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack ()
     {
-        if (canAttack && Input.GetKeyDown(KeyCode.U))
+        if (canAttack && Input.GetKeyDown(KeyCode.LeftShift))
         {
             StartCoroutine(WaitToAttack());
         }
@@ -35,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
         if (!playerGroundCheck.isGrounded && rb.velocity.y < 1)
         {
             rb.velocity = Vector3.zero;
-            rb.AddForce(transform.up * 20, ForceMode2D.Impulse);
+            rb.AddForce(transform.up * airBoost, ForceMode2D.Impulse);
         }
         yield return new WaitForSeconds(attackTime);
         attackCollider.gameObject.SetActive(false);

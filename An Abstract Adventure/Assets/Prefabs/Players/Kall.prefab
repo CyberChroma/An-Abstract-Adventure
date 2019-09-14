@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 754727430}
   - component: {fileID: 754727431}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Inside 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 2114357549}
   - component: {fileID: 2114357550}
   - component: {fileID: 2114357551}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Attack Hit Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 6041659481275238092}
   - component: {fileID: 6041659481275238099}
   - component: {fileID: 6041659481275238098}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,9 @@ GameObject:
   - component: {fileID: 891341374}
   - component: {fileID: 2040950022}
   - component: {fileID: 512333690}
-  m_Layer: 0
+  - component: {fileID: 13803871}
+  - component: {fileID: 13803872}
+  m_Layer: 9
   m_Name: Kall
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -437,6 +439,7 @@ MonoBehaviour:
   frontRight: 0
   moveDir: {x: 0, y: 0}
   moveOverride: 0
+  noDrag: 0
 --- !u!114 &6041659481721656085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,6 +502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTime: 0.5
   attackWait: 0.2
+  airBoost: 0
 --- !u!114 &512333690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,6 +517,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotSmoothing: 10
   arrow: {fileID: 0}
+  aiming: 0
+  released: 0
+  canAim: 0
+--- !u!114 &13803871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6041659481721656083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2a340fcb1dc0045a2f427652ffb304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lungeTime: 0.15
+  lungePower: 50
+--- !u!114 &13803872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6041659481721656083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3b902161ac541846b626b437e280e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glideFallSpeed: -2
 --- !u!1 &6785365730679569822
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3862170588475496071}
   - component: {fileID: 692862949864204494}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Inside 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

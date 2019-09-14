@@ -18,7 +18,6 @@ public class PlayerJump : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
         playerDoubleJump = GetComponentInChildren<PlayerDoubleJump>();
-
     }
 
     void FixedUpdate()

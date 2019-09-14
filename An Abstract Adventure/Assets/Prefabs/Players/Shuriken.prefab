@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8791427332389406011}
   - component: {fileID: 7870697823964097393}
   - component: {fileID: 7870697823964097292}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shuriken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -132,5 +132,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716966e9322063042972f80ae78039c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
-  lifeTime: 5
+  speed: 35
+  lifeTime: 1.5

@@ -37,7 +37,7 @@ public class SquareShurikenThrow : MonoBehaviour
         Instantiate(shuriken, transform.position, playerLineUp.arrow.transform.rotation, shurikenParent);
         if (!playerGroundCheck.isGrounded)
         {
-            rb.velocity = Vector2.zero;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(transform.up * airBoost, ForceMode2D.Impulse);
         }
         yield return new WaitForSeconds(throwDelay);

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1823672542}
   - component: {fileID: 1823672541}
   - component: {fileID: 1823672543}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Attack Hit Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 4010378347791302007}
   - component: {fileID: 4010378347791301992}
   - component: {fileID: 4010378347791301993}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,8 @@ GameObject:
   - component: {fileID: 1598257670}
   - component: {fileID: 29003827}
   - component: {fileID: 1205469294}
-  m_Layer: 0
+  - component: {fileID: 752950069604923694}
+  m_Layer: 9
   m_Name: Que
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -317,7 +318,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: -1
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -358,6 +359,7 @@ MonoBehaviour:
   frontRight: 0
   moveDir: {x: 0, y: 0}
   moveOverride: 0
+  noDrag: 0
 --- !u!114 &4010378348238694574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,6 +422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTime: 0.5
   attackWait: 0.2
+  airBoost: 0
 --- !u!114 &29003827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,6 +452,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotSmoothing: 10
   arrow: {fileID: 0}
+  aiming: 0
+  released: 0
+  canAim: 0
+--- !u!114 &752950069604923694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010378348238694568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f05e748f53ac4446a8c026ed3232c58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwDelay: 0.5
+  airBoost: 5
+  shuriken: {fileID: 7870697823964097392, guid: 6babf51b6d74c2b4daac5df276e9d248,
+    type: 3}
 --- !u!1 &4203413966011958821
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5901649715015429436}
   - component: {fileID: 7918027139384071029}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Inside 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -539,7 +561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7241771252546830781}
   - component: {fileID: 7241771252546830780}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Inside 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

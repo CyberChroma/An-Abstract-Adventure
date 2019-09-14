@@ -12,6 +12,7 @@ public class CircleMain : MonoBehaviour
     private PlayerDoubleJump playerDoubleJump;
     private PlayerAttack playerAttack;
     private CircleLungeSlash circleLungeSlash;
+    private CircleGlide circleGlide;
 
     void Awake()
     {
@@ -21,12 +22,14 @@ public class CircleMain : MonoBehaviour
         playerAttack = GetComponent<PlayerAttack>();
         playerLineUp = GetComponent<PlayerLineUp>();
         circleLungeSlash = GetComponent<CircleLungeSlash>();
+        circleGlide = GetComponent<CircleGlide>();
     }
 
     private void Update()
     {
         if (activePlayer)
         {
+            circleGlide.Glide();
             playerLineUp.LineUp();
             circleLungeSlash.LungeSlash();
             playerDoubleJump.DoubleJump();
