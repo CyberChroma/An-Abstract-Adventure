@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
 
     private int currentHealth;
     private bool canBeDamaged;
-    private SpriteRenderer[] images;
+    private GameObject mainSprite;
     private Rigidbody2D rb;
     private CircleMain circleMain;
     private SquareMain squareMain;
@@ -23,10 +23,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = healthUI.maxHealth;
         canBeDamaged = true;
-        images = new SpriteRenderer[3];
-        images[0] = GetComponent<SpriteRenderer>();
-        images[1] = transform.Find("Inside 1").GetComponent<SpriteRenderer>();
-        images[2] = transform.Find("Inside 2").GetComponent<SpriteRenderer>();
+        mainSprite = transform.Find("Main Sprite").gameObject;
         rb = GetComponent<Rigidbody2D>();
         circleMain = GetComponent<CircleMain>();
         squareMain = GetComponent<SquareMain>();
@@ -83,10 +80,7 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator Death()
     {
         currentHealth = 0;
-        foreach (SpriteRenderer playerSprite in images)
-        {
-            playerSprite.enabled = false;
-        }
+        mainSprite.SetActive(false);
         yield return new WaitForSeconds(reloadDelay);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -96,15 +90,9 @@ public class PlayerHealth : MonoBehaviour
         canBeDamaged = false;
         for (int i = 0; i < flickerNum; i++) {
             yield return new WaitForSeconds(flickerTime / 2 / flickerNum);
-            foreach (SpriteRenderer playerSprite in images)
-            {
-                playerSprite.enabled = false;
-            }
+            mainSprite.SetActive(false);
             yield return new WaitForSeconds(flickerTime / 2 / flickerNum);
-            foreach (SpriteRenderer playerSprite in images)
-            {
-                playerSprite.enabled = true;
-            }
+            mainSprite.SetActive(true);
         }
         canBeDamaged = true;
     }

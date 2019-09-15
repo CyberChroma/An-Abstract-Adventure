@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5610b88dd074a504685fd68659150401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothing: 0.4
+  smoothing: 0.35
   offsetHeight: 2
   zoom: 12
   zoomSmoothing: 0.5
@@ -119,4 +119,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7773f61f1bb89b44ca71a096cdd0b34d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activePlayer: 0
+  activePlayer: 1

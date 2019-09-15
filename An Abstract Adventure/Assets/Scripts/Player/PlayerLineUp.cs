@@ -10,6 +10,7 @@ public class PlayerLineUp : MonoBehaviour
     [HideInInspector] public bool aiming;
     [HideInInspector] public bool released;
     [HideInInspector] public bool canAim;
+    [HideInInspector] public bool disableAiming;
 
     private float rotation;
     private bool inputRecieved;
@@ -30,7 +31,13 @@ public class PlayerLineUp : MonoBehaviour
 
     public void LineUp ()
     {
-        if (canAim)
+        if (disableAiming)
+        {
+            arrow.SetActive(false);
+            aiming = false;
+            released = false;
+        }
+        else if (canAim)
         {
             inputRecieved = false;
             rotation = 360;
