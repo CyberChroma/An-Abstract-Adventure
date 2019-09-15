@@ -60,5 +60,9 @@ public class SquareMain : MonoBehaviour
     void OnDisable()
     {
         playerMove.active = false;
+        playerLineUp.DisableArrow();
+        playerMove.disableMove = false;
+        playerJump.disableJump = false;
+        playerDoubleJump.disableDoubleJump = false;
     }
 }

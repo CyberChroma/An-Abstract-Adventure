@@ -24,7 +24,10 @@ public class PlayerLineUp : MonoBehaviour
 
     public void DisableArrow()
     {
-        arrow.SetActive(false);
+        if (arrow)
+        {
+            arrow.SetActive(false);
+        }
         aiming = false;
         released = false;
     }

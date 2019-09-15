@@ -57,5 +57,10 @@ public class CircleMain : MonoBehaviour
     void OnDisable()
     {
         playerMove.active = false;
+        playerLineUp.DisableArrow();
+        circleReflect.DisableShield();
+        playerMove.disableMove = false;
+        playerJump.disableJump = false;
+        playerDoubleJump.disableDoubleJump = false;
     }
 }

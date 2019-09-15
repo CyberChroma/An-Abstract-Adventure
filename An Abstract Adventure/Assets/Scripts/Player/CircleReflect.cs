@@ -27,7 +27,10 @@ public class CircleReflect : MonoBehaviour
 
     public void DisableShield()
     {
-        shield.SetActive(false);
+        if (shield)
+        {
+            shield.SetActive(false);
+        }
         shielding = false;
     }
 
