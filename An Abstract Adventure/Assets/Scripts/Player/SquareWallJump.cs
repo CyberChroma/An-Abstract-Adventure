@@ -8,6 +8,7 @@ public class SquareWallJump : MonoBehaviour
     public float wallJumpVForce;
 
     [HideInInspector] public bool canWallJump;
+    [HideInInspector] public bool fallOverride;
 
     private Rigidbody2D rb;
     private PlayerGroundCheck playerGroundCheck;
@@ -125,9 +126,15 @@ public class SquareWallJump : MonoBehaviour
 
     IEnumerator SlowFall(float delay)
     {
-        rb.velocity = Vector2.zero;
-        rb.gravityScale = 0.1f;
+        if (!fallOverride)
+        {
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = 0.1f;
+        }
         yield return new WaitForSeconds(delay);
-        rb.gravityScale = 1;
+        if (!fallOverride)
+        {
+            rb.gravityScale = 1;
+        }
     }
 }

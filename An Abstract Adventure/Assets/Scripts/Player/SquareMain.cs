@@ -14,6 +14,7 @@ public class SquareMain : MonoBehaviour
     private SquareWallJump squareWallJump;
     private SquareShurikenThrow squareShuikenThrow;
     private SquareCrouch squareCrouch;
+    private SquareStick squareStick;
 
     void Awake()
     {
@@ -25,12 +26,14 @@ public class SquareMain : MonoBehaviour
         squareWallJump = GetComponent<SquareWallJump>();
         squareShuikenThrow = GetComponent<SquareShurikenThrow>();
         squareCrouch = GetComponent<SquareCrouch>();
+        squareStick = GetComponent<SquareStick>();
     }
 
     private void Update()
     {
         if (activePlayer)
         {
+            squareStick.Stick();
             playerLineUp.LineUp();
             squareShuikenThrow.ShurikenThrow();
             squareCrouch.Crouch();

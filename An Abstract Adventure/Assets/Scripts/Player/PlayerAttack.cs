@@ -8,6 +8,9 @@ public class PlayerAttack : MonoBehaviour
     public float attackWait;
     public float airBoost;
 
+    [HideInInspector] public bool disableAttack;
+    [HideInInspector] public bool airBoostOverride;
+
     private bool canAttack = true;
     private Transform attackCollider;
     private Rigidbody2D rb;
@@ -23,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack ()
     {
-        if (canAttack && Input.GetKeyDown(KeyCode.LeftShift))
+        if (canAttack && !disableAttack && Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(WaitToAttack());
         }
@@ -33,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
     {
         canAttack = false;
         attackCollider.gameObject.SetActive(true);
-        if (!playerGroundCheck.isGrounded && rb.velocity.y < 1)
+        if (!airBoostOverride && !playerGroundCheck.isGrounded && rb.velocity.y < 1)
         {
             rb.velocity = Vector3.zero;
             rb.AddForce(transform.up * airBoost, ForceMode2D.Impulse);

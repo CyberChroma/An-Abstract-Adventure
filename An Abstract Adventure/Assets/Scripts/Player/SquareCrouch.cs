@@ -20,14 +20,14 @@ public class SquareCrouch : MonoBehaviour
 
     public void Crouch()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             mainSprite.localScale = new Vector3(1.5f, 0.5f, 1);
             cc.size = new Vector2(1.5f, 0.5f);
             playerLineUp.disableAiming = true;
             setToStand = false;
         }
-        else if (Input.GetKeyUp(KeyCode.O))
+        else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             if (Physics2D.Raycast(transform.position, Vector3.up, 0.5f, 1 << 8))
             {
