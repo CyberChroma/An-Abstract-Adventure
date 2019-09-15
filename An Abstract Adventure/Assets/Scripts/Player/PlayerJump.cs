@@ -9,6 +9,8 @@ public class PlayerJump : MonoBehaviour
     public float fallMultiplier;
     public float gravityMultiplier;
 
+    [HideInInspector] public bool disableJump;
+
     private Rigidbody2D rb;
     private PlayerGroundCheck playerGroundCheck;
     private PlayerDoubleJump playerDoubleJump;
@@ -28,7 +30,7 @@ public class PlayerJump : MonoBehaviour
 
     public void Jump()
     {
-        if (playerGroundCheck.isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (!disableJump && playerGroundCheck.isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = Vector3.zero;
             rb.AddForce(transform.up * jumpForce * 10, ForceMode2D.Impulse);

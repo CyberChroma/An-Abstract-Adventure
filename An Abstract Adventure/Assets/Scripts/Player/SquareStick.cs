@@ -26,12 +26,10 @@ public class SquareStick : MonoBehaviour
         {
             canStick = true;
         }
-        if (Input.GetKeyUp(KeyCode.E))
+        else if (Input.GetKeyUp(KeyCode.E))
         {
             canStick = false;
-            rb.gravityScale = 1;
-            squareWallJump.fallOverride = false;
-            sticking = false;
+            Unstick();
         }
     }
 
@@ -52,11 +50,16 @@ public class SquareStick : MonoBehaviour
     {
         if (sticking && collision.gameObject.layer == 8)
         {
-            rb.gravityScale = 1;
-            playerAttack.airBoostOverride = false;
-            squareWallJump.fallOverride = false;
-            squareShurikenThrow.airBoostOverride = false;
-            sticking = false;
+            Unstick();
         }
+    }
+
+    void Unstick ()
+    {
+        rb.gravityScale = 1;
+        playerAttack.airBoostOverride = false;
+        squareWallJump.fallOverride = false;
+        squareShurikenThrow.airBoostOverride = false;
+        sticking = false;
     }
 }
