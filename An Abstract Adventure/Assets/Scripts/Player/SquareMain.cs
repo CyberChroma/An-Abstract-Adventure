@@ -11,6 +11,8 @@ public class SquareMain : MonoBehaviour
     private PlayerJump playerJump;
     private PlayerDoubleJump playerDoubleJump;
     private PlayerAttack playerAttack;
+    private PlayerSwim playerSwim;
+    private PlayerSwimBoost playerSwimBoost;
     private SquareWallJump squareWallJump;
     private SquareShurikenThrow squareShuikenThrow;
     private SquareCrouch squareCrouch;
@@ -23,6 +25,8 @@ public class SquareMain : MonoBehaviour
         playerDoubleJump = GetComponent<PlayerDoubleJump>();
         playerAttack = GetComponent<PlayerAttack>();
         playerLineUp = GetComponent<PlayerLineUp>();
+        playerSwim = GetComponent<PlayerSwim>();
+        playerSwimBoost = GetComponent<PlayerSwimBoost>();
         squareWallJump = GetComponent<SquareWallJump>();
         squareShuikenThrow = GetComponent<SquareShurikenThrow>();
         squareCrouch = GetComponent<SquareCrouch>();
@@ -37,10 +41,17 @@ public class SquareMain : MonoBehaviour
             playerLineUp.LineUp();
             squareShuikenThrow.ShurikenThrow();
             squareCrouch.Crouch();
-            playerDoubleJump.DoubleJump();
-            squareWallJump.WallJump();
-            playerJump.Jump();
             playerAttack.Attack();
+            if (playerSwim.swimming)
+            {
+                playerSwimBoost.SwimBoost();
+            }
+            else
+            {
+                playerDoubleJump.DoubleJump();
+                squareWallJump.WallJump();
+                playerJump.Jump();
+            }
         }
     }
 
@@ -48,7 +59,14 @@ public class SquareMain : MonoBehaviour
     {
         if (activePlayer)
         {
-            playerMove.Move();
+            if (playerSwim.swimming)
+            {
+                playerSwim.Swim();
+            }
+            else
+            {
+                playerMove.Move();
+            }
         }
     }
 

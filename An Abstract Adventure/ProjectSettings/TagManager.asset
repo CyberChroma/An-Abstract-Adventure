@@ -9,6 +9,7 @@ TagManager:
   - Kill
   - Destructable
   - Reflect
+  - Water
   layers:
   - Default
   - TransparentFX

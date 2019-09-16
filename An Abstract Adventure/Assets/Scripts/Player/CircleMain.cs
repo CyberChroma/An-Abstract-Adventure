@@ -11,6 +11,8 @@ public class CircleMain : MonoBehaviour
     private PlayerJump playerJump;
     private PlayerDoubleJump playerDoubleJump;
     private PlayerAttack playerAttack;
+    private PlayerSwim playerSwim;
+    private PlayerSwimBoost playerSwimBoost;
     private CircleLungeSlash circleLungeSlash;
     private CircleGlide circleGlide;
     private CircleReflect circleReflect;
@@ -22,6 +24,8 @@ public class CircleMain : MonoBehaviour
         playerDoubleJump = GetComponent<PlayerDoubleJump>();
         playerAttack = GetComponent<PlayerAttack>();
         playerLineUp = GetComponent<PlayerLineUp>();
+        playerSwim = GetComponent<PlayerSwim>();
+        playerSwimBoost = GetComponent<PlayerSwimBoost>();
         circleLungeSlash = GetComponent<CircleLungeSlash>();
         circleGlide = GetComponent<CircleGlide>();
         circleReflect = GetComponent<CircleReflect>();
@@ -35,9 +39,16 @@ public class CircleMain : MonoBehaviour
             circleReflect.Reflect();
             playerLineUp.LineUp();
             circleLungeSlash.LungeSlash();
-            playerDoubleJump.DoubleJump();
-            playerJump.Jump();
             playerAttack.Attack();
+            if (playerSwim.swimming)
+            {
+                playerSwimBoost.SwimBoost();
+            }
+            else
+            {
+                playerDoubleJump.DoubleJump();
+                playerJump.Jump();
+            }
         }
     }
 
@@ -45,7 +56,14 @@ public class CircleMain : MonoBehaviour
     {
         if (activePlayer)
         {
-            playerMove.Move();
+            if (playerSwim.swimming)
+            {
+                playerSwim.Swim();
+            }
+            else
+            {
+                playerMove.Move();
+            }
         }
     }
 
