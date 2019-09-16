@@ -15,12 +15,14 @@ public class PlayerSwim : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerMove playerMove;
     private PlayerJump playerJump;
+    private PlayerDoubleJump playerDoubleJump;
 
     void Awake ()
     {
         rb = GetComponent<Rigidbody2D>();
         playerMove = GetComponent<PlayerMove>();
         playerJump = GetComponent<PlayerJump>();
+        playerDoubleJump = GetComponent<PlayerDoubleJump>();
     }
 
     public void Swim()
@@ -59,19 +61,20 @@ public class PlayerSwim : MonoBehaviour
         {
             rb.gravityScale = 0;
             swimDir = new Vector2(dirX, dirY).normalized;
-            print(swimDir);
             rb.AddForce(swimDir * speed * 10 * Time.deltaTime, ForceMode2D.Impulse);
-        } else
+        }
+        else
         {
             rb.gravityScale = 0.5f;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Water"))
+        if (!swimming && collision.CompareTag("Water"))
         {
             swimming = true;
+            playerMove.moveDir = Vector2.zero;
             playerMove.enabled = false;
             playerJump.enabled = false;
         }
@@ -79,12 +82,13 @@ public class PlayerSwim : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Water"))
+        if (swimming && collision.CompareTag("Water"))
         {
             swimming = false;
             rb.gravityScale = 1;
             playerMove.enabled = true;
             playerJump.enabled = true;
+            playerDoubleJump.canDoubleJump = true;
         }
     }
 }

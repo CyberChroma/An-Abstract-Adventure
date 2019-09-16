@@ -6,7 +6,9 @@ public class CircleLungeSlash : MonoBehaviour
 {
     public float lungeTime;
     public float lungePower;
+    public float lungeDelay;
 
+    private bool canLunge;
     private bool lunging;
     private Vector2 lastVelocity;
     private Rigidbody2D rb;
@@ -28,7 +30,7 @@ public class CircleLungeSlash : MonoBehaviour
 
     public void LungeSlash()
     {
-        if (!playerLineUp.canAim && playerGroundCheck.isGrounded)
+        if (!playerLineUp.canAim && canLunge && playerGroundCheck.isGrounded)
         {
             playerLineUp.canAim = true;
         }
@@ -41,6 +43,7 @@ public class CircleLungeSlash : MonoBehaviour
 
     IEnumerator WaitToLunge()
     {
+        canLunge = false;
         playerLineUp.released = false;
         playerMove.moveOverride = true;
         playerMove.noDrag = true;
@@ -62,6 +65,8 @@ public class CircleLungeSlash : MonoBehaviour
         playerMove.moveDir = new Vector2(rb.velocity.normalized.x * 3, 0);
         playerMove.noDrag = false;
         playerMove.moveOverride = false;
+        yield return new WaitForSeconds(lungeDelay);
+        canLunge = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

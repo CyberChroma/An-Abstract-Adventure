@@ -212,6 +212,10 @@ GameObject:
   - component: {fileID: 29003827}
   - component: {fileID: 1205469294}
   - component: {fileID: 752950069604923694}
+  - component: {fileID: 1340991016}
+  - component: {fileID: 1340991017}
+  - component: {fileID: 1340991018}
+  - component: {fileID: 1340991019}
   m_Layer: 9
   m_Name: Que
   m_TagString: Player
@@ -309,6 +313,7 @@ MonoBehaviour:
   moveDir: {x: 0, y: 0}
   moveOverride: 0
   noDrag: 0
+  disableMove: 0
 --- !u!114 &4010378348238694574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,6 +330,7 @@ MonoBehaviour:
   lowJumpMultiplier: 20
   fallMultiplier: 1
   gravityMultiplier: 5.5
+  disableJump: 0
 --- !u!114 &4010378348238694560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doubleJumpForce: 2.5
   canDoubleJump: 0
+  disableDoubleJump: 0
 --- !u!114 &1518674929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,7 +378,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTime: 0.5
   attackWait: 0.2
-  airBoost: 0
+  airBoost: 20
+  disableAttack: 0
+  airBoostOverride: 0
 --- !u!114 &29003827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +396,7 @@ MonoBehaviour:
   wallJumpHForce: 4
   wallJumpVForce: 2.5
   canWallJump: 0
+  fallOverride: 0
 --- !u!114 &1205469294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,6 +414,7 @@ MonoBehaviour:
   aiming: 0
   released: 0
   canAim: 0
+  disableAiming: 0
 --- !u!114 &752950069604923694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,9 +428,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwDelay: 0.5
-  airBoost: 5
+  airBoost: 20
   shuriken: {fileID: 7870697823964097392, guid: 6babf51b6d74c2b4daac5df276e9d248,
     type: 3}
+  airBoostOverride: 0
+--- !u!114 &1340991016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010378348238694568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f796c1cb9212747a86a3e0117b9ff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1340991017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010378348238694568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1dce2266c44eec41bfbef8e20661cf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1340991018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010378348238694568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde5dfb1c0bea1a4ab925f2b01257f92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  swimming: 0
+  swimDir: {x: 0, y: 0}
+--- !u!114 &1340991019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010378348238694568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6242dc3a33eb3eb4aa948d2e8c1940db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostForce: 3
+  boostDelay: 0.5
+  swimming: 0
 --- !u!1 &4203413966011958821
 GameObject:
   m_ObjectHideFlags: 0

@@ -31713,43 +31713,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1045710202 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6041659481721656083, guid: 10699db9f1bed2d44b8a5e2d2586f40b,
-    type: 3}
-  m_PrefabInstance: {fileID: 6041659481323916675}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1045710203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045710202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e37c617f04edbdf49b7dcb4f3cf039d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotSmoothing: 10
-  shield: {fileID: 2068064287}
-  shielding: 0
-  disableShielding: 0
---- !u!114 &1045710204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045710202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde5dfb1c0bea1a4ab925f2b01257f92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  swimming: 0
-  swimDir: {x: 0, y: 0}
 --- !u!1 &1045769303
 GameObject:
   m_ObjectHideFlags: 0
@@ -39412,51 +39375,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1340991015 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4010378348238694568, guid: 04de120c1c92b9e4682c31215daf5cc7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1518674927}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1340991016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340991015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9f796c1cb9212747a86a3e0117b9ff6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1340991017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340991015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1dce2266c44eec41bfbef8e20661cf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1340991018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340991015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde5dfb1c0bea1a4ab925f2b01257f92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  swimming: 0
-  swimDir: {x: 0, y: 0}
 --- !u!1 &1345403136
 GameObject:
   m_ObjectHideFlags: 0
@@ -44923,20 +44841,6 @@ PrefabInstance:
       propertyPath: arrow
       value: 
       objectReference: {fileID: 177844227}
-    - target: {fileID: 1598257670, guid: 04de120c1c92b9e4682c31215daf5cc7, type: 3}
-      propertyPath: airBoost
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 752950069604923694, guid: 04de120c1c92b9e4682c31215daf5cc7,
-        type: 3}
-      propertyPath: airBoost
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4010378348238694569, guid: 04de120c1c92b9e4682c31215daf5cc7,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04de120c1c92b9e4682c31215daf5cc7, type: 3}
 --- !u!1 &1520142170
@@ -57941,7 +57845,7 @@ GameObject:
   - component: {fileID: 1990462712}
   - component: {fileID: 1990462711}
   - component: {fileID: 1990462713}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Water
   m_TagString: Water
   m_Icon: {fileID: 0}
@@ -63287,18 +63191,10 @@ PrefabInstance:
       propertyPath: arrow
       value: 
       objectReference: {fileID: 1803067405}
-    - target: {fileID: 2040950022, guid: 10699db9f1bed2d44b8a5e2d2586f40b, type: 3}
-      propertyPath: airBoost
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 13803871, guid: 10699db9f1bed2d44b8a5e2d2586f40b, type: 3}
-      propertyPath: lungePower
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 13803871, guid: 10699db9f1bed2d44b8a5e2d2586f40b, type: 3}
-      propertyPath: lungeTime
-      value: 0.15
-      objectReference: {fileID: 0}
+    - target: {fileID: 1045710203, guid: 10699db9f1bed2d44b8a5e2d2586f40b, type: 3}
+      propertyPath: shield
+      value: 
+      objectReference: {fileID: 2068064287}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10699db9f1bed2d44b8a5e2d2586f40b, type: 3}
 --- !u!1001 &6208850096233787712
