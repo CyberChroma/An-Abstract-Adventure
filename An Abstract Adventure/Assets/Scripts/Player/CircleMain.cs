@@ -35,7 +35,6 @@ public class CircleMain : MonoBehaviour
     {
         if (activePlayer)
         {
-            circleGlide.Glide();
             circleReflect.Reflect();
             playerLineUp.LineUp();
             circleLungeSlash.LungeSlash();
@@ -46,6 +45,7 @@ public class CircleMain : MonoBehaviour
             }
             else
             {
+                circleGlide.Glide();
                 playerDoubleJump.DoubleJump();
                 playerJump.Jump();
             }

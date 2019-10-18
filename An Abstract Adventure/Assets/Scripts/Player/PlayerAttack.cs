@@ -15,6 +15,7 @@ public class PlayerAttack : MonoBehaviour
     private Transform attackCollider;
     private Rigidbody2D rb;
     private PlayerGroundCheck playerGroundCheck;
+    private PlayerSwim playerSwim;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class PlayerAttack : MonoBehaviour
         attackCollider.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
+        playerSwim = GetComponent<PlayerSwim>();
     }
 
     public void Attack ()
@@ -36,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
     {
         canAttack = false;
         attackCollider.gameObject.SetActive(true);
-        if (!airBoostOverride && !playerGroundCheck.isGrounded && rb.velocity.y < 1)
+        if (!airBoostOverride && !playerGroundCheck.isGrounded && !playerSwim.swimming && rb.velocity.y < 1)
         {
             rb.velocity = Vector3.zero;
             rb.AddForce(transform.up * airBoost, ForceMode2D.Impulse);

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSwim : MonoBehaviour
 {
     public float speed;
+    public float rotSmoothing;
 
     [HideInInspector] public bool swimming;
     [HideInInspector] public Vector2 swimDir;
@@ -16,6 +17,8 @@ public class PlayerSwim : MonoBehaviour
     private PlayerMove playerMove;
     private PlayerJump playerJump;
     private PlayerDoubleJump playerDoubleJump;
+    private CircleMain circleMain;
+    private SquareMain squareMain;
 
     void Awake ()
     {
@@ -23,6 +26,8 @@ public class PlayerSwim : MonoBehaviour
         playerMove = GetComponent<PlayerMove>();
         playerJump = GetComponent<PlayerJump>();
         playerDoubleJump = GetComponent<PlayerDoubleJump>();
+        circleMain = GetComponent<CircleMain>();
+        squareMain = GetComponent<SquareMain>();
     }
 
     public void Swim()
@@ -67,6 +72,7 @@ public class PlayerSwim : MonoBehaviour
         {
             rb.gravityScale = 0.5f;
         }
+        rb.rotation = Mathf.LerpAngle(rb.rotation, Vector2.SignedAngle(Vector2.right, swimDir), rotSmoothing * Time.deltaTime);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -89,6 +95,17 @@ public class PlayerSwim : MonoBehaviour
             playerMove.enabled = true;
             playerJump.enabled = true;
             playerDoubleJump.canDoubleJump = true;
+            if (circleMain)
+            {
+                circleMain.enabled = false;
+                circleMain.enabled = true;
+            }
+            if (squareMain)
+            {
+                squareMain.enabled = false;
+                squareMain.enabled = true;
+            }
+            rb.rotation = 0;
         }
     }
 }

@@ -37,7 +37,6 @@ public class SquareMain : MonoBehaviour
     {
         if (activePlayer)
         {
-            squareStick.Stick();
             playerLineUp.LineUp();
             squareShuikenThrow.ShurikenThrow();
             squareCrouch.Crouch();
@@ -48,6 +47,7 @@ public class SquareMain : MonoBehaviour
             }
             else
             {
+                squareStick.Stick();
                 playerDoubleJump.DoubleJump();
                 squareWallJump.WallJump();
                 playerJump.Jump();

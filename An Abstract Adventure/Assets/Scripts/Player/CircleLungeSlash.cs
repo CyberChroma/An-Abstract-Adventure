@@ -16,6 +16,7 @@ public class CircleLungeSlash : MonoBehaviour
     private PlayerDoubleJump playerDoubleJump;
     private PlayerLineUp playerLineUp;
     private PlayerGroundCheck playerGroundCheck;
+    private PlayerSwim playerSwim;
 
     // Start is called before the first frame update
     void Awake()
@@ -26,11 +27,12 @@ public class CircleLungeSlash : MonoBehaviour
         playerDoubleJump = GetComponent<PlayerDoubleJump>();
         playerLineUp = GetComponent<PlayerLineUp>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
+        playerSwim = GetComponent<PlayerSwim>();
     }
 
     public void LungeSlash()
     {
-        if (!playerLineUp.canAim && canLunge && playerGroundCheck.isGrounded)
+        if (!playerLineUp.canAim && canLunge && (playerGroundCheck.isGrounded || playerSwim.swimming))
         {
             playerLineUp.canAim = true;
         }
@@ -62,7 +64,10 @@ public class CircleLungeSlash : MonoBehaviour
         lunging = false;
         playerLineUp.canAim = false;
         rb.gravityScale = 1;
-        playerMove.moveDir = new Vector2(rb.velocity.normalized.x * 3, 0);
+        if (!playerSwim.swimming)
+        {
+            playerMove.moveDir = new Vector2(rb.velocity.normalized.x * 3, 0);
+        }
         playerMove.noDrag = false;
         playerMove.moveOverride = false;
         yield return new WaitForSeconds(lungeDelay);

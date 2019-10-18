@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 2114357549}
   - component: {fileID: 2114357550}
   - component: {fileID: 2114357551}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Attack Hit Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,6 +535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  rotSmoothing: 5
   swimming: 0
   swimDir: {x: 0, y: 0}
 --- !u!114 &1045710205
@@ -551,7 +552,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boostForce: 3
   boostDelay: 0.5
-  swimming: 0
 --- !u!1 &6785365730679569822
 GameObject:
   m_ObjectHideFlags: 0
