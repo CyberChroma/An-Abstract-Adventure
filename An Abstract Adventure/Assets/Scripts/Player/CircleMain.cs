@@ -13,6 +13,7 @@ public class CircleMain : MonoBehaviour
     private PlayerAttack playerAttack;
     private PlayerSwim playerSwim;
     private PlayerSwimBoost playerSwimBoost;
+    private PlayerInteract playerInteract;
     private CircleLungeSlash circleLungeSlash;
     private CircleGlide circleGlide;
     private CircleReflect circleReflect;
@@ -26,6 +27,7 @@ public class CircleMain : MonoBehaviour
         playerLineUp = GetComponent<PlayerLineUp>();
         playerSwim = GetComponent<PlayerSwim>();
         playerSwimBoost = GetComponent<PlayerSwimBoost>();
+        playerInteract = GetComponent<PlayerInteract>();
         circleLungeSlash = GetComponent<CircleLungeSlash>();
         circleGlide = GetComponent<CircleGlide>();
         circleReflect = GetComponent<CircleReflect>();
@@ -70,6 +72,7 @@ public class CircleMain : MonoBehaviour
     void OnEnable()
     {
         playerMove.active = true;
+        playerInteract.canInteract = true;
     }
 
     void OnDisable()
@@ -80,5 +83,6 @@ public class CircleMain : MonoBehaviour
         playerMove.disableMove = false;
         playerJump.disableJump = false;
         playerDoubleJump.disableDoubleJump = false;
+        playerInteract.canInteract = false;
     }
 }

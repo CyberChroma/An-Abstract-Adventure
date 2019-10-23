@@ -13,6 +13,7 @@ public class SquareMain : MonoBehaviour
     private PlayerAttack playerAttack;
     private PlayerSwim playerSwim;
     private PlayerSwimBoost playerSwimBoost;
+    private PlayerInteract playerInteract;
     private SquareWallJump squareWallJump;
     private SquareShurikenThrow squareShuikenThrow;
     private SquareCrouch squareCrouch;
@@ -27,6 +28,7 @@ public class SquareMain : MonoBehaviour
         playerLineUp = GetComponent<PlayerLineUp>();
         playerSwim = GetComponent<PlayerSwim>();
         playerSwimBoost = GetComponent<PlayerSwimBoost>();
+        playerInteract = GetComponent<PlayerInteract>();
         squareWallJump = GetComponent<SquareWallJump>();
         squareShuikenThrow = GetComponent<SquareShurikenThrow>();
         squareCrouch = GetComponent<SquareCrouch>();
@@ -73,6 +75,7 @@ public class SquareMain : MonoBehaviour
     void OnEnable()
     {
         playerMove.active = true;
+        playerInteract.canInteract = true;
     }
 
     void OnDisable()
@@ -82,5 +85,6 @@ public class SquareMain : MonoBehaviour
         playerMove.disableMove = false;
         playerJump.disableJump = false;
         playerDoubleJump.disableDoubleJump = false;
+        playerInteract.canInteract = false;
     }
 }

@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 4010378347791302007}
   - component: {fileID: 4010378347791301992}
   - component: {fileID: 4010378347791301993}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Ground Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,6 +216,8 @@ GameObject:
   - component: {fileID: 1340991017}
   - component: {fileID: 1340991018}
   - component: {fileID: 1340991019}
+  - component: {fileID: 1679227437}
+  - component: {fileID: 1679227438}
   m_Layer: 9
   m_Name: Que
   m_TagString: Player
@@ -486,6 +488,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boostForce: 3
   boostDelay: 0.5
+--- !u!114 &1679227437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010378348238694568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aab27916e7f458f43b544460290c56f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canInteract: 0
+--- !u!114 &1679227438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010378348238694568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d885611a57c459429a8e6791860583a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numCollectables: 0
 --- !u!1 &4203413966011958821
 GameObject:
   m_ObjectHideFlags: 0

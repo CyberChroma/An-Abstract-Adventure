@@ -10,6 +10,9 @@ TagManager:
   - Destructable
   - Reflect
   - Water
+  - Test
+  - Kall Collectable
+  - Que Collectable
   layers:
   - Default
   - TransparentFX
@@ -23,7 +26,7 @@ TagManager:
   - Player
   - No Player Collision
   - Attack Collider
-  - 
+  - Interact
   - 
   - 
   - 
