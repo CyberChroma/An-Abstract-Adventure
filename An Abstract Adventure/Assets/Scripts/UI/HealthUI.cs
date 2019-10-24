@@ -8,6 +8,7 @@ public class HealthUI : MonoBehaviour
     public int maxHealth;
 
     private GameObject[] damageSprites;
+    private UISlide uiSlide;
 
     // Start is called before the first frame update
     void Awake()
@@ -24,6 +25,7 @@ public class HealthUI : MonoBehaviour
                 healthSprite.gameObject.SetActive(false);
             }
         }
+        uiSlide = GetComponent<UISlide>();
     }
 
     public void HealthChange (int currentHealth)
@@ -31,6 +33,8 @@ public class HealthUI : MonoBehaviour
         for (int i = maxHealth-1; i >= currentHealth; i--)
         {
             damageSprites[i].SetActive(true);
+            uiSlide.active = true;
+            uiSlide.StopAllCoroutines();
         }
     }
 }

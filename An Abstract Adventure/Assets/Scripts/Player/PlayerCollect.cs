@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerCollect : MonoBehaviour
 {
-    public int numCollectables;
+    [HideInInspector] public int numCollectables;
+    [HideInInspector] public bool collected;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -12,6 +13,7 @@ public class PlayerCollect : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
             numCollectables++;
+            collected = true;
         }
     }
 }

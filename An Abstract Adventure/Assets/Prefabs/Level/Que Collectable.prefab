@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2193071820925577217}
   - component: {fileID: 2193071820925577218}
+  - component: {fileID: 4324930989029691344}
   - component: {fileID: 2193071820925577219}
   m_Layer: 0
   m_Name: Que Collectable
@@ -57,6 +58,21 @@ MonoBehaviour:
   - {fileID: 2193071821236957690}
   - {fileID: 2193071821815516617}
   - {fileID: 2193071821109891599}
+--- !u!114 &4324930989029691344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2193071820925577244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a68ceaed73884b3468b19a27b4610458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 1
+  speed: 2
+  objectToMove: {fileID: 2193071822127773050}
 --- !u!58 &2193071820925577219
 CircleCollider2D:
   m_ObjectHideFlags: 0
