@@ -7,10 +7,18 @@ public class ObjectSpin : MonoBehaviour
     public float[] spriteSpinSpeeds;
     public Transform[] sprites;
 
+    private void Start()
+    {
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            sprites[i].rotation = Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f));
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-         for(int i = 0; i < sprites.Length; i++) {
+        for(int i = 0; i < sprites.Length; i++) {
             sprites[i].Rotate(Vector3.forward, spriteSpinSpeeds[i] * -10 * Time.deltaTime);
         }
     }

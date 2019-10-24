@@ -7,18 +7,16 @@ public class UISlide : MonoBehaviour
     public float activeTime;
     public float enterSmoothing;
     public float exitSmoothing;
-    public Vector2 dir;
+    public Transform offScreenPos;
 
     [HideInInspector] public bool active;
     private Vector3 startPos;
-    private Vector3 offPos;
 
     // Start is called before the first frame update
     void Start()
     {
         startPos = transform.position;
-        offPos = new Vector3(transform.position.x + 200 * dir.x, transform.position.y + 100 * dir.y, 0);
-        active = false;
+        active = true;
     }
 
     // Update is called once per frame
@@ -34,7 +32,7 @@ public class UISlide : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, offPos, exitSmoothing);
+            transform.position = Vector3.Lerp(transform.position, offScreenPos.position, exitSmoothing);
         }
     }
 

@@ -33,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.CompareTag("Kill"))
         {
-            Death();
+            StartCoroutine(Death());
         }
         else if (collision.CompareTag("Hazard") || collision.CompareTag("Enemy"))
         {
@@ -48,14 +48,6 @@ public class PlayerHealth : MonoBehaviour
             currentHealth--;
             if (currentHealth <= 0)
             {
-                if (circleMain)
-                {
-                    circleMain.enabled = false;
-                }
-                else
-                {
-                    squareMain.enabled = false;
-                }
                 StartCoroutine(Death());
             }
             else
@@ -79,8 +71,17 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator Death()
     {
+        if (circleMain)
+        {
+            circleMain.enabled = false;
+        }
+        else
+        {
+            squareMain.enabled = false;
+        }
         currentHealth = 0;
         mainSprite.SetActive(false);
+        healthUI.HealthChange(currentHealth);
         yield return new WaitForSeconds(reloadDelay);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
