@@ -19,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerGroundCheck playerGroundCheck;
     private GameObject attackCollider;
+    private MovingObject movingObject;
 
     void Awake()
     {
@@ -33,6 +34,17 @@ public class PlayerMove : MonoBehaviour
         if (!noDrag)
         {
             rb.velocity = new Vector2(rb.velocity.x * 0.5f, rb.velocity.y);
+        }
+        if (movingObject)
+        {
+            if (movingObject.velocity.y > 0)
+            {
+                rb.AddForce(new Vector2(movingObject.velocity.x, 0) / 2, ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb.AddForce(movingObject.velocity / 2, ForceMode2D.Impulse);
+            }
         }
         if ((!active || disableMove) && moveDir != Vector2.zero)
         {
@@ -98,8 +110,21 @@ public class PlayerMove : MonoBehaviour
                         moveDir = Vector2.Lerp(moveDir, Vector2.zero, airStopSmoothness * Time.deltaTime);
                     }
                 }
-            }
+            } 
             rb.AddForce(moveDir * speed * 10 * Time.deltaTime, ForceMode2D.Impulse);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Moving"))
+        {
+            movingObject = collision.collider.GetComponent<MovingObject>();
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        movingObject = null;
     }
 }

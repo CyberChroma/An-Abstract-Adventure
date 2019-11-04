@@ -13,6 +13,7 @@ TagManager:
   - Test
   - Kall Collectable
   - Que Collectable
+  - Moving
   layers:
   - Default
   - TransparentFX
