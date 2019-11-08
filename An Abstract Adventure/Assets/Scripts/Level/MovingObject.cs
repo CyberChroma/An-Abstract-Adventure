@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
-    public bool repeat;
     public float speed;
     public float delayBetween;
     public float randomOffset;
+    public bool repeat;
     public Transform[] targets;
 
     [HideInInspector] public Vector2 velocity;
@@ -42,7 +42,7 @@ public class MovingObject : MonoBehaviour
             }
             else
             {
-                rb.MovePosition(Vector3.MoveTowards(rb.position, targets[currTarget].position, speed * Time.deltaTime));
+                rb.MovePosition(Vector2.MoveTowards(rb.position, targets[currTarget].position, speed * Time.deltaTime));
             }
         }
         if (Time.deltaTime != 0)

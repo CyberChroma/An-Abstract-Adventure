@@ -13,6 +13,8 @@ public class PlayerInteract : MonoBehaviour
             if (collision.CompareTag("Test"))
             {
                 print("Interact Test!");
+            } else if (collision.CompareTag("Fade Move")) {
+                collision.GetComponent<FadeMove>().MovePlayer(GetComponent<PlayerMain>());
             }
         }
     }

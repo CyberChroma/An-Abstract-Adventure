@@ -125,6 +125,9 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        movingObject = null;
+        if (collision.collider.CompareTag("Moving"))
+        {
+            movingObject = null;
+        }
     }
 }
