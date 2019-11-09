@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 1340991017}
   - component: {fileID: 1340991018}
   - component: {fileID: 1340991019}
+  - component: {fileID: 1365786364}
   - component: {fileID: 1679227437}
   - component: {fileID: 1679227438}
   m_Layer: 9
@@ -323,6 +324,7 @@ MonoBehaviour:
   moveSmoothness: 8
   stopSmoothness: 6
   airStopSmoothness: 2
+  iceSmoothness: 2
   active: 0
   frontRight: 0
   moveDir: {x: 0, y: 0}
@@ -501,6 +503,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boostForce: 3
   boostDelay: 0.5
+--- !u!114 &1365786364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010378348238694568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 237039ebe2aa78847bcf5b251b5ca3c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1679227437
 MonoBehaviour:
   m_ObjectHideFlags: 0

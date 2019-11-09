@@ -8,6 +8,7 @@ public class MovingObject : MonoBehaviour
     public float delayBetween;
     public float randomOffset;
     public bool repeat;
+    public bool reverse;
     public Transform[] targets;
 
     [HideInInspector] public Vector2 velocity;
@@ -25,9 +26,16 @@ public class MovingObject : MonoBehaviour
 
     private void OnEnable()
     {
-        currTarget = 0;
-        moving = true;
         lastPos = rb.position;
+        moving = true;
+        if (reverse)
+        {
+            currTarget = targets.Length - 1;
+        }
+        else
+        {
+            currTarget = 0;
+        }
     }
 
     // Update is called once per frame
@@ -56,20 +64,43 @@ public class MovingObject : MonoBehaviour
         lastPos = rb.position;
     }
 
+    public void NextTarget()
+    {
+        StartCoroutine(WaitToMove());
+    }
+
     IEnumerator WaitToMove()
     {
         moving = false;
         yield return new WaitForSeconds(delayBetween + Random.Range(-randomOffset, randomOffset));
-        currTarget++;
-        if (currTarget > targets.Length - 1)
+        if (reverse)
         {
-            if (repeat)
+            currTarget--;
+            if (currTarget < 0)
             {
-                currTarget = 0;
+                if (repeat)
+                {
+                    currTarget = targets.Length - 1;
+                }
+                else
+                {
+                    enabled = false;
+                }
             }
-            else
+        }
+        else
+        {
+            currTarget++;
+            if (currTarget > targets.Length - 1)
             {
-                enabled = false;
+                if (repeat)
+                {
+                    currTarget = 0;
+                }
+                else
+                {
+                    enabled = false;
+                }
             }
         }
         moving = true;
