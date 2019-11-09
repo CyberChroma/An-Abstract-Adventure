@@ -53,7 +53,7 @@ public class SquareWallJump : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8 && !collision.collider.CompareTag("Slippery"))
         {
             if (Mathf.Abs(collision.contacts[0].normal.x) >= 0.9f)
             {
@@ -76,7 +76,7 @@ public class SquareWallJump : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8 && !collision.collider.CompareTag("Slippery"))
         {
             if (canWallJump)
             {

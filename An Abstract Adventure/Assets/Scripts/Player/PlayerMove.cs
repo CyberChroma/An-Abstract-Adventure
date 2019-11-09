@@ -8,6 +8,7 @@ public class PlayerMove : MonoBehaviour
     public float moveSmoothness;
     public float stopSmoothness;
     public float airStopSmoothness;
+    public float iceSmoothness;
 
     [HideInInspector] public bool active;
     [HideInInspector] public bool frontRight;
@@ -16,6 +17,7 @@ public class PlayerMove : MonoBehaviour
     [HideInInspector] public bool noDrag;
     [HideInInspector] public bool disableMove;
 
+    private bool slide;
     private Rigidbody2D rb;
     private PlayerGroundCheck playerGroundCheck;
     private GameObject attackCollider;
@@ -24,6 +26,7 @@ public class PlayerMove : MonoBehaviour
     void Awake()
     {
         frontRight = true;
+        slide = false;
         rb = GetComponent<Rigidbody2D>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
         attackCollider = transform.Find("Attack Hit Box").gameObject;
@@ -50,8 +53,16 @@ public class PlayerMove : MonoBehaviour
         {
             if (playerGroundCheck.isGrounded)
             {
-                moveDir = Vector2.Lerp(moveDir, Vector2.zero, stopSmoothness * Time.deltaTime);
-            } else
+                if (slide)
+                {
+                    moveDir = Vector2.Lerp(moveDir, Vector2.zero, iceSmoothness * Time.deltaTime);
+                }
+                else
+                {
+                    moveDir = Vector2.Lerp(moveDir, Vector2.zero, stopSmoothness * Time.deltaTime);
+                }
+            }
+            else
             {
                 moveDir = Vector2.Lerp(moveDir, Vector2.zero, airStopSmoothness * Time.deltaTime);
             }
@@ -73,14 +84,28 @@ public class PlayerMove : MonoBehaviour
                         frontRight = true;
                         if (playerGroundCheck.isGrounded)
                         {
-                            moveDir = Vector2.Lerp(moveDir, transform.right, moveSmoothness * Time.deltaTime);
+                            if (slide)
+                            {
+                                moveDir = Vector2.Lerp(moveDir, transform.right, iceSmoothness * Time.deltaTime);
+                            }
+                            else
+                            {
+                                moveDir = Vector2.Lerp(moveDir, transform.right, moveSmoothness * Time.deltaTime);
+                            }
                         }
                         else
                         {
                             moveDir = Vector2.zero;
                         }
                     }
-                    moveDir = Vector2.Lerp(moveDir, transform.right, moveSmoothness * Time.deltaTime);
+                    if (slide)
+                    {
+                        moveDir = Vector2.Lerp(moveDir, transform.right, iceSmoothness * Time.deltaTime);
+                    }
+                    else
+                    {
+                        moveDir = Vector2.Lerp(moveDir, transform.right, moveSmoothness * Time.deltaTime);
+                    }
                 }
                 else if (Input.GetKey(KeyCode.A))
                 {
@@ -90,20 +115,41 @@ public class PlayerMove : MonoBehaviour
                         frontRight = false;
                         if (playerGroundCheck.isGrounded)
                         {
-                            moveDir = Vector2.Lerp(moveDir, -transform.right, moveSmoothness * Time.deltaTime);
+                            if (slide)
+                            {
+                                moveDir = Vector2.Lerp(moveDir, -transform.right, iceSmoothness * Time.deltaTime);
+                            }
+                            else
+                            {
+                                moveDir = Vector2.Lerp(moveDir, -transform.right, moveSmoothness * Time.deltaTime);
+                            }
                         }
                         else
                         {
                             moveDir = Vector2.zero;
                         }
                     }
-                    moveDir = Vector2.Lerp(moveDir, -transform.right, moveSmoothness * Time.deltaTime);
+                    if (slide)
+                    {
+                        moveDir = Vector2.Lerp(moveDir, -transform.right, iceSmoothness * Time.deltaTime);
+                    }
+                    else
+                    {
+                        moveDir = Vector2.Lerp(moveDir, -transform.right, moveSmoothness * Time.deltaTime);
+                    }
                 }
                 else if (moveDir != Vector2.zero)
                 {
                     if (playerGroundCheck.isGrounded)
                     {
-                        moveDir = Vector2.Lerp(moveDir, Vector2.zero, stopSmoothness * Time.deltaTime);
+                        if (slide)
+                        {
+                            moveDir = Vector2.Lerp(moveDir, Vector2.zero, iceSmoothness * Time.deltaTime);
+                        }
+                        else
+                        {
+                            moveDir = Vector2.Lerp(moveDir, Vector2.zero, moveSmoothness * Time.deltaTime);
+                        }
                     }
                     else
                     {
@@ -121,6 +167,10 @@ public class PlayerMove : MonoBehaviour
         {
             movingObject = collision.collider.GetComponent<MovingObject>();
         }
+        else if (collision.collider.CompareTag("Slippery"))
+        {
+            slide = true;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -128,6 +178,10 @@ public class PlayerMove : MonoBehaviour
         if (collision.collider.CompareTag("Moving"))
         {
             movingObject = null;
+        }
+        else if (collision.collider.CompareTag("Slippery"))
+        {
+            slide = false;
         }
     }
 }

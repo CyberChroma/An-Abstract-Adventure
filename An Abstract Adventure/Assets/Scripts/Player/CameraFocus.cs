@@ -18,7 +18,6 @@ public class CameraFocus : MonoBehaviour
     private CameraFollow cameraFollow;
     private PlayerMain[] playerMain;
 
-
     void Awake()
     {
         cameraFollow = FindObjectOfType<CameraFollow>();
@@ -48,10 +47,10 @@ public class CameraFocus : MonoBehaviour
         yield return new WaitForSeconds(focusTime);
         cameraFollow.target = null;
         yield return new WaitForSeconds(endDelay);
-        playerMain[0].enabled = false;
+        playerMain[0].enabled = true;
         if (playerMain.Length == 2)
         {
-            playerMain[1].enabled = false;
+            playerMain[1].enabled = true;
         }
         if (oneTime)
         {

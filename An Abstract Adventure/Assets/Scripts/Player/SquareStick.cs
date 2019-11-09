@@ -35,7 +35,7 @@ public class SquareStick : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (canStick && !sticking && collision.gameObject.layer == 8)
+        if (canStick && !sticking && collision.gameObject.layer == 8 && !collision.collider.CompareTag("Slippery"))
         {
             rb.gravityScale = 0;
             rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -48,7 +48,7 @@ public class SquareStick : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (sticking && collision.gameObject.layer == 8)
+        if (sticking && collision.gameObject.layer == 8 && !collision.collider.CompareTag("Slippery"))
         {
             Unstick();
         }
