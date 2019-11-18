@@ -24,7 +24,6 @@ public class ButtonTimed : MonoBehaviour
         if (!pressed && collision.CompareTag("Player"))
         {
             StartCoroutine(Activate());
-
         }
     }
 

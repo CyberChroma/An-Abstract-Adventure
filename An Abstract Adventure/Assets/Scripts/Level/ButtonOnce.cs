@@ -14,7 +14,7 @@ public class ButtonOnce : MonoBehaviour
     void Start()
     {
         pressed = false;
-        pressedObj.SetActive(true);
+        unpressedObj.SetActive(true);
         pressedObj.SetActive(false);
     }
 
