@@ -7,6 +7,7 @@ public class ObjectHover : MonoBehaviour
     public float amount;
     public float speed;
     public Transform objectToMove;
+    public bool timeUnscaled;
 
     private Vector3 startingPos;
     private float timeOffset;
@@ -23,7 +24,14 @@ public class ObjectHover : MonoBehaviour
     {
         if (amount != 0)
         {
-            objectToMove.localPosition = startingPos + Vector3.up * Mathf.Cos(Time.time * speed + timeOffset) / (1 / amount);
+            if (timeUnscaled)
+            {
+                objectToMove.localPosition = startingPos + Vector3.up * Mathf.Cos(Time.unscaledTime * speed + timeOffset) / (1 / amount);
+            }
+            else
+            {
+                objectToMove.localPosition = startingPos + Vector3.up * Mathf.Cos(Time.time * speed + timeOffset) / (1 / amount);
+            }
         }
     }
 }

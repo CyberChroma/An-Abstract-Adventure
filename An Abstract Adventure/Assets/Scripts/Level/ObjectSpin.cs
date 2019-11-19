@@ -6,6 +6,7 @@ public class ObjectSpin : MonoBehaviour
 {
     public float[] spriteSpinSpeeds;
     public Transform[] sprites;
+    public bool timeUnscaled;
 
     private void Start()
     {
@@ -19,7 +20,14 @@ public class ObjectSpin : MonoBehaviour
     void Update()
     {
         for(int i = 0; i < sprites.Length; i++) {
-            sprites[i].Rotate(Vector3.forward, spriteSpinSpeeds[i] * -10 * Time.deltaTime);
+            if (timeUnscaled)
+            {
+                sprites[i].Rotate(Vector3.forward, spriteSpinSpeeds[i] * -10 * 0.02f);
+            }
+            else
+            {
+                sprites[i].Rotate(Vector3.forward, spriteSpinSpeeds[i] * -10 * Time.deltaTime);
+            }
         }
     }
 }

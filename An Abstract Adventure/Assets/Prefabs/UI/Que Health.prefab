@@ -90,6 +90,7 @@ MonoBehaviour:
   amount: 5
   speed: 3
   objectToMove: {fileID: 2530647249729393515}
+  timeUnscaled: 1
 --- !u!1 &2530647250111213497
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +126,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 25, y: 25}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2530647250111213500
 CanvasRenderer:
@@ -198,7 +199,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 25, y: 25}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2530647250131997784
 CanvasRenderer:
@@ -305,8 +306,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeTime: 3
   enterSmoothing: 0.1
-  exitSmoothing: 0.05
-  dir: {x: 1, y: 1}
+  exitSmoothing: 0.02
+  offScreenPos: {fileID: 0}
+  stayActive: 0
   active: 0
 --- !u!1 &2530647250315396286
 GameObject:
@@ -398,6 +400,7 @@ MonoBehaviour:
   amount: 5
   speed: 3
   objectToMove: {fileID: 2530647250315396287}
+  timeUnscaled: 1
 --- !u!1 &2530647250377773767
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +436,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 25, y: 25}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2530647250377773770
 CanvasRenderer:
@@ -561,6 +564,7 @@ MonoBehaviour:
   amount: 5
   speed: 3
   objectToMove: {fileID: 2530647250667241594}
+  timeUnscaled: 1
 --- !u!1 &2530647250719819796
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +600,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 25, y: 25}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2530647250719819799
 CanvasRenderer:
@@ -669,7 +673,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 25, y: 25}
+  m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2530647251031725248
 CanvasRenderer:
@@ -797,6 +801,7 @@ MonoBehaviour:
   amount: 5
   speed: 3
   objectToMove: {fileID: 2530647251178707617}
+  timeUnscaled: 1
 --- !u!1 &2530647251805657877
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,3 +892,4 @@ MonoBehaviour:
   amount: 5
   speed: 3
   objectToMove: {fileID: 2530647251805657878}
+  timeUnscaled: 1

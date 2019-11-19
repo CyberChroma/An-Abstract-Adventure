@@ -8,6 +8,7 @@ public class UISlide : MonoBehaviour
     public float enterSmoothing;
     public float exitSmoothing;
     public Transform offScreenPos;
+    public bool stayActive;
 
     [HideInInspector] public bool active;
     private Vector3 startPos;
@@ -22,10 +23,10 @@ public class UISlide : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (active)
+        if (stayActive || active)
         {
             transform.position = Vector3.Lerp(transform.position, startPos, enterSmoothing);
-            if (Vector3.Distance(transform.position, startPos) <= 1)
+            if (!stayActive && Vector3.Distance(transform.position, startPos) <= 1)
             {
                 StartCoroutine(WaitToDeactivate());
             }

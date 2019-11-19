@@ -94,6 +94,7 @@ MonoBehaviour:
   amount: 10
   speed: 2
   objectToMove: {fileID: 7951174309035609041}
+  timeUnscaled: 0
 --- !u!1 &7951174309477805520
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,8 +147,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeTime: 3
   enterSmoothing: 0.1
-  exitSmoothing: 0.05
-  dir: {x: -1, y: -1}
+  exitSmoothing: 0.02
+  offScreenPos: {fileID: 0}
+  stayActive: 0
   active: 0
 --- !u!1 &7951174309963237816
 GameObject:
@@ -437,6 +439,7 @@ MonoBehaviour:
   - {fileID: 8086043651268461084}
   - {fileID: 8086043649884569135}
   - {fileID: 8086043651395494377}
+  timeUnscaled: 1
 --- !u!114 &8086043651041893364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,6 +455,7 @@ MonoBehaviour:
   amount: 10
   speed: 2
   objectToMove: {fileID: 8086043651041893365}
+  timeUnscaled: 1
 --- !u!114 &8086043651041893367
 MonoBehaviour:
   m_ObjectHideFlags: 0
