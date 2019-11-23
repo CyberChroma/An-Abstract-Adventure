@@ -17,6 +17,7 @@ TagManager:
   - Fade Move
   - Slippery
   - Push
+  - Talk
   layers:
   - Default
   - TransparentFX

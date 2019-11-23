@@ -4,20 +4,53 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
+    public GrowAndShrink interactArrow;
+
     [HideInInspector] public bool canInteract;
+
+    private void Start()
+    {
+        interactArrow.growing = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (canInteract && collision.gameObject.layer == 12)
+        {
+            interactArrow.transform.position = collision.transform.position;
+            interactArrow.growing = true;
+        }
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (canInteract && collision.gameObject.layer == 12 && Input.GetKeyDown(KeyCode.O))
+        if (canInteract && collision.gameObject.layer == 12)
         {
-            if (collision.CompareTag("Test"))
+            if (Input.GetKeyDown(KeyCode.O))
             {
-                print("Interact Test!");
+                if (collision.CompareTag("Test"))
+                {
+                    print("Interact Test!");
+                }
+                else if (collision.CompareTag("Fade Move"))
+                {
+                    collision.GetComponent<FadeMove>().MovePlayer(GetComponent<PlayerMain>());
+                    interactArrow.growing = false;
+                }
+                else if (collision.CompareTag("Talk"))
+                {
+                    collision.GetComponent<TalkByInteract>().Activate();
+                    interactArrow.growing = false;
+                }
             }
-            else if (collision.CompareTag("Fade Move"))
-            {
-                collision.GetComponent<FadeMove>().MovePlayer(GetComponent<PlayerMain>());
-            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 12)
+        {
+            interactArrow.growing = false;
         }
     }
 }

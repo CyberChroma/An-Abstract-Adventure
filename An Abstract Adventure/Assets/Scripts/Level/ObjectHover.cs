@@ -15,6 +15,10 @@ public class ObjectHover : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!objectToMove)
+        {
+            objectToMove = transform;
+        }
         startingPos = objectToMove.localPosition;
         timeOffset = Random.Range(-5f, 5f);
     }

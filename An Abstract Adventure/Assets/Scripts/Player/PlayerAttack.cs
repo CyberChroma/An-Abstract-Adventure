@@ -28,7 +28,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void Attack ()
     {
-        if (canAttack && !disableAttack && Input.GetKeyDown(KeyCode.U))
+        if (canAttack && !disableAttack && Time.timeScale != 0 && Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(WaitToAttack());
         }

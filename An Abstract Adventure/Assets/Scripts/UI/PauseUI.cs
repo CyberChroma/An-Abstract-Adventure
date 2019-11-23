@@ -49,6 +49,7 @@ public class PauseUI : MonoBehaviour
                 Pause();
             }
         }
+
         if (paused)
         {
             if (Input.GetKeyDown(KeyCode.Space))

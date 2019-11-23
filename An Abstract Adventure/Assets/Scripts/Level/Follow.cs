@@ -12,14 +12,14 @@ public class Follow : MonoBehaviour
     private Vector3 movePos;
     private Vector3 camVelocity;
 
-    void Start()
+    void OnEnable()
     {
         if (startOnPos == true) {
             transform.position = target.position;
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (target != null)
         {

@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: fffc62337c28c224789e7a3ca63b18b7
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Teen
+  fontNames:
+  - Teen
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 8e232454273a831429c447d6289ef26a, type: 3}
+  - {fileID: 12800000, guid: 40891a55c73133c41b1b25c1841484be, type: 3}
+  - {fileID: 12800000, guid: 464417f676db3c742a68aad610bedc07, type: 3}
+  - {fileID: 12800000, guid: 7abd25ecd1214624ca53f0588a6df2d5, type: 3}
+  - {fileID: 12800000, guid: 495c77ce2363f124a92aeca437f2cc84, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
