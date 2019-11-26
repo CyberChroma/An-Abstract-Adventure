@@ -16,7 +16,6 @@ public class CircleMain : MonoBehaviour
     private PlayerInteract playerInteract;
     private CircleLungeSlash circleLungeSlash;
     private CircleGlide circleGlide;
-    private CircleReflect circleReflect;
 
     void Awake()
     {
@@ -30,14 +29,12 @@ public class CircleMain : MonoBehaviour
         playerInteract = GetComponent<PlayerInteract>();
         circleLungeSlash = GetComponent<CircleLungeSlash>();
         circleGlide = GetComponent<CircleGlide>();
-        circleReflect = GetComponent<CircleReflect>();
     }
 
     private void Update()
     {
         if (activePlayer)
         {
-            circleReflect.Reflect();
             playerLineUp.LineUp();
             circleLungeSlash.LungeSlash();
             playerAttack.Attack();
@@ -79,7 +76,6 @@ public class CircleMain : MonoBehaviour
     {
         playerMove.active = false;
         playerLineUp.DisableArrow();
-        circleReflect.DisableShield();
         playerMove.disableMove = false;
         playerJump.disableJump = false;
         playerDoubleJump.disableDoubleJump = false;
