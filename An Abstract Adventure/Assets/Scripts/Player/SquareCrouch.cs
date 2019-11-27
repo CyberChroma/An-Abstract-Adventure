@@ -21,7 +21,7 @@ public class SquareCrouch : MonoBehaviour
     void Start()
     {
         setToStand = false;
-        mainSprite = transform.Find("Main Sprite");
+        mainSprite = transform.Find("Sprites");
         cc = GetComponent<CapsuleCollider2D>();
         playerLineUp = GetComponent<PlayerLineUp>();
         rb = GetComponent<Rigidbody2D>();

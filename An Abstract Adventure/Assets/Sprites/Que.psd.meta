@@ -1,7 +1,103 @@
 fileFormatVersion: 2
-guid: 45ee49e7373a2064cbec1368dc3fc01b
+guid: 1d221259f0be13245864053ff383bdb7
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 6575543815920151458
+    second: _QueFull
+  - first:
+      213: -7373724547961215247
+    second: QueConcept
+  - first:
+      213: -5673618120071735642
+    second: Body
+  - first:
+      213: -7046776421226906711
+    second: Left Upper Arm
+  - first:
+      213: 6575543815920151458
+    second: _QueFull
+  - first:
+      213: -2061047944200417758
+    second: QueBody
+  - first:
+      213: 7600526230604351488
+    second: QueLeftUpperArm
+  - first:
+      213: 1145331408746643339
+    second: QueLeftLowerArm
+  - first:
+      213: -8110397729494610606
+    second: QueLeftWrist
+  - first:
+      213: 2108657196263427578
+    second: QueLeftHand
+  - first:
+      213: 6575543815920151458
+    second: Que_0
+  - first:
+      213: -7373724547961215247
+    second: Que_1
+  - first:
+      213: -8704216139242883598
+    second: QueRightUpperArm
+  - first:
+      213: 3512567274162562385
+    second: QueRightLowerArm
+  - first:
+      213: 965055292709399996
+    second: QueRightWrist
+  - first:
+      213: -3412070442658421412
+    second: QueRightHand
+  - first:
+      213: -1903961325778467928
+    second: QuePonytail
+  - first:
+      213: 6410840957919786088
+    second: QueHairTie
+  - first:
+      213: -3845105065727115676
+    second: QueHairBack
+  - first:
+      213: -6944446764057031230
+    second: QueHairFrontLeft
+  - first:
+      213: -881254314931374722
+    second: QueHairFrontRight
+  - first:
+      213: 3423016882381998986
+    second: QueLeftEyebrow
+  - first:
+      213: -7327974651964718173
+    second: QueLeftUpperEyelash
+  - first:
+      213: 6217875727021634338
+    second: QueLeftLowerEyelash
+  - first:
+      213: 84708614262856254
+    second: QueLeftEye
+  - first:
+      213: 8895157652512121162
+    second: QueLeftIris
+  - first:
+      213: 6377080209976969853
+    second: QueRightEyebrow
+  - first:
+      213: 853733360849671790
+    second: QueRightUpperEyelash
+  - first:
+      213: -1673350702175356582
+    second: QueRightLowerEyelash
+  - first:
+      213: 8178230875421876911
+    second: QueRightEye
+  - first:
+      213: -2613886152516685604
+    second: QueRightIris
+  - first:
+      213: -2423822074192969732
+    second: QueMouth
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -40,12 +136,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 500
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,9 +166,567 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: _QueFull
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 73
+        width: 1275
+        height: 609
+      alignment: 9
+      pivot: {x: 0.71594644, y: 0.37821528}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cc4b76625ac51045b6bb85b88d95bbc
+      internalID: 6575543815920151458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueBody
+      rect:
+        serializedVersion: 2
+        x: 1376
+        y: 86
+        width: 508
+        height: 507
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d93955b79d685514089d064cac3061d9
+      internalID: -2061047944200417758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueLeftUpperArm
+      rect:
+        serializedVersion: 2
+        x: 1946
+        y: 396
+        width: 25
+        height: 90
+      alignment: 9
+      pivot: {x: 0.4859668, y: 0.955857}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efd0db21013943145b65b8d35f1d0301
+      internalID: 7600526230604351488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueLeftLowerArm
+      rect:
+        serializedVersion: 2
+        x: 1990
+        y: 389
+        width: 23
+        height: 105
+      alignment: 9
+      pivot: {x: 0.4999894, y: 0.97422487}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd526b36bfbcd3048bdc1595626bba72
+      internalID: 1145331408746643339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueLeftWrist
+      rect:
+        serializedVersion: 2
+        x: 2029
+        y: 414
+        width: 24
+        height: 57
+      alignment: 9
+      pivot: {x: 0.5140234, y: 0.9367863}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 323ca58382e6d3d4cb328e30389733ff
+      internalID: -8110397729494610606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueLeftHand
+      rect:
+        serializedVersion: 2
+        x: 2070
+        y: 388
+        width: 81
+        height: 106
+      alignment: 9
+      pivot: {x: 0.11188272, y: 0.5276489}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aec8874497eff14b8d9485970841ea3
+      internalID: 2108657196263427578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueRightUpperArm
+      rect:
+        serializedVersion: 2
+        x: 1945
+        y: 170
+        width: 25
+        height: 86
+      alignment: 9
+      pivot: {x: 0.5094629, y: 0.9652937}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27c352034cf45264a93d3731ec6c006e
+      internalID: -8704216139242883598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueRightLowerArm
+      rect:
+        serializedVersion: 2
+        x: 1989
+        y: 161
+        width: 25
+        height: 106
+      alignment: 9
+      pivot: {x: 0.4999951, y: 0.9690857}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37ed569a58679484fbd25f792123bfbe
+      internalID: 3512567274162562385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueRightWrist
+      rect:
+        serializedVersion: 2
+        x: 2030
+        y: 182
+        width: 24
+        height: 53
+      alignment: 9
+      pivot: {x: 0.4999949, y: 0.94674826}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eaac5c96ffb5a074d991bb502cb1bb62
+      internalID: 965055292709399996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueRightHand
+      rect:
+        serializedVersion: 2
+        x: 2071
+        y: 161
+        width: 80
+        height: 106
+      alignment: 9
+      pivot: {x: 0.101931766, y: 0.5022419}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a146197f7777e34c9b56270c66691fc
+      internalID: -3412070442658421412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QuePonytail
+      rect:
+        serializedVersion: 2
+        x: 2195
+        y: 26
+        width: 222
+        height: 567
+      alignment: 9
+      pivot: {x: 0.39056122, y: 0.9766975}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cee67b8e5a5749459007091e10815b4
+      internalID: -1903961325778467928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueHairTie
+      rect:
+        serializedVersion: 2
+        x: 2447
+        y: 329
+        width: 39
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e78355a34dc90f24e966ef0fcc17c115
+      internalID: 6410840957919786088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueHairBack
+      rect:
+        serializedVersion: 2
+        x: 2530
+        y: 140
+        width: 252
+        height: 447
+      alignment: 9
+      pivot: {x: 0.8396064, y: 0.7488929}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cefabaefab944614b9a3beb92a2dbf12
+      internalID: -3845105065727115676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueHairFrontLeft
+      rect:
+        serializedVersion: 2
+        x: 2837
+        y: 207
+        width: 344
+        height: 377
+      alignment: 9
+      pivot: {x: 0.80635035, y: 0.7314534}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c17c2390d40236e4bb5072bd9065646b
+      internalID: -6944446764057031230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueHairFrontRight
+      rect:
+        serializedVersion: 2
+        x: 3233
+        y: 185
+        width: 249
+        height: 335
+      alignment: 9
+      pivot: {x: 0.20656258, y: 0.7611624}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02af997860a465242b2c976d8001b1a7
+      internalID: -881254314931374722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueLeftEyebrow
+      rect:
+        serializedVersion: 2
+        x: 3568
+        y: 446
+        width: 127
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 333be4a2be59bba49a975fa4a5662af4
+      internalID: 3423016882381998986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueLeftUpperEyelash
+      rect:
+        serializedVersion: 2
+        x: 3546
+        y: 420
+        width: 49
+        height: 14
+      alignment: 9
+      pivot: {x: 0.92796355, y: 0.5312042}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a08f7c3eacd749f42a6c9527645dbf70
+      internalID: -7327974651964718173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueLeftLowerEyelash
+      rect:
+        serializedVersion: 2
+        x: 3611
+        y: 407
+        width: 37
+        height: 16
+      alignment: 9
+      pivot: {x: 0.8778439, y: 0.5273037}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 279bd1c5c1b686c419fecb33fc1cb830
+      internalID: 6217875727021634338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueLeftEye
+      rect:
+        serializedVersion: 2
+        x: 3555
+        y: 264
+        width: 105
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a433490dac2db84c83e7c49bd6d2473
+      internalID: 84708614262856254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueLeftIris
+      rect:
+        serializedVersion: 2
+        x: 3683
+        y: 270
+        width: 55
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5da1200a9ef76d74ebfd5b531d3e9d00
+      internalID: 8895157652512121162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueRightEyebrow
+      rect:
+        serializedVersion: 2
+        x: 3799
+        y: 448
+        width: 126
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bafd089155e26bd41aaa5a8e7b8082a1
+      internalID: 6377080209976969853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueRightUpperEyelash
+      rect:
+        serializedVersion: 2
+        x: 3767
+        y: 418
+        width: 51
+        height: 14
+      alignment: 9
+      pivot: {x: 0.9336416, y: 0.49999782}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44a7a56d335a3dc4f9268a3aafb4aeb7
+      internalID: 853733360849671790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueRightLowerEyelash
+      rect:
+        serializedVersion: 2
+        x: 3834
+        y: 406
+        width: 35
+        height: 14
+      alignment: 9
+      pivot: {x: 0.9088658, y: 0.53097314}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b30a718ae7fba874fb03357967321a66
+      internalID: -1673350702175356582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueRightEye
+      rect:
+        serializedVersion: 2
+        x: 3781
+        y: 264
+        width: 104
+        height: 129
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65b990e01d5e58a45a893e299dcd7196
+      internalID: 8178230875421876911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueRightIris
+      rect:
+        serializedVersion: 2
+        x: 3911
+        y: 268
+        width: 54
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7135e62bc5304a643ac379c7ffa59f02
+      internalID: -2613886152516685604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: QueMouth
+      rect:
+        serializedVersion: 2
+        x: 3659
+        y: 204
+        width: 136
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bdc6c8ce3348f147ae1a805938c5d8d
+      internalID: -2423822074192969732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -85,7 +739,7 @@ TextureImporter:
     secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
+  pSDShowRemoveMatteOption: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 

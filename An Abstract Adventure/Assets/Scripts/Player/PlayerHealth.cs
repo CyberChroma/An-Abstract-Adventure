@@ -23,7 +23,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = healthUI.maxHealth;
         canBeDamaged = true;
-        mainSprite = transform.Find("Main Sprite").gameObject;
+        mainSprite = transform.Find("Sprites").gameObject;
         rb = GetComponent<Rigidbody2D>();
         circleMain = GetComponent<CircleMain>();
         squareMain = GetComponent<SquareMain>();
