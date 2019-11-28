@@ -12,12 +12,14 @@ public class PlayerJump : MonoBehaviour
     [HideInInspector] public bool disableJump;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private PlayerGroundCheck playerGroundCheck;
     private PlayerDoubleJump playerDoubleJump;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
         playerDoubleJump = GetComponentInChildren<PlayerDoubleJump>();
     }
@@ -32,6 +34,10 @@ public class PlayerJump : MonoBehaviour
     {
         if (!disableJump && playerGroundCheck.isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
+            if (anim)
+            {
+                anim.SetTrigger("Jump");
+            }
             rb.velocity = Vector3.zero;
             rb.AddForce(transform.up * jumpForce * 10, ForceMode2D.Impulse);
             playerGroundCheck.isGrounded = false;

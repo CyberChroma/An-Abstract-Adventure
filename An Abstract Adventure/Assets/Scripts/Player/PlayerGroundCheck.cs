@@ -8,10 +8,12 @@ public class PlayerGroundCheck : MonoBehaviour
 
     [HideInInspector] public bool isGrounded;
 
+    private Animator anim;
     private PlayerDoubleJump playerDoubleJump;
 
     void Awake()
     {
+        anim = GetComponentInParent<PlayerMove>().GetComponentInChildren<Animator>();
         playerDoubleJump = GetComponentInParent<PlayerDoubleJump>();
     }
 
@@ -19,6 +21,11 @@ public class PlayerGroundCheck : MonoBehaviour
     {
         if (!isGrounded && collision.gameObject.layer == 8)
         {
+            if (anim)
+            {
+                anim.SetBool("IsFalling", false);
+                anim.SetTrigger("Land");
+            }
             isGrounded = true;
             playerDoubleJump.canDoubleJump = false;
         } 
@@ -38,6 +45,10 @@ public class PlayerGroundCheck : MonoBehaviour
         yield return new WaitForSeconds(fallDelay);
         if (isGrounded)
         {
+            if (anim)
+            {
+                anim.SetBool("IsFalling", true);
+            }
             isGrounded = false;
             playerDoubleJump.canDoubleJump = true;
         }

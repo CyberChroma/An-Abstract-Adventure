@@ -11,6 +11,7 @@ public class SquareWallJump : MonoBehaviour
     [HideInInspector] public bool fallOverride;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private PlayerGroundCheck playerGroundCheck;
     private PlayerMove playerMove;
     private SquareMain squareMain;
@@ -20,6 +21,7 @@ public class SquareWallJump : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
         playerMove = GetComponent<PlayerMove>();
         squareMain = GetComponent<SquareMain>();
@@ -30,6 +32,10 @@ public class SquareWallJump : MonoBehaviour
     {
         if (canWallJump && !playerGroundCheck.isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
+            if (anim)
+            {
+                anim.SetTrigger("Jump");
+            }
             rb.velocity = Vector2.zero;
             StopAllCoroutines();
             if (playerMove.frontRight)
@@ -41,10 +47,9 @@ public class SquareWallJump : MonoBehaviour
             {
                 rb.AddForce(transform.up * wallJumpVForce * 10 + transform.right * wallJumpHForce * 10, ForceMode2D.Impulse);
                 StartCoroutine(InputOveride(0.3f, transform.right));
-
             }
             rb.gravityScale = 1;
-            playerMove.frontRight = !playerMove.frontRight;
+            playerMove.Flip();
             canWallJump = false;
             wallContact = false;
             otherContact = false;

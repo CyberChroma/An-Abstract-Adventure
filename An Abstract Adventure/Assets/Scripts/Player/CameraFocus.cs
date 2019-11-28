@@ -7,7 +7,7 @@ public class CameraFocus : MonoBehaviour
     public Transform targetToSet;
     public float smoothing = 0.5f;
     public float offsetHeight = 0;
-    public float zoom = 10;
+    public float zoom = 70;
     public float zoomSmoothing = 0.5f;
 
     public float startDelay = 1;

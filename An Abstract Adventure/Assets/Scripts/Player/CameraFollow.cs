@@ -43,12 +43,12 @@ public class CameraFollow : MonoBehaviour
         if (target == null)
         {
             movePos = Vector3.SmoothDamp(transform.position, new Vector3(player.position.x, player.position.y + offsetHeight, -10), ref camVelocity, smoothing, Mathf.Infinity, Time.deltaTime);
-            mCam.orthographicSize = Mathf.SmoothDamp(mCam.orthographicSize, zoom, ref zoomVelocity, zoomSmoothing, Mathf.Infinity, Time.deltaTime);
+            mCam.fieldOfView = Mathf.SmoothDamp(mCam.fieldOfView, zoom, ref zoomVelocity, zoomSmoothing, Mathf.Infinity, Time.deltaTime);
         }
         else
         {
             movePos = Vector3.SmoothDamp(transform.position, new Vector3(target.position.x, target.position.y + tOffsetHeight, -10), ref camVelocity, tSmoothing, Mathf.Infinity, Time.deltaTime);
-            mCam.orthographicSize = Mathf.SmoothDamp(mCam.orthographicSize, tZoom, ref zoomVelocity, tZoomSmoothing, Mathf.Infinity, Time.deltaTime);
+            mCam.fieldOfView = Mathf.SmoothDamp(mCam.fieldOfView, tZoom, ref zoomVelocity, tZoomSmoothing, Mathf.Infinity, Time.deltaTime);
         }
         transform.position = movePos;
     }

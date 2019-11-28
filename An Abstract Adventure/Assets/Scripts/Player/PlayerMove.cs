@@ -19,6 +19,7 @@ public class PlayerMove : MonoBehaviour
 
     private bool slide;
     private Rigidbody2D rb;
+    private Animator anim;
     private PlayerGroundCheck playerGroundCheck;
     private GameObject attackCollider;
     private MovingObject movingObject;
@@ -28,6 +29,7 @@ public class PlayerMove : MonoBehaviour
         frontRight = true;
         slide = false;
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
         attackCollider = transform.Find("Attack Hit Box").gameObject;
     }
@@ -78,10 +80,13 @@ public class PlayerMove : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.D))
                 {
+                    if (anim)
+                    {
+                        anim.SetBool("IsRunning", true);
+                    }
                     if (!attackCollider.activeSelf && !frontRight)
                     {
-                        transform.localScale = new Vector2(1, 1);
-                        frontRight = true;
+                        Flip();
                         if (playerGroundCheck.isGrounded)
                         {
                             if (slide)
@@ -109,10 +114,13 @@ public class PlayerMove : MonoBehaviour
                 }
                 else if (Input.GetKey(KeyCode.A))
                 {
+                    if (anim)
+                    {
+                        anim.SetBool("IsRunning", true);
+                    }
                     if (!attackCollider.activeSelf && frontRight)
                     {
-                        transform.localScale = new Vector2(-1, 1);
-                        frontRight = false;
+                        Flip();
                         if (playerGroundCheck.isGrounded)
                         {
                             if (slide)
@@ -140,6 +148,10 @@ public class PlayerMove : MonoBehaviour
                 }
                 else if (moveDir != Vector2.zero)
                 {
+                    if (anim)
+                    {
+                        anim.SetBool("IsRunning", false);
+                    }
                     if (playerGroundCheck.isGrounded)
                     {
                         if (slide)
@@ -156,9 +168,15 @@ public class PlayerMove : MonoBehaviour
                         moveDir = Vector2.Lerp(moveDir, Vector2.zero, airStopSmoothness * Time.deltaTime);
                     }
                 }
-            } 
+            }
             rb.AddForce(moveDir * speed * 10 * Time.deltaTime, ForceMode2D.Impulse);
         }
+    }
+
+    public void Flip ()
+    {
+        transform.localScale = new Vector2(transform.localScale.x * -1, 1);
+        frontRight = !frontRight;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
