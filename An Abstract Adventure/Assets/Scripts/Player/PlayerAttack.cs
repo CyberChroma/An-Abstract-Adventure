@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
     private bool canAttack = true;
     private Transform attackCollider;
     private Rigidbody2D rb;
+    private Animator anim;
     private PlayerGroundCheck playerGroundCheck;
     private PlayerSwim playerSwim;
 
@@ -22,6 +23,7 @@ public class PlayerAttack : MonoBehaviour
         attackCollider = transform.Find("Attack Hit Box");
         attackCollider.gameObject.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
         playerSwim = GetComponent<PlayerSwim>();
     }
@@ -43,6 +45,7 @@ public class PlayerAttack : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.AddForce(transform.up * airBoost, ForceMode2D.Impulse);
         }
+        anim.SetTrigger("Attack");
         yield return new WaitForSeconds(attackTime);
         attackCollider.gameObject.SetActive(false);
         yield return new WaitForSeconds(attackWait);

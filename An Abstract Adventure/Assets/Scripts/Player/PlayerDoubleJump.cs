@@ -26,7 +26,7 @@ public class PlayerDoubleJump : MonoBehaviour
         {
             if (anim)
             {
-                anim.SetTrigger("Jump");
+                anim.SetTrigger("DoubleJump");
             }
             rb.velocity = Vector2.zero;
             rb.AddForce(transform.up * doubleJumpForce * 10, ForceMode2D.Impulse);
