@@ -37,6 +37,7 @@ public class PlayerJump : MonoBehaviour
             if (anim)
             {
                 anim.SetTrigger("Jump");
+                anim.SetBool("IsFalling", true);
             }
             rb.velocity = Vector3.zero;
             rb.AddForce(transform.up * jumpForce * 10, ForceMode2D.Impulse);

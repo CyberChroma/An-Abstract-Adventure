@@ -34,7 +34,7 @@ public class SquareWallJump : MonoBehaviour
         {
             if (anim)
             {
-                anim.SetTrigger("Jump");
+                anim.SetTrigger("WallJump");
             }
             rb.velocity = Vector2.zero;
             StopAllCoroutines();
@@ -88,6 +88,7 @@ public class SquareWallJump : MonoBehaviour
                 StopAllCoroutines();
                 rb.gravityScale = 1;
                 canWallJump = false;
+                anim.SetBool("IsFalling", true);
                 playerMove.moveOverride = false;
             }
             if (otherContact)
@@ -96,6 +97,8 @@ public class SquareWallJump : MonoBehaviour
                 if (wallContact)
                 {
                     canWallJump = true;
+                    anim.SetBool("IsFalling", false);
+                    anim.SetTrigger("WallSlide");
                 }
             }
             else
@@ -113,6 +116,8 @@ public class SquareWallJump : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(InputOveride(0.2f, Vector2.zero));
             StartCoroutine(SlowFall(0.5f));
+            anim.SetTrigger("WallGrab");
+            anim.SetBool("IsFalling", false);
             canWallJump = true;
         }
         else
