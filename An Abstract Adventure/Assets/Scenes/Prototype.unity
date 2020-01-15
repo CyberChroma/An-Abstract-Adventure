@@ -22751,6 +22751,14 @@ PrefabInstance:
       propertyPath: interactArrow
       value: 
       objectReference: {fileID: 1511074409}
+    - target: {fileID: 1823672539, guid: 04de120c1c92b9e4682c31215daf5cc7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1823672542, guid: 04de120c1c92b9e4682c31215daf5cc7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 829373485438960581, guid: 04de120c1c92b9e4682c31215daf5cc7,
         type: 3}
       propertyPath: m_LocalRotation.z
@@ -23204,12 +23212,12 @@ PrefabInstance:
     - target: {fileID: 8290338285278267315, guid: 04de120c1c92b9e4682c31215daf5cc7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.393
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8290338285278267315, guid: 04de120c1c92b9e4682c31215daf5cc7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.52
+      value: -0.518
       objectReference: {fileID: 0}
     - target: {fileID: 8290338285278267315, guid: 04de120c1c92b9e4682c31215daf5cc7,
         type: 3}

@@ -11,6 +11,7 @@ public class SquareCrouch : MonoBehaviour
     private Transform mainSprite;
     private CapsuleCollider2D cc;
     private Rigidbody2D rb;
+    private Animator anim;
     private PlayerLineUp playerLineUp;
     private PlayerAttack playerAttack;
     private PlayerGroundCheck playerGroundCheck;
@@ -25,6 +26,7 @@ public class SquareCrouch : MonoBehaviour
         cc = GetComponent<CapsuleCollider2D>();
         playerLineUp = GetComponent<PlayerLineUp>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
         playerAttack = GetComponent<PlayerAttack>();
         squareWallJump = GetComponent<SquareWallJump>();
         squareShurikenThrow = GetComponent<SquareShurikenThrow>();
@@ -37,8 +39,9 @@ public class SquareCrouch : MonoBehaviour
         {
             if (playerGroundCheck.isGrounded && !crouching)
             {
-                mainSprite.localScale = new Vector3(1.5f, 0.5f, 1);
+                anim.SetBool("IsCrouching", true);
                 cc.size = new Vector2(1.5f, 0.5f);
+                cc.offset = new Vector2(0, -0.25f);
                 playerLineUp.disableAiming = true;
                 crouching = true;
                 setToStand = false;
@@ -75,8 +78,9 @@ public class SquareCrouch : MonoBehaviour
 
     void Stand ()
     {
-        mainSprite.localScale = Vector3.one;
+        anim.SetBool("IsCrouching", false);
         cc.size = Vector2.one;
+        cc.offset = new Vector2(0, 0);
         playerLineUp.disableAiming = false;
         crouching = false;
         setToStand = false;
