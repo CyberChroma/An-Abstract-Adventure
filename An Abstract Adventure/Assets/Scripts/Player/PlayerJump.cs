@@ -8,6 +8,7 @@ public class PlayerJump : MonoBehaviour
     public float lowJumpMultiplier;
     public float fallMultiplier;
     public float gravityMultiplier;
+    public float terminalVelocity;
 
     [HideInInspector] public bool disableJump;
 
@@ -56,6 +57,10 @@ public class PlayerJump : MonoBehaviour
             else if (rb.velocity.y < 0)
             {
                 rb.AddForce(transform.up * -fallMultiplier * rb.gravityScale * 10);
+            }
+            if (rb.velocity.y < -terminalVelocity)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, -terminalVelocity);
             }
         }
     }

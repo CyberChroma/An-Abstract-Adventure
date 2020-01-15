@@ -90,12 +90,7 @@ public class SquareCrouch : MonoBehaviour
     {
         if (canStick && !sticking && collision.gameObject.layer == 8 && !collision.collider.CompareTag("Slippery"))
         {
-            rb.gravityScale = 0;
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-            playerAttack.airBoostOverride = true;
-            squareWallJump.fallOverride = true;
-            squareShurikenThrow.airBoostOverride = true;
-            sticking = true;
+            Stick();
         }
     }
 
@@ -107,6 +102,17 @@ public class SquareCrouch : MonoBehaviour
         }
     }
 
+    void Stick ()
+    {
+        rb.gravityScale = 0;
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        playerAttack.airBoostOverride = true;
+        squareWallJump.fallOverride = true;
+        squareShurikenThrow.airBoostOverride = true;
+        sticking = true;
+        anim.SetBool("IsWallSticking", true);
+    }
+
     void Unstick()
     {
         rb.gravityScale = 1;
@@ -114,5 +120,6 @@ public class SquareCrouch : MonoBehaviour
         squareWallJump.fallOverride = false;
         squareShurikenThrow.airBoostOverride = false;
         sticking = false;
+        anim.SetBool("IsWallSticking", false);
     }
 }
