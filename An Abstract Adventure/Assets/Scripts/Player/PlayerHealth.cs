@@ -14,8 +14,9 @@ public class PlayerHealth : MonoBehaviour
 
     private int currentHealth;
     private bool canBeDamaged;
-    private GameObject mainSprite;
+    private SpriteRenderer[] sprites;
     private Rigidbody2D rb;
+    private Animator anim;
     private CircleMain circleMain;
     private SquareMain squareMain;
 
@@ -23,8 +24,9 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = healthUI.maxHealth;
         canBeDamaged = true;
-        mainSprite = transform.Find("Sprites").gameObject;
+        sprites = transform.Find("Sprites").GetComponentsInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
         circleMain = GetComponent<CircleMain>();
         squareMain = GetComponent<SquareMain>();
     }
@@ -71,6 +73,8 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator Death()
     {
+        currentHealth = 0;
+        healthUI.HealthChange(currentHealth);
         if (circleMain)
         {
             circleMain.enabled = false;
@@ -79,9 +83,8 @@ public class PlayerHealth : MonoBehaviour
         {
             squareMain.enabled = false;
         }
-        currentHealth = 0;
-        mainSprite.SetActive(false);
-        healthUI.HealthChange(currentHealth);
+        rb.velocity = Vector3.up;
+        anim.SetBool("Dead", true);
         yield return new WaitForSeconds(reloadDelay);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -89,11 +92,18 @@ public class PlayerHealth : MonoBehaviour
     IEnumerator Flicker()
     {
         canBeDamaged = false;
+        anim.SetTrigger("Hit");
         for (int i = 0; i < flickerNum; i++) {
             yield return new WaitForSeconds(flickerTime / 2 / flickerNum);
-            mainSprite.SetActive(false);
+            foreach (SpriteRenderer sprite in sprites)
+            {
+                sprite.enabled = false;
+            }
             yield return new WaitForSeconds(flickerTime / 2 / flickerNum);
-            mainSprite.SetActive(true);
+            foreach (SpriteRenderer sprite in sprites)
+            {
+                sprite.enabled = true;
+            }
         }
         canBeDamaged = true;
     }
