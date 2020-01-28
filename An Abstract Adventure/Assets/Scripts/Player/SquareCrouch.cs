@@ -40,7 +40,7 @@ public class SquareCrouch : MonoBehaviour
             if (playerGroundCheck.isGrounded && !crouching)
             {
                 anim.SetBool("IsCrouching", true);
-                cc.size = new Vector2(1.5f, 0.5f);
+                cc.size = new Vector2(1.5f, 0.45f);
                 cc.offset = new Vector2(0, -0.25f);
                 playerLineUp.disableAiming = true;
                 crouching = true;
@@ -79,7 +79,7 @@ public class SquareCrouch : MonoBehaviour
     void Stand ()
     {
         anim.SetBool("IsCrouching", false);
-        cc.size = Vector2.one;
+        cc.size = Vector2.one * 0.95f;
         cc.offset = new Vector2(0, 0);
         playerLineUp.disableAiming = false;
         crouching = false;

@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: f3a974303d26bde48a329989b8037c86
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 25
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+  spriteImportData:
+  - name: Test Level_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 4000
+      height: 2500
+    spriteID: 442b4f6747ed7964aac495fc15c7304f
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 0, y: 0}
+  mosaicSpriteImportData:
+  - name: Kall
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3183
+      y: 2512
+      width: 25
+      height: 25
+    spriteID: 32c5283f1f1abc247bce8b25b1daf439
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1608, y: 1262}
+  - name: Que
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 3183
+      y: 2545
+      width: 25
+      height: 25
+    spriteID: 5f5af9cbbc45ada47bc31837d6775394
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 1508, y: 1295}
+  - name: Curved Ground
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2512
+      width: 3171
+      height: 978
+    spriteID: 879b49d06155ccd42a5697ef2e898a32
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -411, y: 1767}
+  - name: Ground
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 3498
+      width: 1000
+      height: 50
+    spriteID: 7fc1a235c8d841c42b5d9e81a51b86e9
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -1540, y: 2398}
+  - name: Sky
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 4000
+      height: 2500
+    spriteID: 4245bf677706f76449c5274ce993571b
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4}
+  rigSpriteImportData:
+  - name: Kall
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 877
+      y: 3119
+      width: 25
+      height: 25
+    spriteID: 825aad1da73648a4fb4099378cad5c12
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 141, y: 1869}
+  - name: Que
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 910
+      y: 3119
+      width: 25
+      height: 25
+    spriteID: de7e881cb87022d49b719179699a120b
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 74, y: 1869}
+  - name: Ground 2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 1022
+      y: 2512
+      width: 559
+      height: 529
+    spriteID: 12a5fb2c9b684b242bb4e5877b7fd765
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -480, y: 1543}
+  - name: Rectangle 1 copy
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 511
+      y: 3119
+      width: 175
+      height: 27
+    spriteID: 5183a97b03cbfa54d9966a252c6a0e3b
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -656, y: 2295}
+  - name: Rectangle 1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 694
+      y: 3119
+      width: 175
+      height: 27
+    spriteID: 1d7cbd758b054e14f9b21700229adf47
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -473, y: 2009}
+  - name: Ground
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 511
+      y: 2512
+      width: 503
+      height: 599
+    spriteID: c2f891b13010c114487a45611b8f5ac2
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -164, y: 1974}
+  - name: Layer 1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 2512
+      width: 499
+      height: 672
+    spriteID: 2f1bb0e9b79020749a12481bb09b06bb
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -103, y: 2061}
+  - name: Sky
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 4000
+      height: 2500
+    spriteID: c8ddefede498895428004a0df3f541ed
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 4, y: 4}
+  platformSettings:
+  - name: Default
+    overridden: 1
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  mosaicLayers: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 0
+  importHiddenLayers: 1
+  importedTextureWidth: 4096
+  importedTextureHeight: 4096
+  documentSize: {x: 4000, y: 2500}
+  paperDollMode: 0
+  keepDupilcateSpriteName: 0
+  spriteCategoryList:
+    categories: []
+  textureActualWidth: 4096
+  textureActualHeight: 4096
+  spritePackingTag: 
+  resliceFromLayer: 1
+  characterMode: 1
+  mosaicPSDLayers:
+  - name: Kall
+    spriteName: Kall
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 32c5283f1f1abc247bce8b25b1daf439
+    layerID: 7
+    mosaicPosition: {x: 3183, y: 2512}
+  - name: Que
+    spriteName: Que
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 5f5af9cbbc45ada47bc31837d6775394
+    layerID: 5
+    mosaicPosition: {x: 3183, y: 2545}
+  - name: Curved Ground
+    spriteName: Curved Ground
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 879b49d06155ccd42a5697ef2e898a32
+    layerID: 13
+    mosaicPosition: {x: 4, y: 2512}
+  - name: Ground
+    spriteName: Ground
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 7fc1a235c8d841c42b5d9e81a51b86e9
+    layerID: 10
+    mosaicPosition: {x: 4, y: 3498}
+  - name: Sky
+    spriteName: Sky
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 4245bf677706f76449c5274ce993571b
+    layerID: 2
+    mosaicPosition: {x: 4, y: 4}
+  rigPSDLayers:
+  - name: Foreground
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 19
+    mosaicPosition: {x: 0, y: 0}
+  - name: Reference
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 21
+    mosaicPosition: {x: 0, y: 0}
+  - name: Kall
+    spriteName: Kall
+    isGroup: 0
+    parentIndex: 1
+    spriteID: 825aad1da73648a4fb4099378cad5c12
+    layerID: 7
+    mosaicPosition: {x: 877, y: 3119}
+  - name: Que
+    spriteName: Que
+    isGroup: 0
+    parentIndex: 1
+    spriteID: de7e881cb87022d49b719179699a120b
+    layerID: 5
+    mosaicPosition: {x: 910, y: 3119}
+  - name: Midground
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 17
+    mosaicPosition: {x: 0, y: 0}
+  - name: Ground 2
+    spriteName: Ground 2
+    isGroup: 0
+    parentIndex: 4
+    spriteID: 12a5fb2c9b684b242bb4e5877b7fd765
+    layerID: 33
+    mosaicPosition: {x: 1022, y: 2512}
+  - name: Rectangle 1 copy
+    spriteName: Rectangle 1 copy
+    isGroup: 0
+    parentIndex: 4
+    spriteID: 5183a97b03cbfa54d9966a252c6a0e3b
+    layerID: 25
+    mosaicPosition: {x: 511, y: 3119}
+  - name: Rectangle 1
+    spriteName: Rectangle 1
+    isGroup: 0
+    parentIndex: 4
+    spriteID: 1d7cbd758b054e14f9b21700229adf47
+    layerID: 24
+    mosaicPosition: {x: 694, y: 3119}
+  - name: Ground
+    spriteName: Ground
+    isGroup: 0
+    parentIndex: 4
+    spriteID: c2f891b13010c114487a45611b8f5ac2
+    layerID: 10
+    mosaicPosition: {x: 511, y: 2512}
+  - name: Layer 1
+    spriteName: Layer 1
+    isGroup: 0
+    parentIndex: 4
+    spriteID: 2f1bb0e9b79020749a12481bb09b06bb
+    layerID: 35
+    mosaicPosition: {x: 4, y: 2512}
+  - name: Background
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 00000000000000000000000000000000
+    layerID: 15
+    mosaicPosition: {x: 0, y: 0}
+  - name: Sky
+    spriteName: Sky
+    isGroup: 0
+    parentIndex: 10
+    spriteID: c8ddefede498895428004a0df3f541ed
+    layerID: 2
+    mosaicPosition: {x: 4, y: 4}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+  boneGOs: []
+  generateGOHierarchy: 1
+  textureAssetName: Test Level Texture
+  prefabAssetName: Test Level Prefab
+  spriteLibAssetName: Test Level Sprite Lib
