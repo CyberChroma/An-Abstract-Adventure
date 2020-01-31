@@ -9,13 +9,13 @@ public class PlayerDoubleJump : MonoBehaviour
     [HideInInspector] public bool canDoubleJump;
     [HideInInspector] public bool disableDoubleJump;
 
-    private Rigidbody2D rb;
+    private Rigidbody rb;
     private Animator anim;
     private SquareWallJump squareWallJump;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         squareWallJump = GetComponent<SquareWallJump>();
     }
@@ -28,8 +28,8 @@ public class PlayerDoubleJump : MonoBehaviour
             {
                 anim.SetTrigger("DoubleJump");
             }
-            rb.velocity = Vector2.zero;
-            rb.AddForce(transform.up * doubleJumpForce * 10, ForceMode2D.Impulse);
+            rb.velocity = Vector3.zero;
+            rb.AddForce(transform.up * doubleJumpForce * 10, ForceMode.Impulse);
             canDoubleJump = false;
         }
     }

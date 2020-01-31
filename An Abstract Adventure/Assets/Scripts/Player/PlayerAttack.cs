@@ -7,22 +7,22 @@ public class PlayerAttack : MonoBehaviour
     public float attackTime;
     public float attackWait;
     public float airBoost;
+    public Transform attackCollider;
+
 
     [HideInInspector] public bool disableAttack;
     [HideInInspector] public bool airBoostOverride;
 
     private bool canAttack = true;
-    private Transform attackCollider;
-    private Rigidbody2D rb;
+    private Rigidbody rb;
     private Animator anim;
     private PlayerGroundCheck playerGroundCheck;
     private PlayerSwim playerSwim;
 
     private void Start()
     {
-        attackCollider = transform.Find("Attack Hit Box");
         attackCollider.gameObject.SetActive(false);
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
         playerSwim = GetComponent<PlayerSwim>();
@@ -43,9 +43,12 @@ public class PlayerAttack : MonoBehaviour
         if (!airBoostOverride && !playerGroundCheck.isGrounded && !playerSwim.swimming && rb.velocity.y < 1)
         {
             rb.velocity = Vector3.zero;
-            rb.AddForce(transform.up * airBoost, ForceMode2D.Impulse);
+            rb.AddForce(transform.up * airBoost, ForceMode.Impulse);
         }
-        anim.SetTrigger("Attack");
+        if (anim)
+        {
+            anim.SetTrigger("Attack");
+        }
         yield return new WaitForSeconds(attackTime);
         attackCollider.gameObject.SetActive(false);
         yield return new WaitForSeconds(attackWait);

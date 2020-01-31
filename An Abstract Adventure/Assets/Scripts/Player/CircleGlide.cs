@@ -6,12 +6,12 @@ public class CircleGlide : MonoBehaviour
 {
     public float glideFallSpeed;
 
-    private Rigidbody2D rb;
+    private Rigidbody rb;
     private PlayerAttack playerAttack;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         playerAttack = GetComponent<PlayerAttack>();
     }
 
@@ -22,7 +22,7 @@ public class CircleGlide : MonoBehaviour
             playerAttack.disableAttack = true;
             if (rb.velocity.y < glideFallSpeed)
             {
-                rb.velocity = new Vector2(rb.velocity.x, glideFallSpeed);
+                rb.velocity = new Vector3(rb.velocity.x, glideFallSpeed, 0);
             }
         }
         else

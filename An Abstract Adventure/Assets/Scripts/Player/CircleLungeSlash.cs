@@ -10,8 +10,8 @@ public class CircleLungeSlash : MonoBehaviour
 
     private bool canLunge;
     private bool lunging;
-    private Vector2 lastVelocity;
-    private Rigidbody2D rb;
+    private Vector3 lastVelocity;
+    private Rigidbody rb;
     private PlayerMove playerMove;
     private PlayerDoubleJump playerDoubleJump;
     private PlayerLineUp playerLineUp;
@@ -22,7 +22,7 @@ public class CircleLungeSlash : MonoBehaviour
     void Awake()
     {
         lunging = false;
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         playerMove = GetComponent<PlayerMove>();
         playerDoubleJump = GetComponent<PlayerDoubleJump>();
         playerLineUp = GetComponent<PlayerLineUp>();
@@ -55,18 +55,18 @@ public class CircleLungeSlash : MonoBehaviour
             playerDoubleJump.canDoubleJump = true;
         }
         playerLineUp.canAim = false;
-        rb.velocity = Vector2.zero;
-        rb.AddForce(playerLineUp.arrow.transform.up.normalized * lungePower, ForceMode2D.Impulse);
-        playerMove.moveDir = Vector2.zero;
-        rb.gravityScale = 0;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(playerLineUp.arrow.transform.up.normalized * lungePower, ForceMode.Impulse);
+        playerMove.moveDir = Vector3.zero;
+        rb.useGravity = false;
         lunging = true;
         yield return new WaitForSeconds(lungeTime);
         lunging = false;
         playerLineUp.canAim = false;
-        rb.gravityScale = 1;
+        rb.useGravity = true;
         if (!playerSwim.swimming)
         {
-            playerMove.moveDir = new Vector2(rb.velocity.normalized.x * 3, 0);
+            playerMove.moveDir = new Vector3(rb.velocity.normalized.x * 3, 0, 0);
         }
         playerMove.noDrag = false;
         playerMove.moveOverride = false;
@@ -74,11 +74,11 @@ public class CircleLungeSlash : MonoBehaviour
         canLunge = true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (lunging && collision.gameObject.layer == 8)
         {
-            rb.velocity = Vector2.Reflect(lastVelocity, collision.contacts[0].normal);
+            rb.velocity = Vector3.Reflect(lastVelocity, collision.contacts[0].normal);
         }
     }
 }

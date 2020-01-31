@@ -21,7 +21,7 @@ public class TalkOnTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (!activated && (playerToTrigger && collision.gameObject == playerToTrigger) || (!playerToTrigger && collision.CompareTag("Player")))
         {

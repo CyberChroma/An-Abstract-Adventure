@@ -7,11 +7,12 @@ public class CameraFollow : MonoBehaviour
     public float smoothing;
     public float velocityDisX;
     public float velocityDisY;
+    public float cameraDis;
     public float offsetHeight;
     public float zoom;
     public float zoomSmoothing;
 
-    [HideInInspector] public Rigidbody2D player;
+    [HideInInspector] public Rigidbody player;
     [HideInInspector] public Transform target;
     [HideInInspector] public float tSmoothing;
     [HideInInspector] public float tOffsetHeight;
@@ -29,11 +30,11 @@ public class CameraFollow : MonoBehaviour
         {
             if (GameObject.Find("Kall"))
             {
-                player = GameObject.Find("Kall").GetComponent<Rigidbody2D>();
+                player = GameObject.Find("Kall").GetComponent<Rigidbody>();
             }
             else
             {
-                player = GameObject.Find("Que").GetComponent<Rigidbody2D>();
+                player = GameObject.Find("Que").GetComponent<Rigidbody>();
             }
         }
         mCam = GetComponent<Camera>();
@@ -44,7 +45,7 @@ public class CameraFollow : MonoBehaviour
     {
         if (target == null)
         {
-            movePos = Vector3.SmoothDamp(transform.position, new Vector3(player.position.x + player.velocity.x * velocityDisX, player.position.y + player.velocity.y * velocityDisY + offsetHeight, -10), ref camVelocity, smoothing, Mathf.Infinity, Time.deltaTime);
+            movePos = Vector3.SmoothDamp(transform.position, new Vector3(player.position.x + player.velocity.x * velocityDisX, player.position.y + player.velocity.y * velocityDisY + offsetHeight, player.position.z + -cameraDis), ref camVelocity, smoothing, Mathf.Infinity, Time.deltaTime);
             mCam.fieldOfView = Mathf.SmoothDamp(mCam.fieldOfView, zoom, ref zoomVelocity, zoomSmoothing, Mathf.Infinity, Time.deltaTime);
         }
         else

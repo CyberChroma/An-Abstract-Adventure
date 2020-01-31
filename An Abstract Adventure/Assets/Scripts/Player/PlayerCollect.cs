@@ -7,7 +7,7 @@ public class PlayerCollect : MonoBehaviour
     [HideInInspector] public int numCollectables;
     [HideInInspector] public bool collected;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.CompareTag(gameObject.name + " Collectable"))
         {

@@ -30,13 +30,13 @@ public class PlayerChange : MonoBehaviour
         {
             kall.activePlayer = true;
             que.activePlayer = false;
-            cameraFollow.player = kall.GetComponent<Rigidbody2D>();
+            cameraFollow.player = kall.GetComponent<Rigidbody>();
         }
         else
         {
             kall.activePlayer = false;
             que.activePlayer = true;
-            cameraFollow.player = que.GetComponent<Rigidbody2D>();
+            cameraFollow.player = que.GetComponent<Rigidbody>();
         }
     }
 
@@ -51,7 +51,7 @@ public class PlayerChange : MonoBehaviour
                 kall.playerLineUp.DisableArrow();
                 kall.activePlayer = false;
                 que.activePlayer = true;
-                cameraFollow.player = que.GetComponent<Rigidbody2D>();
+                cameraFollow.player = que.GetComponent<Rigidbody>();
             }
             else
             {
@@ -59,7 +59,7 @@ public class PlayerChange : MonoBehaviour
                 que.playerLineUp.DisableArrow();
                 que.activePlayer = false;
                 kall.activePlayer = true;
-                cameraFollow.player = kall.GetComponent<Rigidbody2D>();
+                cameraFollow.player = kall.GetComponent<Rigidbody>();
             }
         }
     }

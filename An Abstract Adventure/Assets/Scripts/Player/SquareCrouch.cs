@@ -9,8 +9,8 @@ public class SquareCrouch : MonoBehaviour
     private bool canStick;
     private bool sticking;
     private Transform mainSprite;
-    private CapsuleCollider2D cc;
-    private Rigidbody2D rb;
+    private CapsuleCollider cc;
+    private Rigidbody rb;
     private Animator anim;
     private PlayerLineUp playerLineUp;
     private PlayerAttack playerAttack;
@@ -23,9 +23,9 @@ public class SquareCrouch : MonoBehaviour
     {
         setToStand = false;
         mainSprite = transform.Find("Sprites");
-        cc = GetComponent<CapsuleCollider2D>();
+        cc = GetComponent<CapsuleCollider>();
         playerLineUp = GetComponent<PlayerLineUp>();
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         playerAttack = GetComponent<PlayerAttack>();
         squareWallJump = GetComponent<SquareWallJump>();
@@ -40,8 +40,8 @@ public class SquareCrouch : MonoBehaviour
             if (playerGroundCheck.isGrounded && !crouching)
             {
                 anim.SetBool("IsCrouching", true);
-                cc.size = new Vector2(1.5f, 0.45f);
-                cc.offset = new Vector2(0, -0.25f);
+                cc.center = new Vector2(0, -0.25f);
+                cc.radius = 0.25f;
                 playerLineUp.disableAiming = true;
                 crouching = true;
                 setToStand = false;
@@ -55,7 +55,7 @@ public class SquareCrouch : MonoBehaviour
         {
             if (crouching)
             {
-                if (Physics2D.Raycast(transform.position, Vector3.up, 0.5f, 1 << 8))
+                if (Physics.Raycast(transform.position, transform.up, 0.5f, 1 << 8))
                 {
                     setToStand = true;
                 }
@@ -70,7 +70,7 @@ public class SquareCrouch : MonoBehaviour
                 Unstick();
             }
         }
-        if (!playerGroundCheck.isGrounded || (setToStand && !Physics2D.Raycast(transform.position, transform.up, 0.5f, 1 << 8)))
+        if (!playerGroundCheck.isGrounded || (setToStand && !Physics.Raycast(transform.position, transform.up, 0.5f, 1 << 8)))
         {
             Stand();
         }
@@ -79,14 +79,14 @@ public class SquareCrouch : MonoBehaviour
     void Stand ()
     {
         anim.SetBool("IsCrouching", false);
-        cc.size = Vector2.one * 0.95f;
-        cc.offset = new Vector2(0, 0);
+        cc.center = Vector3.zero;
+        cc.radius = 0.5f;
         playerLineUp.disableAiming = false;
         crouching = false;
         setToStand = false;
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (canStick && !sticking && collision.gameObject.layer == 8 && !collision.collider.CompareTag("Slippery"))
         {
@@ -94,7 +94,7 @@ public class SquareCrouch : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit(Collision collision)
     {
         if (sticking && collision.gameObject.layer == 8 && !collision.collider.CompareTag("Slippery"))
         {
@@ -104,8 +104,8 @@ public class SquareCrouch : MonoBehaviour
 
     void Stick ()
     {
-        rb.gravityScale = 0;
-        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.useGravity = false;
+        rb.velocity = new Vector3(rb.velocity.x, 0, 0);
         playerAttack.airBoostOverride = true;
         squareWallJump.fallOverride = true;
         squareShurikenThrow.airBoostOverride = true;
@@ -115,7 +115,7 @@ public class SquareCrouch : MonoBehaviour
 
     void Unstick()
     {
-        rb.gravityScale = 1;
+        rb.useGravity = true;
         playerAttack.airBoostOverride = false;
         squareWallJump.fallOverride = false;
         squareShurikenThrow.airBoostOverride = false;

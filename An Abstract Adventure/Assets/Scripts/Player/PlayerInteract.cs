@@ -13,7 +13,7 @@ public class PlayerInteract : MonoBehaviour
         interactArrow.growing = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (canInteract && collision.gameObject.layer == 12)
         {
@@ -22,7 +22,7 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay(Collider collision)
     {
         if (canInteract && collision.gameObject.layer == 12)
         {

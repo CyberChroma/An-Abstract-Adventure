@@ -10,7 +10,7 @@ public class SquareWallJump : MonoBehaviour
     [HideInInspector] public bool canWallJump;
     [HideInInspector] public bool fallOverride;
 
-    private Rigidbody2D rb;
+    private Rigidbody rb;
     private Animator anim;
     private PlayerGroundCheck playerGroundCheck;
     private PlayerMove playerMove;
@@ -20,7 +20,7 @@ public class SquareWallJump : MonoBehaviour
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
         playerMove = GetComponent<PlayerMove>();
@@ -36,27 +36,19 @@ public class SquareWallJump : MonoBehaviour
             {
                 anim.SetTrigger("WallJump");
             }
-            rb.velocity = Vector2.zero;
+            rb.velocity = Vector3.zero;
             StopAllCoroutines();
-            if (playerMove.frontRight)
-            {
-                rb.AddForce(transform.up * wallJumpVForce * 10 + -transform.right * wallJumpHForce * 10, ForceMode2D.Impulse);
-                StartCoroutine(InputOveride(0.3f, -transform.right));
-            }
-            else
-            {
-                rb.AddForce(transform.up * wallJumpVForce * 10 + transform.right * wallJumpHForce * 10, ForceMode2D.Impulse);
-                StartCoroutine(InputOveride(0.3f, transform.right));
-            }
-            rb.gravityScale = 1;
-            playerMove.Flip();
+            playerMove.frontDir *= -1;
+            rb.AddForce(transform.up * wallJumpVForce * 10 + Vector3.right * playerMove.frontDir * wallJumpHForce * 10, ForceMode.Impulse);
+            StartCoroutine(InputOveride(0.3f, Vector3.right * playerMove.frontDir));
+            rb.useGravity = true;
             canWallJump = false;
             wallContact = false;
             otherContact = false;
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == 8 && !collision.collider.CompareTag("Slippery"))
         {
@@ -79,14 +71,14 @@ public class SquareWallJump : MonoBehaviour
         }
     }  
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.layer == 8 && !collision.collider.CompareTag("Slippery"))
         {
             if (canWallJump)
             {
                 StopAllCoroutines();
-                rb.gravityScale = 1;
+                rb.useGravity = true;
                 canWallJump = false;
                 anim.SetBool("IsFalling", true);
                 playerMove.moveOverride = false;
@@ -97,8 +89,11 @@ public class SquareWallJump : MonoBehaviour
                 if (wallContact)
                 {
                     canWallJump = true;
-                    anim.SetBool("IsFalling", false);
-                    anim.SetTrigger("WallSlide");
+                    if (anim)
+                    {
+                        anim.SetBool("IsFalling", false);
+                        anim.SetTrigger("WallSlide");
+                    }
                 }
             }
             else
@@ -114,10 +109,13 @@ public class SquareWallJump : MonoBehaviour
         if (!playerGroundCheck.isGrounded)
         {
             StopAllCoroutines();
-            StartCoroutine(InputOveride(0.2f, Vector2.zero));
-            StartCoroutine(SlowFall(0.5f));
-            anim.SetTrigger("WallGrab");
-            anim.SetBool("IsFalling", false);
+            StartCoroutine(InputOveride(0.2f, Vector3.zero));
+            StartCoroutine(SlowFall(0.25f));
+            if (anim)
+            {
+                anim.SetTrigger("WallGrab");
+                anim.SetBool("IsFalling", false);
+            }
             canWallJump = true;
         }
         else
@@ -126,7 +124,7 @@ public class SquareWallJump : MonoBehaviour
         }
     }
 
-    IEnumerator InputOveride(float delay, Vector2 moveDir)
+    IEnumerator InputOveride(float delay, Vector3 moveDir)
     {
         playerMove.moveOverride = true;
         playerMove.moveDir = moveDir;
@@ -138,13 +136,13 @@ public class SquareWallJump : MonoBehaviour
     {
         if (!fallOverride)
         {
-            rb.velocity = Vector2.zero;
-            rb.gravityScale = 0.1f;
+            rb.velocity = Vector3.zero;
+            rb.useGravity = false;
         }
         yield return new WaitForSeconds(delay);
         if (!fallOverride)
         {
-            rb.gravityScale = 1;
+            rb.useGravity = true;
         }
     }
 }

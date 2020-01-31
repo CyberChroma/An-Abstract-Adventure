@@ -17,9 +17,9 @@ public class PlayerGroundCheck : MonoBehaviour
         playerDoubleJump = GetComponentInParent<PlayerDoubleJump>();
     }
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnCollisionEnter(Collision collision)
     {
-        if (!isGrounded && collision.gameObject.layer == 8)
+        if (!isGrounded && collision.gameObject.layer == 8 && Mathf.Abs(collision.contacts[0].normal.x) <= 0.5f)
         {
             if (anim)
             {
@@ -31,9 +31,9 @@ public class PlayerGroundCheck : MonoBehaviour
         } 
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    void OnCollisionExit(Collision collision)
     {
-        if (isGrounded && collision.gameObject.layer == 8)
+        if (isGrounded && collision.gameObject.layer == 8 && !Physics.Raycast(transform.position, -transform.up, 0.5f, 1 << 8))
         {
             StopAllCoroutines();
             StartCoroutine(WaitToFall());
@@ -43,7 +43,7 @@ public class PlayerGroundCheck : MonoBehaviour
     IEnumerator WaitToFall ()
     {
         yield return new WaitForSeconds(fallDelay);
-        if (isGrounded)
+        if (isGrounded && !Physics.Raycast(transform.position, -Vector3.up, 0.6f, 1 << 8))
         {
             if (anim)
             {

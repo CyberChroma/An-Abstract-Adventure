@@ -12,23 +12,26 @@ public class PlayerJump : MonoBehaviour
 
     [HideInInspector] public bool disableJump;
 
-    private Rigidbody2D rb;
+    private Rigidbody rb;
     private Animator anim;
     private PlayerGroundCheck playerGroundCheck;
     private PlayerDoubleJump playerDoubleJump;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
-        playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
-        playerDoubleJump = GetComponentInChildren<PlayerDoubleJump>();
+        playerGroundCheck = GetComponent<PlayerGroundCheck>();
+        playerDoubleJump = GetComponent<PlayerDoubleJump>();
     }
 
     void FixedUpdate()
     {
-        rb.AddForce(transform.up * -gravityMultiplier * rb.gravityScale * 10);
-        Fall();
+        if (rb.useGravity)
+        {
+            rb.AddForce(transform.up * -gravityMultiplier * 10);
+            Fall();
+        }
     }
 
     public void Jump()
@@ -41,7 +44,7 @@ public class PlayerJump : MonoBehaviour
                 anim.SetBool("IsFalling", true);
             }
             rb.velocity = Vector3.zero;
-            rb.AddForce(transform.up * jumpForce * 10, ForceMode2D.Impulse);
+            rb.AddForce(transform.up * jumpForce * 10, ForceMode.Impulse);
             playerGroundCheck.isGrounded = false;
             playerDoubleJump.canDoubleJump = true;
         }
@@ -52,11 +55,11 @@ public class PlayerJump : MonoBehaviour
         if (!playerGroundCheck.isGrounded) {
             if (rb.velocity.y >= 0 && !Input.GetKey(KeyCode.Space))
             {
-                rb.AddForce(transform.up * -lowJumpMultiplier * rb.gravityScale * 10);
+                rb.AddForce(transform.up * -lowJumpMultiplier * 10);
             }
             else if (rb.velocity.y < 0)
             {
-                rb.AddForce(transform.up * -fallMultiplier * rb.gravityScale * 10);
+                rb.AddForce(transform.up * -fallMultiplier * 10);
             }
             if (rb.velocity.y < -terminalVelocity)
             {

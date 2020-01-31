@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
     private bool canBeDamaged;
     private SpriteRenderer[] sprites;
-    private Rigidbody2D rb;
+    private Rigidbody rb;
     private Animator anim;
     private CircleMain circleMain;
     private SquareMain squareMain;
@@ -25,13 +25,13 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = healthUI.maxHealth;
         canBeDamaged = true;
         sprites = transform.Find("Sprites").GetComponentsInChildren<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         circleMain = GetComponent<CircleMain>();
         squareMain = GetComponent<SquareMain>();
     }
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerStay(Collider collision)
     {
         if (collision.CompareTag("Kill"))
         {
@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
             else
             {
                 rb.velocity = Vector3.zero;
-                rb.AddForce(transform.up * knockbackHeight * 10, ForceMode2D.Impulse);
+                rb.AddForce(transform.up * knockbackHeight * 10, ForceMode.Impulse);
                 StartCoroutine(TempDisable());
                 StartCoroutine(Flicker());
             }
