@@ -19,7 +19,7 @@ public class PlayerGroundCheck : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (!isGrounded && collision.gameObject.layer == 8 && Mathf.Abs(collision.contacts[0].normal.x) <= 0.5f)
+        if (!isGrounded && collision.gameObject.layer == 8 && Mathf.Abs(collision.contacts[0].normal.x) < 0.9f)
         {
             if (anim)
             {

@@ -11,17 +11,17 @@ public class MovingObject : MonoBehaviour
     public bool reverse;
     public Transform[] targets;
 
-    [HideInInspector] public Vector2 velocity;
+    [HideInInspector] public Vector3 velocity;
 
     private int currTarget;
     private bool moving;
-    private Vector2 lastPos;
-    private Rigidbody2D rb;
+    private Vector3 lastPos;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
@@ -50,7 +50,7 @@ public class MovingObject : MonoBehaviour
             }
             else
             {
-                rb.MovePosition(Vector2.MoveTowards(rb.position, targets[currTarget].position, speed * Time.deltaTime));
+                rb.MovePosition(Vector3.MoveTowards(rb.position, targets[currTarget].position, speed * Time.deltaTime));
             }
         }
         if (Time.deltaTime != 0)
@@ -59,7 +59,7 @@ public class MovingObject : MonoBehaviour
         }
         else
         {
-            velocity = Vector2.zero;
+            velocity = Vector3.zero;
         }
         lastPos = rb.position;
     }

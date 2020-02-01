@@ -170,7 +170,7 @@ public class PlayerMove : MonoBehaviour
                 }
             }
             rb.AddForce(moveDir * speed * 10 * Time.deltaTime, ForceMode.Impulse);
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(new Vector3(0, 90 - frontDir * 90, 0)), rotSmoothing * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(new Vector3(0, 270 + frontDir * 90, 0)), rotSmoothing * Time.deltaTime);
         }
     }
 

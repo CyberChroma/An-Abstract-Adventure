@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
 
     private int currentHealth;
     private bool canBeDamaged;
-    private SpriteRenderer[] sprites;
+    private MeshRenderer[] meshes;
     private Rigidbody rb;
     private Animator anim;
     private CircleMain circleMain;
@@ -24,7 +24,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = healthUI.maxHealth;
         canBeDamaged = true;
-        sprites = transform.Find("Sprites").GetComponentsInChildren<SpriteRenderer>();
+        meshes = transform.Find("Sprites").GetComponentsInChildren<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         circleMain = GetComponent<CircleMain>();
@@ -95,14 +95,14 @@ public class PlayerHealth : MonoBehaviour
         anim.SetTrigger("Hit");
         for (int i = 0; i < flickerNum; i++) {
             yield return new WaitForSeconds(flickerTime / 2 / flickerNum);
-            foreach (SpriteRenderer sprite in sprites)
+            foreach (MeshRenderer mesh in meshes)
             {
-                sprite.enabled = false;
+                mesh.enabled = false;
             }
             yield return new WaitForSeconds(flickerTime / 2 / flickerNum);
-            foreach (SpriteRenderer sprite in sprites)
+            foreach (MeshRenderer mesh in meshes)
             {
-                sprite.enabled = true;
+                mesh.enabled = true;
             }
         }
         canBeDamaged = true;

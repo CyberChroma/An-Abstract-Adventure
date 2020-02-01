@@ -16,7 +16,7 @@ public class UISlide : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startPos = transform.position;
+        startPos = transform.localPosition;
         active = true;
     }
 
@@ -25,8 +25,8 @@ public class UISlide : MonoBehaviour
     {
         if (stayActive || active)
         {
-            transform.position = Vector3.Lerp(transform.position, startPos, enterSmoothing);
-            if (!stayActive && Vector3.Distance(transform.position, startPos) <= 1)
+            transform.localPosition = Vector3.Lerp(transform.localPosition, startPos, enterSmoothing);
+            if (!stayActive && Vector3.Distance(transform.localPosition, startPos) <= 1)
             {
                 StartCoroutine(WaitToDeactivate());
             }

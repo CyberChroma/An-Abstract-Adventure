@@ -32,7 +32,7 @@ TagManager:
   - No Player Collision
   - Attack Collider
   - Interact
-  - 
+  - PostProcessing
   - 
   - 
   - 
@@ -54,13 +54,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Background
-    uniqueID: 759490575
-    locked: 0
-  - name: Midground
-    uniqueID: 2759069991
-    locked: 0
-  - name: Foreground
-    uniqueID: 1786839069
     locked: 0
