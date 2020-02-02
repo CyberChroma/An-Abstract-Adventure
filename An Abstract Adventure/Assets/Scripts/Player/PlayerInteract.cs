@@ -46,7 +46,7 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider collision)
     {
         if (collision.gameObject.layer == 12)
         {

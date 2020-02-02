@@ -6,8 +6,6 @@ public class PlayerMove : MonoBehaviour
 {
     public float speed;
     public float moveSmoothness;
-    public float stopSmoothness;
-    public float airStopSmoothness;
     public float iceSmoothness;
     public float rotSmoothing;
     public GameObject attackCollider;
@@ -53,20 +51,13 @@ public class PlayerMove : MonoBehaviour
         }
         if ((!active || disableMove) && moveDir != Vector3.zero)
         {
-            if (playerGroundCheck.isGrounded)
+            if (slide)
             {
-                if (slide)
-                {
-                    moveDir = Vector3.Lerp(moveDir, Vector3.zero, iceSmoothness * Time.deltaTime);
-                }
-                else
-                {
-                    moveDir = Vector3.Lerp(moveDir, Vector3.zero, stopSmoothness * Time.deltaTime);
-                }
+                moveDir = Vector3.Lerp(moveDir, Vector3.zero, iceSmoothness * Time.deltaTime);
             }
             else
             {
-                moveDir = Vector3.Lerp(moveDir, Vector3.zero, airStopSmoothness * Time.deltaTime);
+                moveDir = Vector3.Lerp(moveDir, Vector3.zero, moveSmoothness * Time.deltaTime);
             }
             rb.AddForce (moveDir * speed  * 10 * Time.deltaTime, ForceMode.Impulse);
         }
@@ -152,20 +143,13 @@ public class PlayerMove : MonoBehaviour
                     {
                         anim.SetBool("IsRunning", false);
                     }
-                    if (playerGroundCheck.isGrounded)
+                    if (slide)
                     {
-                        if (slide)
-                        {
-                            moveDir = Vector3.Lerp(moveDir, Vector3.zero, iceSmoothness * Time.deltaTime);
-                        }
-                        else
-                        {
-                            moveDir = Vector3.Lerp(moveDir, Vector3.zero, moveSmoothness * Time.deltaTime);
-                        }
+                        moveDir = Vector3.Lerp(moveDir, Vector3.zero, iceSmoothness * Time.deltaTime);
                     }
                     else
                     {
-                        moveDir = Vector3.Lerp(moveDir, Vector3.zero, airStopSmoothness * Time.deltaTime);
+                        moveDir = Vector3.Lerp(moveDir, Vector3.zero, moveSmoothness * Time.deltaTime);
                     }
                 }
             }

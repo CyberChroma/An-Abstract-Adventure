@@ -12,7 +12,7 @@ public class SquareShurikenThrow : MonoBehaviour
 
     private PlayerLineUp playerLineUp;
     private PlayerGroundCheck playerGroundCheck;
-    private Rigidbody2D rb;
+    private Rigidbody rb;
     private Transform shurikenParent;
     private PlayerSwim playerSwim;
 
@@ -20,7 +20,7 @@ public class SquareShurikenThrow : MonoBehaviour
     {
         playerLineUp = GetComponent<PlayerLineUp>();
         playerGroundCheck = GetComponentInChildren<PlayerGroundCheck>();
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         shurikenParent = GameObject.Find("Shurikens").transform;
         playerSwim = GetComponent<PlayerSwim>();
     }
@@ -40,8 +40,8 @@ public class SquareShurikenThrow : MonoBehaviour
         Instantiate(shuriken, transform.position, playerLineUp.arrow.transform.rotation, shurikenParent);
         if (!playerGroundCheck.isGrounded && !airBoostOverride && !playerSwim.swimming)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.AddForce(transform.up * airBoost, ForceMode2D.Impulse);
+            rb.velocity = new Vector3(rb.velocity.x, 0);
+            rb.AddForce(transform.up * airBoost, ForceMode.Impulse);
         }
         yield return new WaitForSeconds(throwDelay);
         playerLineUp.canAim = true;
