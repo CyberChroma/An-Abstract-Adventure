@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Faded Cyan
+    second: {fileID: 2100000, guid: 31fb15780b760f54183fd2797ebb3241, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Glass
     second: {fileID: 2100000, guid: 43e26a818cce85542a2803912d64018a, type: 2}
   materials:

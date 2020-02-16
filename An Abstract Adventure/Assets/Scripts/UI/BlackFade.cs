@@ -27,16 +27,18 @@ public class BlackFade : MonoBehaviour
             if (fadeBlack)
             {
                 blackScreen.color = Color.Lerp(blackScreen.color, new Color(0, 0, 0, 1), smoothing * Time.deltaTime);
-                if (blackScreen.color == new Color(0, 0, 0, 1))
+                if (blackScreen.color.a >= 0.95f)
                 {
+                    blackScreen.color = new Color(0, 0, 0, 1);
                     fading = false;
                 }
             }
             else
             {
                 blackScreen.color = Color.Lerp(blackScreen.color, new Color(0, 0, 0, 0), smoothing * Time.deltaTime);
-                if (blackScreen.color == new Color(0, 0, 0, 0))
+                if (blackScreen.color.a <= 0.05f)
                 {
+                    blackScreen.color = new Color(0, 0, 0, 0);
                     fading = false;
                 }
             }

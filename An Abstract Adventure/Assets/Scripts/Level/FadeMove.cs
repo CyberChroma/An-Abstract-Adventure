@@ -33,7 +33,7 @@ public class FadeMove : MonoBehaviour
         blackFade.fading = true;
         yield return new WaitForSeconds(moveDelay);
         playerMain.transform.position = moveToPoint.position;
-        mCam.transform.position = moveToPoint.position;
+        mCam.transform.position = new Vector3 (moveToPoint.position.x, moveToPoint.position.y + 7, moveToPoint.position.z - 30);
         yield return new WaitForSeconds(fadeOutDelay);
         blackFade.fadeBlack = false;
         blackFade.fading = true;

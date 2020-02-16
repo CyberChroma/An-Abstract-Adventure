@@ -40,7 +40,7 @@ public class SquareWallJump : MonoBehaviour
             StopAllCoroutines();
             playerMove.frontDir *= -1;
             rb.AddForce(transform.up * wallJumpVForce * 10 + Vector3.right * playerMove.frontDir * wallJumpHForce * 10, ForceMode.Impulse);
-            StartCoroutine(InputOveride(0.3f, Vector3.right * playerMove.frontDir));
+            StartCoroutine(InputOveride(0.5f, Vector3.right * playerMove.frontDir));
             rb.useGravity = true;
             canWallJump = false;
             wallContact = false;
