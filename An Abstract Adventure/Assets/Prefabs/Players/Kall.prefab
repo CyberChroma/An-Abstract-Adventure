@@ -160,7 +160,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2255044934248157954}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: af45ffedce9749147a65002893e15c89, type: 2}
   m_CullingMode: 0
@@ -236,7 +236,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &1516138172
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
   jumpForce: 3
   lowJumpMultiplier: 20
   fallMultiplier: 1
-  gravityMultiplier: 6
+  gravityMultiplier: 5.5
   terminalVelocity: 25
   disableJump: 0
 --- !u!114 &6041659481721656091
