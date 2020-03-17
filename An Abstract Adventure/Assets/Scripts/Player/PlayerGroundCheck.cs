@@ -27,7 +27,10 @@ public class PlayerGroundCheck : MonoBehaviour
                 anim.SetTrigger("Land");
             }
             isGrounded = true;
-            playerDoubleJump.canDoubleJump = false;
+            if (playerDoubleJump)
+            {
+                playerDoubleJump.canDoubleJump = false;
+            }
         } 
     }
 
@@ -50,7 +53,10 @@ public class PlayerGroundCheck : MonoBehaviour
                 anim.SetBool("IsFalling", true);
             }
             isGrounded = false;
-            playerDoubleJump.canDoubleJump = true;
+            if (playerDoubleJump)
+            {
+                playerDoubleJump.canDoubleJump = true;
+            }
         }
     }
 }

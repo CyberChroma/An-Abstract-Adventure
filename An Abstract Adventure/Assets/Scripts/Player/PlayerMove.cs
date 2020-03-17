@@ -8,7 +8,6 @@ public class PlayerMove : MonoBehaviour
     public float moveSmoothness;
     public float iceSmoothness;
     public float rotSmoothing;
-    public GameObject attackCollider;
 
     [HideInInspector] public bool active;
     [HideInInspector] public int frontDir;
@@ -75,7 +74,7 @@ public class PlayerMove : MonoBehaviour
                     {
                         anim.SetBool("IsRunning", true);
                     }
-                    if (!attackCollider.activeSelf && frontDir == -1)
+                    if (frontDir == -1)
                     {
                         frontDir *= -1;
                         if (playerGroundCheck.isGrounded)
@@ -109,7 +108,7 @@ public class PlayerMove : MonoBehaviour
                     {
                         anim.SetBool("IsRunning", true);
                     }
-                    if (!attackCollider.activeSelf && frontDir == 1)
+                    if (frontDir == 1)
                     {
                         frontDir *= -1;
                         if (playerGroundCheck.isGrounded)

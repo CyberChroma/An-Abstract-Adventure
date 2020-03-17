@@ -28,11 +28,7 @@ public class PlayerInteract : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.O))
             {
-                if (collision.CompareTag("Test"))
-                {
-                    print("Interact Test!");
-                }
-                else if (collision.CompareTag("Fade Move"))
+                if (collision.CompareTag("Fade Move"))
                 {
                     collision.GetComponent<FadeMove>().MovePlayer(GetComponent<PlayerMain>());
                     interactArrow.growing = false;

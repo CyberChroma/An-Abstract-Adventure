@@ -6,60 +6,66 @@ public class PlayerChange : MonoBehaviour
 {
     public enum ActivePlayer
     {
-        Kall,
-        Que
+        Cube,
+        Sphere
     }
 
     public ActivePlayer activePlayer;
+    public CameraFollow cubeCamera;
+    public CameraFollow sphereCamera;
+    public GameObject cubeActiveUI;
+    public GameObject sphereActiveUI;
 
-    private CameraFollow cameraFollow;
-    private CircleMain kall;
-    private SquareMain que;
+    private SquareMain cube;
+    private CircleMain sphere;
 
     // Start is called before the first frame update
     void Awake()
     {
-        cameraFollow = GetComponent<CameraFollow>();
-        kall = FindObjectOfType<CircleMain>();
-        que = FindObjectOfType<SquareMain>();
+        cube = FindObjectOfType<SquareMain>();
+        sphere = FindObjectOfType<CircleMain>();
     }
 
     void Start()
     {
-        if (activePlayer == ActivePlayer.Kall)
+        if (activePlayer == ActivePlayer.Cube)
         {
-            kall.activePlayer = true;
-            que.activePlayer = false;
-            cameraFollow.player = kall.GetComponent<Rigidbody>();
+            sphere.enabled = false;
+            cube.enabled = true;
+            cubeCamera.player = cube.GetComponent<Rigidbody>();
+            cubeActiveUI.SetActive(true);
+            sphereActiveUI.SetActive(false);
         }
         else
         {
-            kall.activePlayer = false;
-            que.activePlayer = true;
-            cameraFollow.player = que.GetComponent<Rigidbody>();
+            sphere.enabled = true;
+            cube.enabled = false;
+            sphereCamera.player = sphere.GetComponent<Rigidbody>();
+            cubeActiveUI.SetActive(false);
+            sphereActiveUI.SetActive(true);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (activePlayer == ActivePlayer.Kall)
+            if (activePlayer == ActivePlayer.Cube)
             {
-                activePlayer = ActivePlayer.Que;
-                kall.playerLineUp.DisableArrow();
-                kall.activePlayer = false;
-                que.activePlayer = true;
-                cameraFollow.player = que.GetComponent<Rigidbody>();
+                activePlayer = ActivePlayer.Sphere;
+                sphere.enabled = true;
+                cube.enabled = false;
+                cubeActiveUI.SetActive(false);
+                sphereActiveUI.SetActive(true);
             }
             else
             {
-                activePlayer = ActivePlayer.Kall;
-                que.playerLineUp.DisableArrow();
-                que.activePlayer = false;
-                kall.activePlayer = true;
-                cameraFollow.player = kall.GetComponent<Rigidbody>();
+                activePlayer = ActivePlayer.Cube;
+                cube.enabled = true;
+                sphere.enabled = false;
+                cubeActiveUI.SetActive(true);
+                sphereActiveUI.SetActive(false);
             }
         }
     }

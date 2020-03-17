@@ -46,7 +46,10 @@ public class PlayerJump : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.AddForce(transform.up * jumpForce * 10, ForceMode.Impulse);
             playerGroundCheck.isGrounded = false;
-            playerDoubleJump.canDoubleJump = true;
+            if (playerDoubleJump)
+            {
+                playerDoubleJump.canDoubleJump = true;
+            }
         }
     }
 

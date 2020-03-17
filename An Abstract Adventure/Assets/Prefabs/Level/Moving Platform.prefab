@@ -153,7 +153,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3802658767191431458, guid: 2f505e2af1745d84eac75a3466a89a05, type: 3}
+  - {fileID: 2100000, guid: f04f91ebd00de8143953d827e7684b4d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -223,4 +223,4 @@ MonoBehaviour:
   targets:
   - {fileID: 34909560089367517}
   - {fileID: 34909559258708458}
-  velocity: {x: 0, y: 0}
+  velocity: {x: 0, y: 0, z: 0}

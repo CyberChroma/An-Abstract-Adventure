@@ -11,6 +11,7 @@ public class CameraFollow : MonoBehaviour
     public float offsetHeight;
     public float zoom;
     public float zoomSmoothing;
+    public Vector2 maxVelocity;
 
     [HideInInspector] public Rigidbody player;
     [HideInInspector] public Transform target;
@@ -45,7 +46,7 @@ public class CameraFollow : MonoBehaviour
     {
         if (target == null)
         {
-            movePos = Vector3.SmoothDamp(transform.position, new Vector3(player.position.x + player.velocity.x * velocityDisX, player.position.y + player.velocity.y * velocityDisY + offsetHeight, player.position.z + -cameraDis), ref camVelocity, smoothing, Mathf.Infinity, Time.deltaTime);
+            movePos = Vector3.SmoothDamp(transform.position, new Vector3(player.position.x + Mathf.Min(Mathf.Abs(player.velocity.x), maxVelocity.x) * player.velocity.normalized.x * velocityDisX, player.position.y + Mathf.Min(Mathf.Abs(player.velocity.y), maxVelocity.y) * player.velocity.normalized.y * velocityDisY + offsetHeight, player.position.z + -cameraDis), ref camVelocity, smoothing, Mathf.Infinity, Time.deltaTime);
             mCam.fieldOfView = Mathf.SmoothDamp(mCam.fieldOfView, zoom, ref zoomVelocity, zoomSmoothing, Mathf.Infinity, Time.deltaTime);
         }
         else

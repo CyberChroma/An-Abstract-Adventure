@@ -37,7 +37,7 @@ public class PlayerHealth : MonoBehaviour
         {
             StartCoroutine(Death());
         }
-        else if (collision.CompareTag("Hazard") || collision.CompareTag("Enemy"))
+        else if (collision.CompareTag("Hazard"))
         {
             Damage();
         }
@@ -58,14 +58,6 @@ public class PlayerHealth : MonoBehaviour
                 rb.AddForce(transform.up * knockbackHeight * 10, ForceMode.Impulse);
                 StartCoroutine(TempDisable());
                 StartCoroutine(Flicker());
-            }
-            if (circleMain)
-            {
-                circleMain.playerLineUp.DisableArrow();
-            }
-            else
-            {
-                squareMain.playerLineUp.DisableArrow();
             }
             healthUI.HealthChange(currentHealth);
         }

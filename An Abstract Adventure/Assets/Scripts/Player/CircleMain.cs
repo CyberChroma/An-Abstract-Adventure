@@ -4,66 +4,50 @@ using UnityEngine;
 
 public class CircleMain : MonoBehaviour
 {
-    [HideInInspector] public bool activePlayer;
     [HideInInspector] public PlayerMove playerMove;
-    [HideInInspector] public PlayerLineUp playerLineUp;
     
     private PlayerJump playerJump;
     private PlayerDoubleJump playerDoubleJump;
-    private PlayerAttack playerAttack;
-    private PlayerSwim playerSwim;
-    private PlayerSwimBoost playerSwimBoost;
+    //private PlayerSwim playerSwim;
+    //private PlayerSwimBoost playerSwimBoost;
     private PlayerInteract playerInteract;
-    private CircleLungeSlash circleLungeSlash;
-    private CircleGlide circleGlide;
+    private CircleSlam circleSlam;
 
     void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
         playerJump = GetComponent<PlayerJump>();
         playerDoubleJump = GetComponent<PlayerDoubleJump>();
-        playerAttack = GetComponent<PlayerAttack>();
-        playerLineUp = GetComponent<PlayerLineUp>();
-        playerSwim = GetComponent<PlayerSwim>();
-        playerSwimBoost = GetComponent<PlayerSwimBoost>();
+        //playerSwim = GetComponent<PlayerSwim>();
+        //playerSwimBoost = GetComponent<PlayerSwimBoost>();
         playerInteract = GetComponent<PlayerInteract>();
-        circleLungeSlash = GetComponent<CircleLungeSlash>();
-        circleGlide = GetComponent<CircleGlide>();
+        circleSlam = GetComponent<CircleSlam>();
     }
 
     private void Update()
     {
-        if (activePlayer)
+        circleSlam.Slam();
+        /*if (playerSwim.swimming)
         {
-            playerLineUp.LineUp();
-            circleLungeSlash.LungeSlash();
-            playerAttack.Attack();
-            if (playerSwim.swimming)
-            {
-                playerSwimBoost.SwimBoost();
-            }
-            else
-            {
-                circleGlide.Glide();
-                playerDoubleJump.DoubleJump();
-                playerJump.Jump();
-            }
+            playerSwimBoost.SwimBoost();
         }
+        else
+        {*/
+            playerDoubleJump.DoubleJump();
+            playerJump.Jump();
+        //}
     }
 
     void FixedUpdate()
     {
-        if (activePlayer)
+        /*if (playerSwim.swimming)
         {
-            if (playerSwim.swimming)
-            {
-                playerSwim.Swim();
-            }
-            else
-            {
-                playerMove.Move();
-            }
+            playerSwim.Swim();
         }
+        else
+        {*/
+            playerMove.Move();
+        //}
     }
 
     void OnEnable()
@@ -75,10 +59,8 @@ public class CircleMain : MonoBehaviour
     void OnDisable()
     {
         playerMove.active = false;
-        playerLineUp.DisableArrow();
         playerMove.disableMove = false;
         playerJump.disableJump = false;
-        playerDoubleJump.disableDoubleJump = false;
         playerInteract.canInteract = false;
     }
 }

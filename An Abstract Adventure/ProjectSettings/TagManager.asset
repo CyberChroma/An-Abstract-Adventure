@@ -5,19 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Hazard
-  - Enemy
   - Kill
-  - Destructable
-  - Reflect
   - Water
-  - Test
   - Kall Collectable
   - Que Collectable
   - Moving
   - Fade Move
   - Slippery
-  - Push
   - Talk
+  - Dash
+  - Slam
+  - Push
   layers:
   - Default
   - TransparentFX
@@ -30,7 +28,7 @@ TagManager:
   - Environment
   - Player
   - No Player Collision
-  - Attack Collider
+  - 
   - Interact
   - PostProcessing
   - 

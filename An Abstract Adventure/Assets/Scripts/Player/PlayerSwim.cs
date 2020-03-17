@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerSwim : MonoBehaviour
 {
-    public float speed;
+/*    public float speed;
     public float rotSmoothing;
 
     [HideInInspector] public bool swimming;
@@ -107,5 +107,5 @@ public class PlayerSwim : MonoBehaviour
             }
             rb.rotation = 0;
         }
-    }
+    }*/
 }

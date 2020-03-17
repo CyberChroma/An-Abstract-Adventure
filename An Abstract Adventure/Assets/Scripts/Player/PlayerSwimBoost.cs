@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerSwimBoost : MonoBehaviour
 {
-    public float boostForce;
+/*    public float boostForce;
     public float boostDelay;
 
     private bool canBoost;
@@ -32,5 +32,5 @@ public class PlayerSwimBoost : MonoBehaviour
         canBoost = false;
         yield return new WaitForSeconds(boostDelay);
         canBoost = true;
-    }
+    }*/
 }
