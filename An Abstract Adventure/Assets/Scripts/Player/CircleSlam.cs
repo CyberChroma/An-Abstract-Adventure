@@ -47,12 +47,8 @@ public class CircleSlam : MonoBehaviour
         yield return new WaitForSeconds(airPauseTime);
         slaming = true;
         rb.velocity = Vector3.zero;
-        while (true)
+        while (!playerGroundCheck.isGrounded)
         {
-            if (playerGroundCheck.isGrounded)
-            {
-                break;
-            }
             yield return null;
         }
         rb.useGravity = true;

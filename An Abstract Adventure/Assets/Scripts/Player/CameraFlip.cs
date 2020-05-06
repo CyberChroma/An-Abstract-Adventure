@@ -13,6 +13,7 @@ public class CameraFlip : MonoBehaviour
     {
         camera = GetComponent<Camera>();
     }
+
     void OnPreCull()
     {
         camera.ResetWorldToCameraMatrix();
@@ -20,6 +21,7 @@ public class CameraFlip : MonoBehaviour
         Vector3 scale = new Vector3(flipHorizontal ? -1 : 1, 1, 1);
         camera.projectionMatrix = camera.projectionMatrix * Matrix4x4.Scale(scale);
     }
+
     void OnPreRender()
     {
         GL.invertCulling = flipHorizontal;

@@ -39,7 +39,7 @@ public class CameraFollow : MonoBehaviour
             }
         }
         mCam = GetComponent<Camera>();
-        mCam.fieldOfView = zoom;
+        mCam.orthographicSize = zoom;
     }
 
     void FixedUpdate()
