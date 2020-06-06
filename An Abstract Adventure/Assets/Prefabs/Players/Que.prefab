@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 1365786364}
   - component: {fileID: 1679227437}
   - component: {fileID: 1679227438}
+  - component: {fileID: 3135753079163122019}
   m_Layer: 9
   m_Name: Que
   m_TagString: Player
@@ -59,7 +60,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 120
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!135 &4291474232943116604
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMove: {fileID: 0}
+  isActive: 0
 --- !u!114 &4010378348238694572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +243,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numCollectables: 0
   collected: 0
+--- !u!114 &3135753079163122019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010378348238694568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baff8890cc863e1419767f59eea27113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toFollow: {fileID: 0}
+  following: 0
 --- !u!1 &5129935547463832465
 GameObject:
   m_ObjectHideFlags: 0

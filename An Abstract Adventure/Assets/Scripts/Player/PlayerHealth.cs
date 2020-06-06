@@ -17,8 +17,10 @@ public class PlayerHealth : MonoBehaviour
     private MeshRenderer[] meshes;
     private Rigidbody rb;
     private Animator anim;
+    private Animator otherAnim;
     private CircleMain circleMain;
     private SquareMain squareMain;
+    private PlayerChange playerChange;
 
     void Start()
     {
@@ -29,6 +31,8 @@ public class PlayerHealth : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         circleMain = GetComponent<CircleMain>();
         squareMain = GetComponent<SquareMain>();
+        otherAnim = GetComponent<PlayerFollowOther>().toFollow.GetComponentInChildren<Animator>();
+        playerChange = FindObjectOfType<PlayerChange>();
     }
 
     void OnTriggerStay(Collider collision)
@@ -76,7 +80,11 @@ public class PlayerHealth : MonoBehaviour
             squareMain.enabled = false;
         }
         rb.velocity = Vector3.up;
+        rb.isKinematic = true;
         anim.SetBool("Dead", true);
+        otherAnim.SetBool("NotActive", false);
+        otherAnim.SetBool("Dead", true);
+        playerChange.enabled = false;
         yield return new WaitForSeconds(reloadDelay);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SquareMain : MonoBehaviour
 {
     [HideInInspector] public PlayerMove playerMove;
+    [HideInInspector] public bool isActive;
 
     private PlayerJump playerJump;
     //private PlayerSwim playerSwim;

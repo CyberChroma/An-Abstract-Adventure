@@ -61,6 +61,7 @@ ScriptedImporter:
     maxTextureSizeSet: 0
     compressionQualitySet: 0
     textureFormatSet: 0
+    applyGammaDecoding: 0
   spriteImportData:
   - name: 
     originalName: 
@@ -11871,70 +11872,8 @@ ScriptedImporter:
       order: 0
     dimension: {x: 0, y: 0}
     characterGroups: []
-  boneGOs:
-  - go: {fileID: 3576617104247256079, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 0
-  - go: {fileID: 5132228027897877685, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 1
-  - go: {fileID: 6739271580571698498, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 2
-  - go: {fileID: 4151849202310260960, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 3
-  - go: {fileID: -178609866142910810, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 4
-  - go: {fileID: -2257505650151788167, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 5
-  - go: {fileID: -189412608233054901, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 6
-  - go: {fileID: -5739958161064519098, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 7
-  - go: {fileID: -7846843721826569050, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 8
-  - go: {fileID: -6862000998691177687, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 9
-  - go: {fileID: 3418934071334749224, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 10
-  - go: {fileID: 4767197739551420276, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 11
-  - go: {fileID: 2240681697938482888, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 12
-  - go: {fileID: -4769336795313672321, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 13
-  - go: {fileID: -499572134035476837, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 14
-  - go: {fileID: 2702330527869226493, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 15
-  - go: {fileID: -6643706684579534362, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 16
-  - go: {fileID: 6102225722494232450, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 17
-  - go: {fileID: 6867167247655391002, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 18
-  - go: {fileID: 2706097155626236183, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 19
-  - go: {fileID: -2203000630305992129, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 20
-  - go: {fileID: 1714372139248279362, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 21
-  - go: {fileID: 645969691671580734, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 22
-  - go: {fileID: -6971307313441087929, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 23
-  - go: {fileID: 2884633999468468886, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 24
-  - go: {fileID: 207944720277871493, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 25
-  - go: {fileID: 3234747647757800207, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 26
-  - go: {fileID: 5950810648597378099, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 27
-  - go: {fileID: 5940058184443333023, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 28
-  - go: {fileID: 5001238482172348460, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 29
-  - go: {fileID: -3985050013789918451, guid: abce30a3068558541ac2650f35f11680, type: 3}
-    index: 30
   generateGOHierarchy: 0
   textureAssetName: Que Texture
   prefabAssetName: Que Prefab
   spriteLibAssetName: Que Sprite Lib
+  secondarySpriteTextures: []
