@@ -11,8 +11,8 @@ public class PlayerChange : MonoBehaviour
     }
 
     public ActivePlayer activePlayer;
-    public CameraFollow cubeCamera;
-    public CameraFollow sphereCamera;
+    public Camera cubeCamera;
+    public Camera sphereCamera;
     public GameObject cubeActiveUI;
     public GameObject sphereActiveUI;
 
@@ -32,6 +32,8 @@ public class PlayerChange : MonoBehaviour
     private PlayerFollowOther sphereFollowOther;
     private PlayerFollowOther cubeCameraFollowOther;
     private PlayerFollowOther sphereCameraFollowOther;
+    private CameraFollow cubeCameraFollow;
+    private CameraFollow sphereCameraFollow;
 
     // Start is called before the first frame update
     void Awake()
@@ -52,6 +54,10 @@ public class PlayerChange : MonoBehaviour
         sphereFollowOther = sphereMain.GetComponent<PlayerFollowOther>();
         cubeCameraFollowOther = cubeCamera.GetComponent<PlayerFollowOther>();
         sphereCameraFollowOther = sphereCamera.GetComponent<PlayerFollowOther>();
+        cubeCameraFollow = cubeCamera.GetComponent<CameraFollow>();
+        sphereCameraFollow = sphereCamera.GetComponent<CameraFollow>();
+        cubeCameraFollow.player = cubeRb;
+        sphereCameraFollow.player = sphereRb;
     }
 
     void Start()
@@ -60,7 +66,6 @@ public class PlayerChange : MonoBehaviour
         {
             sphereMain.enabled = false;
             cubeMain.enabled = true;
-            cubeCamera.player = cubeRb;
             cubeActiveUI.SetActive(true);
             sphereActiveUI.SetActive(false);
             cubeFollowOther.following = false;
@@ -71,6 +76,8 @@ public class PlayerChange : MonoBehaviour
             sphereColl.enabled = false;
             cubeCameraFollowOther.following = false;
             sphereCameraFollowOther.following = true;
+            cubeCamera.depth = -1;
+            sphereCamera.depth = -2;
             if (cubeAnim)
             {
                 cubeAnim.SetBool("NotActive", false);
@@ -84,7 +91,6 @@ public class PlayerChange : MonoBehaviour
         {
             sphereMain.enabled = true;
             cubeMain.enabled = false;
-            sphereCamera.player = sphereRb;
             cubeActiveUI.SetActive(false);
             sphereActiveUI.SetActive(true);
             cubeFollowOther.following = true;
@@ -95,6 +101,8 @@ public class PlayerChange : MonoBehaviour
             sphereColl.enabled = true;
             cubeCameraFollowOther.following = true;
             sphereCameraFollowOther.following = false;
+            cubeCamera.depth = -2;
+            sphereCamera.depth = -1;
             if (cubeAnim)
             {
                 cubeAnim.SetBool("NotActive", true);
@@ -129,7 +137,10 @@ public class PlayerChange : MonoBehaviour
                 sphereCameraFollowOther.following = false;
                 sphereMove.moveDir = cubeMove.moveDir;
                 sphereMove.frontDir = cubeMove.frontDir;
+                sphereGroundCheck.isGrounded = cubeGroundCheck.isGrounded;
                 cubeGroundCheck.isGrounded = false;
+                cubeCamera.depth = -2;
+                sphereCamera.depth = -1;
                 if (cubeAnim)
                 {
                     cubeAnim.SetBool("NotActive", true);
@@ -157,7 +168,10 @@ public class PlayerChange : MonoBehaviour
                 sphereCameraFollowOther.following = true;
                 cubeMove.moveDir = sphereMove.moveDir;
                 cubeMove.frontDir = sphereMove.frontDir;
+                cubeGroundCheck.isGrounded = sphereGroundCheck.isGrounded;
                 sphereGroundCheck.isGrounded = false;
+                cubeCamera.depth = -1;
+                sphereCamera.depth = -2;
                 if (cubeAnim)
                 {
                     cubeAnim.SetBool("NotActive", false);
