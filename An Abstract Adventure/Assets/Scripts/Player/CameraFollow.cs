@@ -14,7 +14,7 @@ public class CameraFollow : MonoBehaviour
     public Vector2 maxVelocity;
 
     [HideInInspector] public Rigidbody player;
-    [HideInInspector] public Transform target;
+    public Transform target;
     [HideInInspector] public float tSmoothing;
     [HideInInspector] public float tOffsetHeight;
     [HideInInspector] public float tZoom;
@@ -33,9 +33,14 @@ public class CameraFollow : MonoBehaviour
             {
                 player = GameObject.Find("Kall").GetComponent<Rigidbody>();
             }
-            else
+            else if (GameObject.Find("Que"))
             {
                 player = GameObject.Find("Que").GetComponent<Rigidbody>();
+            }
+            else // Temp for tether
+            {
+                player = target.GetComponent<Rigidbody>();
+                target = null;
             }
         }
         mCam = GetComponent<Camera>();
@@ -46,14 +51,13 @@ public class CameraFollow : MonoBehaviour
     {
         if (target == null)
         {
-            movePos = Vector3.SmoothDamp(transform.position, new Vector3(player.position.x + Mathf.Min(Mathf.Abs(player.velocity.x), maxVelocity.x) * player.velocity.normalized.x * velocityDisX, player.position.y + Mathf.Min(Mathf.Abs(player.velocity.y), maxVelocity.y) * player.velocity.normalized.y * velocityDisY + offsetHeight, player.position.z + -cameraDis), ref camVelocity, smoothing, Mathf.Infinity, Time.deltaTime);
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(player.position.x + Mathf.Min(Mathf.Abs(player.velocity.x), maxVelocity.x) * player.velocity.normalized.x * velocityDisX, player.position.y + Mathf.Min(Mathf.Abs(player.velocity.y), maxVelocity.y) * player.velocity.normalized.y * velocityDisY + offsetHeight, player.position.z + -cameraDis), ref camVelocity, smoothing, Mathf.Infinity, Time.deltaTime);
             mCam.fieldOfView = Mathf.SmoothDamp(mCam.fieldOfView, zoom, ref zoomVelocity, zoomSmoothing, Mathf.Infinity, Time.deltaTime);
         }
         else
         {
-            movePos = Vector3.SmoothDamp(transform.position, new Vector3(target.position.x, target.position.y + tOffsetHeight, transform.position.z), ref camVelocity, tSmoothing, Mathf.Infinity, Time.deltaTime);
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(target.position.x, target.position.y + tOffsetHeight, transform.position.z), ref camVelocity, tSmoothing, Mathf.Infinity, Time.deltaTime);
             mCam.fieldOfView = Mathf.SmoothDamp(mCam.fieldOfView, tZoom, ref zoomVelocity, tZoomSmoothing, Mathf.Infinity, Time.deltaTime);
         }
-        transform.position = movePos;
     }
 }

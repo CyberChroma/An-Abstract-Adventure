@@ -10,10 +10,10 @@ public class PlayerMove : MonoBehaviour
     public float rotSmoothing;
 
     [HideInInspector] public bool active;
-    [HideInInspector] public int frontDir;
+    [HideInInspector] public int frontDir ;
     [HideInInspector] public Vector3 moveDir = Vector3.zero;
     [HideInInspector] public bool moveOverride;
-    [HideInInspector] public bool noDrag;
+    [HideInInspector] public bool noDrag; 
     [HideInInspector] public bool disableMove;
 
     private bool slide;
