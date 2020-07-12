@@ -14,7 +14,7 @@ public class CameraFollow : MonoBehaviour
     public Vector2 maxVelocity;
 
     [HideInInspector] public Rigidbody player;
-    public Transform target;
+    [HideInInspector] public Transform target;
     [HideInInspector] public float tSmoothing;
     [HideInInspector] public float tOffsetHeight;
     [HideInInspector] public float tZoom;
@@ -36,11 +36,6 @@ public class CameraFollow : MonoBehaviour
             else if (GameObject.Find("Que"))
             {
                 player = GameObject.Find("Que").GetComponent<Rigidbody>();
-            }
-            else // Temp for tether
-            {
-                player = target.GetComponent<Rigidbody>();
-                target = null;
             }
         }
         mCam = GetComponent<Camera>();

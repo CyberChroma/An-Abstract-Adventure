@@ -1674,7 +1674,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 709d1acb9c7529645808ddef06f4672c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 709d1acb9c7529645808ddef06f4672c,
         type: 3}
@@ -3211,7 +3211,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 709d1acb9c7529645808ddef06f4672c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 709d1acb9c7529645808ddef06f4672c,
         type: 3}
@@ -3755,7 +3755,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 709d1acb9c7529645808ddef06f4672c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 709d1acb9c7529645808ddef06f4672c,
         type: 3}
@@ -4566,7 +4566,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 709d1acb9c7529645808ddef06f4672c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 709d1acb9c7529645808ddef06f4672c,
         type: 3}
@@ -5103,6 +5103,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2115937403}
     m_Modifications:
+    - target: {fileID: 349293638, guid: 04de120c1c92b9e4682c31215daf5cc7, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1518674929, guid: 04de120c1c92b9e4682c31215daf5cc7, type: 3}
       propertyPath: healthUI
       value: 
@@ -8829,6 +8833,10 @@ PrefabInstance:
       propertyPath: healthUI
       value: 
       objectReference: {fileID: 1886429006}
+    - target: {fileID: 1516138173, guid: 10699db9f1bed2d44b8a5e2d2586f40b, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6041659481323916677, guid: 10699db9f1bed2d44b8a5e2d2586f40b,
         type: 3}
       propertyPath: toFollow
