@@ -23,7 +23,6 @@ public class TetherPull : MonoBehaviour
         Debug.DrawLine(cubeRb.position, sphereRb.position, Color.red);
         Vector3 dirSToC = cubeRb.position - sphereRb.position;
         dirSToC.z = 0;
-        print(dirSToC.magnitude);
         if (dirSToC.magnitude > pullFastDistance)
         {
             cubeForceToApply = Vector3.Lerp(cubeForceToApply, -dirSToC * pullFastSpeed, pullFastSmoothing);

@@ -6,12 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Test Level.unity
-    guid: 2cdba43dabcd8334ba63e961c91bda51
+    path: Assets/URP Assets/Scenes/SampleScene.unity
+    guid: d1c3109bdb54ad54c8a2b2838528e640
   - enabled: 1
-    path: Assets/Scenes/Old Test Levels/Rooftops Test Level.unity
-    guid: d0dad4272b5729042bc3e4788feb40ae
-  - enabled: 1
-    path: Assets/Scenes/Old Test Levels/Factory Test Level.unity
-    guid: 79f586cfb35daa746ba7f073661998dc
+    path: Assets/Scenes/Tether Testing.unity
+    guid: e2d77955a3c7a674789e6a0654b36232
   m_configObjects: {}
