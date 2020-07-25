@@ -20,7 +20,6 @@ public class TetherPull : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.DrawLine(cubeRb.position, sphereRb.position, Color.red);
         Vector3 dirSToC = cubeRb.position - sphereRb.position;
         dirSToC.z = 0;
         if (dirSToC.magnitude > pullFastDistance)

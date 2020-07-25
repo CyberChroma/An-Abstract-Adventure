@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class TetherSwitch : MonoBehaviour
 {
+    public enum ActivePlayer
+    {
+        cube,
+        sphere
+    }
+
     public TetherPlayerMove cubePlayer;
     public TetherPlayerMove spherePlayer;
+    public ActivePlayer activePlayer;
 
-    private bool cubeActive;
     private TetherCameraFollow tetherCameraFollow;
 
     // Start is called before the first frame update
     void Start()
     {
-        cubePlayer.active = true;
-        spherePlayer.active = false;
+        cubePlayer.mode = TetherPlayerMove.Mode.Active;
+        spherePlayer.mode = TetherPlayerMove.Mode.Following;
         tetherCameraFollow = GetComponent<TetherCameraFollow>();
         tetherCameraFollow.player = cubePlayer.GetComponent<Rigidbody>();
     }
@@ -24,19 +30,20 @@ public class TetherSwitch : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            if (cubeActive)
+            if (activePlayer == ActivePlayer.cube)
             {
-                cubePlayer.active = false;
-                spherePlayer.active = true;
+                cubePlayer.mode = TetherPlayerMove.Mode.Following;
+                spherePlayer.mode = TetherPlayerMove.Mode.Active;
                 tetherCameraFollow.player = spherePlayer.GetComponent<Rigidbody>();
+                activePlayer = ActivePlayer.sphere;
             }
             else
             {
-                cubePlayer.active = true;
-                spherePlayer.active = false;
+                cubePlayer.mode = TetherPlayerMove.Mode.Active;
+                spherePlayer.mode = TetherPlayerMove.Mode.Following;
                 tetherCameraFollow.player = cubePlayer.GetComponent<Rigidbody>();
+                activePlayer = ActivePlayer.cube;
             }
-            cubeActive = !cubeActive;
         }
     }
 }

@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class TetherPlayerMove : MonoBehaviour
 {
+    public enum Mode
+    {
+        Active,
+        Following
+    }
+    public Mode mode;
+
     [Header("Move")]
     public float speed;
     public float moveSmoothness;
     public float rotSmoothing;
-    public float horizontalDrag;
-    public bool active;
 
     [Header("Jump")]
     public float jumpForce;
@@ -19,12 +24,16 @@ public class TetherPlayerMove : MonoBehaviour
     public float terminalVelocity;
 
     [Header("Grounded")]
-    public float fallDelay;
+    public float jumpInputStoreTime;
+    public float fallJumpDelay;
 
     [HideInInspector] public Rigidbody rb;
-    private Vector3 moveDir = Vector3.zero;
+    private float moveDir;
     private int frontDir;
     private bool isGrounded;
+    private bool jumpInput;
+    private bool canJump;
+    private Vector3 combinedVelocity;
 
     void Awake()
     {
@@ -34,86 +43,108 @@ public class TetherPlayerMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (active)
+        combinedVelocity = Vector3.zero;
+        if (mode == Mode.Active)
         {
-            Move();
+            combinedVelocity.x = Move();
         }
-        else if (moveDir != Vector3.zero)
+        else
         {
-            moveDir = Vector3.Lerp(moveDir, Vector3.zero, moveSmoothness * Time.deltaTime);
-            rb.AddForce(moveDir * speed * 10 * Time.deltaTime, ForceMode.Impulse);
+            combinedVelocity.x = 0;
+            //Follow Active Player
         }
-        if (horizontalDrag != 0)
+        Turn();
+        combinedVelocity.y = Jump();
+        if (!isGrounded && combinedVelocity.y == 0 && rb.useGravity)
         {
-            rb.velocity = new Vector3(rb.velocity.x * (1 / horizontalDrag), rb.velocity.y, 0);
+            combinedVelocity.y = Fall();
         }
-        if (rb.useGravity)
-        {
-            rb.AddForce(transform.up * -gravityMultiplier * 10);
-            Fall();
-        }
+        combinedVelocity.z = 0;
+        rb.velocity = combinedVelocity;
     }
 
     private void Update()
     {
-        if (active)
+        if (mode == Mode.Active)
         {
-            Jump();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                jumpInput = true;
+                StopCoroutine(StoreJumpInput());
+                StartCoroutine(StoreJumpInput());
+            }
         }
     }
 
-    void Move()
+    float Move()
     {
         if (Input.GetKey(KeyCode.D))
         {
             if (frontDir == -1)
             {
-                frontDir *= -1;
-                moveDir = Vector3.Lerp(moveDir, Vector3.right, moveSmoothness * Time.deltaTime);
+                frontDir = 1;
+                moveDir = Mathf.Lerp(moveDir, 1, moveSmoothness * Time.deltaTime);
             }
-            moveDir = Vector3.Lerp(moveDir, Vector3.right, moveSmoothness * Time.deltaTime);
+            moveDir = Mathf.Lerp(moveDir, 1, moveSmoothness * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.A))
         {
             if (frontDir == 1)
             {
-                frontDir *= -1;
-                moveDir = Vector3.Lerp(moveDir, -Vector3.right, moveSmoothness * Time.deltaTime);
+                frontDir = -1;
+                moveDir = Mathf.Lerp(moveDir, -1, moveSmoothness * Time.deltaTime);
             }
-            moveDir = Vector3.Lerp(moveDir, -Vector3.right, moveSmoothness * Time.deltaTime);
+            moveDir = Mathf.Lerp(moveDir, -1, moveSmoothness * Time.deltaTime);
         }
-        else if (moveDir != Vector3.zero)
+        else if (moveDir != 0)
         {
-            moveDir = Vector3.Lerp(moveDir, Vector3.zero, moveSmoothness * Time.deltaTime);
+            moveDir = Mathf.Lerp(moveDir, 0, moveSmoothness * Time.deltaTime);
         }
-        rb.AddForce(moveDir * speed * 10 * Time.deltaTime, ForceMode.Impulse);
+        float moveVel = moveDir * speed * 10 * Time.deltaTime;
+        return moveVel;
+    }
+
+    void Turn ()
+    {
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(new Vector3(0, 270 + frontDir * 90, 0)), rotSmoothing * Time.deltaTime);
     }
 
-    void Jump()
+    float Fall()
     {
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.velocity = Vector3.zero;
-            rb.AddForce(transform.up * jumpForce * 10, ForceMode.Impulse);
-            isGrounded = false;
-        }
-    }
-
-    void Fall()
-    {
+        float fallVel = rb.velocity.y;
+        fallVel -= gravityMultiplier * 10 * Time.deltaTime;
         if (rb.velocity.y >= 0 && !Input.GetKey(KeyCode.Space))
         {
-            rb.AddForce(transform.up * -lowJumpMultiplier * 10);
+            fallVel -= lowJumpMultiplier * 10 * Time.deltaTime;
         }
         else if (rb.velocity.y < 0)
         {
-            rb.AddForce(transform.up * -fallMultiplier * 10);
+            fallVel -= fallMultiplier * 10 * Time.deltaTime;
         }
         if (rb.velocity.y < -terminalVelocity)
         {
-            rb.velocity = new Vector3(rb.velocity.x, -terminalVelocity);
+            fallVel = -terminalVelocity;
         }
+        return fallVel;
+    }
+
+    float Jump()
+    {
+        float jumpVel = 0;
+        if (canJump && jumpInput)
+        {
+            jumpVel = jumpForce * 10;
+            canJump = false;
+            jumpInput = false;
+            isGrounded = false;
+        }
+        return jumpVel;
+    }
+
+    IEnumerator StoreJumpInput ()
+    {
+        yield return new WaitForSeconds(jumpInputStoreTime);
+        jumpInput = false;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -121,6 +152,7 @@ public class TetherPlayerMove : MonoBehaviour
         if (!isGrounded && collision.gameObject.layer == 8 && Mathf.Abs(collision.contacts[0].normal.x) < 0.9f)
         {
             isGrounded = true;
+            canJump = true;
         }
     }
 
@@ -128,17 +160,18 @@ public class TetherPlayerMove : MonoBehaviour
     {
         if (isGrounded && collision.gameObject.layer == 8 && !Physics.Raycast(transform.position, -transform.up, 0.5f, 1 << 8))
         {
-            StopAllCoroutines();
-            StartCoroutine(WaitToFall());
+            isGrounded = false;
+            StopCoroutine(WaitToCancelJump());
+            StartCoroutine(WaitToCancelJump());
         }
     }
 
-    IEnumerator WaitToFall()
+    IEnumerator WaitToCancelJump()
     {
-        yield return new WaitForSeconds(fallDelay);
-        if (isGrounded && !Physics.Raycast(transform.position, -Vector3.up, 0.6f, 1 << 8))
+        yield return new WaitForSeconds(fallJumpDelay);
+        if (!Physics.Raycast(transform.position, -Vector3.up, 0.6f, 1 << 8))
         {
-            isGrounded = false;
+            canJump = false;
         }
     }
 }
