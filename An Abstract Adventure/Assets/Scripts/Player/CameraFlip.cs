@@ -2,33 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
 [ExecuteInEditMode]
+[RequireComponent(typeof(Camera))]
 public class CameraFlip : MonoBehaviour
 {
-    new Camera camera;
-    public bool flipHorizontal;
+    private Camera cam;
 
     void Awake()
     {
-        camera = GetComponent<Camera>();
+        cam = GetComponent<Camera>();
     }
 
-    void OnPreCull()
+    void OnEnable()
     {
-        camera.ResetWorldToCameraMatrix();
-        camera.ResetProjectionMatrix();
-        Vector3 scale = new Vector3(flipHorizontal ? -1 : 1, 1, 1);
-        camera.projectionMatrix = camera.projectionMatrix * Matrix4x4.Scale(scale);
+        cam.projectionMatrix *= Matrix4x4.Scale(new Vector3(-1, 1, 1));
     }
 
-    void OnPreRender()
+    void OnDisable()
     {
-        GL.invertCulling = flipHorizontal;
-    }
-
-    void OnPostRender()
-    {
-        GL.invertCulling = false;
+        cam.projectionMatrix *= Matrix4x4.Scale(new Vector3(-1, 1, 1));
     }
 }

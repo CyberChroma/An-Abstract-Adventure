@@ -23,17 +23,25 @@ public class TetherPlayerMove : MonoBehaviour
     public float gravityMultiplier;
     public float terminalVelocity;
 
-    [Header("Grounded")]
+    [Header("Ground Detection")]
     public float jumpInputStoreTime;
     public float fallJumpDelay;
 
-    [HideInInspector] public Rigidbody rb;
+    [Header("Tether Pull")]
+    public TetherPlayerMove otherPlayerMove;
+    public float followDelay;
+
     private float moveDir;
     private int frontDir;
     private bool isGrounded;
     private bool jumpInput;
     private bool canJump;
+    private bool inputML;
+    private bool inputMR;
+    private bool inputJ;
+    private bool inputJD;
     private Vector3 combinedVelocity;
+    private Rigidbody rb;
 
     void Awake()
     {
@@ -46,16 +54,20 @@ public class TetherPlayerMove : MonoBehaviour
         combinedVelocity = Vector3.zero;
         if (mode == Mode.Active)
         {
-            combinedVelocity.x = Move();
+            GetKeyInput();
+            StartCoroutine(otherPlayerMove.FollowPastInput(inputML, inputMR, inputJ));
         }
         else
         {
-            combinedVelocity.x = 0;
-            //Follow Active Player
+            if (otherPlayerMove.moveDir == 0)
+            {
+
+            }
         }
-        Turn();
+        combinedVelocity.x = Move();
         combinedVelocity.y = Jump();
-        if (!isGrounded && combinedVelocity.y == 0 && rb.useGravity)
+        Turn();
+        if (!isGrounded && rb.useGravity && combinedVelocity.y == 0)
         {
             combinedVelocity.y = Fall();
         }
@@ -63,22 +75,36 @@ public class TetherPlayerMove : MonoBehaviour
         rb.velocity = combinedVelocity;
     }
 
-    private void Update()
+    void Update()
     {
         if (mode == Mode.Active)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                jumpInput = true;
-                StopCoroutine(StoreJumpInput());
-                StartCoroutine(StoreJumpInput());
-            }
+            GetKeyDownInput();
+            StartCoroutine(otherPlayerMove.FollowPastInputDown(inputJD));
         }
+        if (inputJD)
+        {
+            jumpInput = true;
+            StopCoroutine(StoreJumpInput());
+            StartCoroutine(StoreJumpInput());
+        }
+    }
+
+    void GetKeyInput ()
+    {
+        inputML = Input.GetKey(KeyCode.A);
+        inputMR = Input.GetKey(KeyCode.D);
+        inputJ = Input.GetKey(KeyCode.Space);
+    }
+
+    void GetKeyDownInput ()
+    {
+        inputJD = Input.GetKeyDown(KeyCode.Space);
     }
 
     float Move()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (inputMR)
         {
             if (frontDir == -1)
             {
@@ -87,7 +113,7 @@ public class TetherPlayerMove : MonoBehaviour
             }
             moveDir = Mathf.Lerp(moveDir, 1, moveSmoothness * Time.deltaTime);
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (inputML)
         {
             if (frontDir == 1)
             {
@@ -113,7 +139,7 @@ public class TetherPlayerMove : MonoBehaviour
     {
         float fallVel = rb.velocity.y;
         fallVel -= gravityMultiplier * 10 * Time.deltaTime;
-        if (rb.velocity.y >= 0 && !Input.GetKey(KeyCode.Space))
+        if (rb.velocity.y >= 0 && !inputJ)
         {
             fallVel -= lowJumpMultiplier * 10 * Time.deltaTime;
         }
@@ -173,5 +199,19 @@ public class TetherPlayerMove : MonoBehaviour
         {
             canJump = false;
         }
+    }
+
+    IEnumerator FollowPastInput(bool storedInputML, bool storedInputMR, bool storedInputJ)
+    {
+        yield return new WaitForSeconds(followDelay);
+        inputML = storedInputML;
+        inputMR = storedInputMR;
+        inputJ = storedInputJ;
+    }
+
+    IEnumerator FollowPastInputDown(bool storedInputJD)
+    {
+        yield return new WaitForSeconds(followDelay);
+        inputJD = storedInputJD;
     }
 }
