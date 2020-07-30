@@ -30,23 +30,33 @@ public class TetherPlayerMove : MonoBehaviour
     [Header("Tether Pull")]
     public TetherPlayerMove otherPlayerMove;
     public float followDelay;
+    public float followAcceleration;
+    public float followDrag;
+    public float followSmoothing;
+    public float maxFollowSpeed;
+
+    // Inputs
+    private bool inputML;
+    private bool inputMR;
+    private bool inputJ;
+    private bool inputJD;
 
     private float moveDir;
     private int frontDir;
     private bool isGrounded;
     private bool jumpInput;
     private bool canJump;
-    private bool inputML;
-    private bool inputMR;
-    private bool inputJ;
-    private bool inputJD;
+
+    private Vector3 pastPos;
     private Vector3 combinedVelocity;
-    private Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public Vector3 currAcceleration;
 
     void Awake()
     {
         frontDir = 1;
         rb = GetComponent<Rigidbody>();
+        pastPos = transform.position;
     }
 
     void FixedUpdate()
@@ -55,22 +65,43 @@ public class TetherPlayerMove : MonoBehaviour
         if (mode == Mode.Active)
         {
             GetKeyInput();
-            StartCoroutine(otherPlayerMove.FollowPastInput(inputML, inputMR, inputJ));
-        }
-        else
-        {
-            if (otherPlayerMove.moveDir == 0)
+            StartCoroutine(otherPlayerMove.FollowPastPosition(rb.position));
+            combinedVelocity.x = Move();
+            combinedVelocity.y = Jump();
+            if (!isGrounded && rb.useGravity && combinedVelocity.y == 0)
             {
-
+                combinedVelocity.y = Fall();
             }
         }
-        combinedVelocity.x = Move();
-        combinedVelocity.y = Jump();
-        Turn();
-        if (!isGrounded && rb.useGravity && combinedVelocity.y == 0)
+        else if (Time.deltaTime != 0)
         {
-            combinedVelocity.y = Fall();
+            if (pastPos == rb.position)
+            {
+                currAcceleration = Vector3.zero;
+            }
+            else
+            {
+                Vector3 dir = pastPos - rb.position;
+                dir = dir.normalized * Mathf.Pow(dir.magnitude, 2);
+                currAcceleration = Vector3.Lerp(currAcceleration, dir * followAcceleration, followSmoothing);
+                currAcceleration.z = 0;
+            }
+            combinedVelocity = currAcceleration * Time.deltaTime + rb.velocity;
+            if (rb.useGravity)
+            {
+                combinedVelocity.y = FollowFall(combinedVelocity.y);
+            }
+            if (followDrag > 0)
+            {
+                combinedVelocity /= 1 + followDrag;
+            }
+            if (combinedVelocity.magnitude > maxFollowSpeed)
+            {
+                combinedVelocity = combinedVelocity.normalized * maxFollowSpeed;
+                currAcceleration = (combinedVelocity - rb.velocity) / Time.deltaTime;
+            }
         }
+        Turn();
         combinedVelocity.z = 0;
         rb.velocity = combinedVelocity;
     }
@@ -80,13 +111,12 @@ public class TetherPlayerMove : MonoBehaviour
         if (mode == Mode.Active)
         {
             GetKeyDownInput();
-            StartCoroutine(otherPlayerMove.FollowPastInputDown(inputJD));
-        }
-        if (inputJD)
-        {
-            jumpInput = true;
-            StopCoroutine(StoreJumpInput());
-            StartCoroutine(StoreJumpInput());
+            if (inputJD)
+            {
+                jumpInput = true;
+                StopCoroutine(StoreJumpInput());
+                StartCoroutine(StoreJumpInput());
+            }
         }
     }
 
@@ -133,6 +163,17 @@ public class TetherPlayerMove : MonoBehaviour
     void Turn ()
     {
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(new Vector3(0, 270 + frontDir * 90, 0)), rotSmoothing * Time.deltaTime);
+    }
+
+    float FollowFall (float addTo)
+    {
+        float fallVel = addTo;
+        fallVel -= (gravityMultiplier + fallMultiplier) * 10 * Time.deltaTime;
+        if (rb.velocity.y < -maxFollowSpeed)
+        {
+            fallVel = -maxFollowSpeed;
+        }
+        return fallVel;
     }
 
     float Fall()
@@ -201,17 +242,9 @@ public class TetherPlayerMove : MonoBehaviour
         }
     }
 
-    IEnumerator FollowPastInput(bool storedInputML, bool storedInputMR, bool storedInputJ)
+    IEnumerator FollowPastPosition(Vector3 storedPosition)
     {
         yield return new WaitForSeconds(followDelay);
-        inputML = storedInputML;
-        inputMR = storedInputMR;
-        inputJ = storedInputJ;
-    }
-
-    IEnumerator FollowPastInputDown(bool storedInputJD)
-    {
-        yield return new WaitForSeconds(followDelay);
-        inputJD = storedInputJD;
+        pastPos = storedPosition;
     }
 }

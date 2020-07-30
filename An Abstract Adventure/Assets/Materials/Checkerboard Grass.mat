@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Test Mat
+  m_Name: Checkerboard Grass
   m_Shader: {fileID: -6465566751694194690, guid: 75b76d1c7b316f64aa1a06301e597646,
     type: 3}
   m_ShaderKeywords: 
@@ -49,6 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_B5FE7A8: 0.5
     - Vector1_CF855A59: 0
     - _AlphaClip: 0
     - _Blend: 0
@@ -74,6 +75,7 @@ Material:
     m_Colors:
     - Color_118BB6DD: {r: 0.5471698, g: 0.45487493, b: 0.25551796, a: 1}
     - Color_B78BAA48: {r: 0.30726603, g: 0.99607843, b: 0, a: 1}
+    - Vector2_9A400C9: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

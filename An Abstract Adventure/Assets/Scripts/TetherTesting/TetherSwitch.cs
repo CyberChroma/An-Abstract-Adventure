@@ -36,6 +36,12 @@ public class TetherSwitch : MonoBehaviour
                 spherePlayer.mode = TetherPlayerMove.Mode.Active;
                 tetherCameraFollow.player = spherePlayer.GetComponent<Rigidbody>();
                 activePlayer = ActivePlayer.sphere;
+
+                spherePlayer.rb.velocity = Vector3.zero;
+                spherePlayer.currAcceleration = Vector3.zero;
+
+                cubePlayer.rb.velocity = Vector3.zero;
+                cubePlayer.currAcceleration = Vector3.zero;
             }
             else
             {
@@ -43,6 +49,12 @@ public class TetherSwitch : MonoBehaviour
                 spherePlayer.mode = TetherPlayerMove.Mode.Following;
                 tetherCameraFollow.player = cubePlayer.GetComponent<Rigidbody>();
                 activePlayer = ActivePlayer.cube;
+
+                cubePlayer.rb.velocity = Vector3.zero;
+                cubePlayer.currAcceleration = Vector3.zero;
+
+                spherePlayer.rb.velocity = Vector3.zero;
+                spherePlayer.currAcceleration = Vector3.zero;
             }
         }
     }
