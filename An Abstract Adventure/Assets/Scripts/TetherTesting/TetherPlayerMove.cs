@@ -35,6 +35,9 @@ public class TetherPlayerMove : MonoBehaviour
     public float followSmoothing;
     public float maxFollowSpeed;
 
+    public float activePullMinDis;
+    public float activePullMaxDis;
+
     // Inputs
     private bool inputML;
     private bool inputMR;
@@ -49,8 +52,11 @@ public class TetherPlayerMove : MonoBehaviour
 
     private Vector3 pastPos;
     private Vector3 combinedVelocity;
-    [HideInInspector] public Rigidbody rb;
-    [HideInInspector] public Vector3 currAcceleration;
+    private Rigidbody rb;
+    private Vector3 currAcceleration;
+
+    private Vector3 activePullBack;
+    private Vector3 currActivePull;
 
     void Awake()
     {
@@ -62,27 +68,34 @@ public class TetherPlayerMove : MonoBehaviour
     void FixedUpdate()
     {
         combinedVelocity = Vector3.zero;
+        Vector3 dir = otherPlayerMove.rb.position - rb.position;
+        dir.z = 0;
         if (mode == Mode.Active)
         {
-            GetKeyInput();
             StartCoroutine(otherPlayerMove.FollowPastPosition(rb.position));
+            pastPos = rb.position;
+            GetKeyInput();
             combinedVelocity.x = Move();
             combinedVelocity.y = Jump();
             if (!isGrounded && rb.useGravity && combinedVelocity.y == 0)
             {
                 combinedVelocity.y = Fall();
             }
+            activePullBack = Vector3.Lerp(Vector3.zero, combinedVelocity.magnitude * dir.normalized, Mathf.Clamp((dir.magnitude - activePullMinDis) / (activePullMaxDis - activePullMinDis), 0, 1));
+            currActivePull = Vector3.Lerp (currActivePull, activePullBack, dir.magnitude / activePullMaxDis);
+            combinedVelocity += currActivePull;
         }
         else if (Time.deltaTime != 0)
         {
+            activePullBack = Vector3.zero;
+            currActivePull = Vector3.zero;
             if (pastPos == rb.position)
             {
                 currAcceleration = Vector3.zero;
             }
             else
             {
-                Vector3 dir = pastPos - rb.position;
-                dir = dir.normalized * Mathf.Pow(dir.magnitude, 2);
+                dir = dir.normalized * Mathf.Pow(dir.magnitude + 1, 2);
                 currAcceleration = Vector3.Lerp(currAcceleration, dir * followAcceleration, followSmoothing);
                 currAcceleration.z = 0;
             }
