@@ -27,7 +27,7 @@ public class TetherPlayerMove : MonoBehaviour
     public float jumpInputStoreTime;
     public float fallJumpDelay;
 
-    [Header("Tether Pull")]
+    [Header("Tether Follow Pull")]
     public TetherPlayerMove otherPlayerMove;
     public float followDelay;
     public float followAcceleration;
@@ -35,28 +35,29 @@ public class TetherPlayerMove : MonoBehaviour
     public float followSmoothing;
     public float maxFollowSpeed;
 
-    public float activePullMinDis;
-    public float activePullMaxDis;
+    [Header("Tether Active Pull")]
+    public float activePullStartDis;
+    public float activePullAcceleration;
+    public float activePullSmoothing;
 
     // Inputs
     private bool inputML;
     private bool inputMR;
-    private bool inputJ;
     private bool inputJD;
+    private bool inputJU;
 
     private float moveDir;
     private int frontDir;
     private bool isGrounded;
     private bool jumpInput;
     private bool canJump;
+    private bool jumpHeld;
 
     private Vector3 pastPos;
     private Vector3 combinedVelocity;
     private Rigidbody rb;
     private Vector3 currAcceleration;
-
-    private Vector3 activePullBack;
-    private Vector3 currActivePull;
+    private Vector3 currActivePullAcc;
 
     void Awake()
     {
@@ -81,21 +82,35 @@ public class TetherPlayerMove : MonoBehaviour
             {
                 combinedVelocity.y = Fall();
             }
-            activePullBack = Vector3.Lerp(Vector3.zero, combinedVelocity.magnitude * dir.normalized, Mathf.Clamp((dir.magnitude - activePullMinDis) / (activePullMaxDis - activePullMinDis), 0, 1));
-            currActivePull = Vector3.Lerp (currActivePull, activePullBack, dir.magnitude / activePullMaxDis);
-            combinedVelocity += currActivePull;
+
+            if (dir.magnitude - activePullStartDis > 0)
+            {
+                dir = dir.normalized * Mathf.Pow(dir.magnitude - activePullStartDis, 2);
+            }
+            else
+            {
+                dir = Vector3.zero;
+            }
+            currActivePullAcc = Vector3.Lerp(currActivePullAcc, dir * activePullAcceleration, activePullSmoothing);
+            currActivePullAcc.z = 0;
+            combinedVelocity += currActivePullAcc * Time.deltaTime;
         }
         else if (Time.deltaTime != 0)
         {
-            activePullBack = Vector3.zero;
-            currActivePull = Vector3.zero;
             if (pastPos == rb.position)
             {
                 currAcceleration = Vector3.zero;
             }
             else
             {
-                dir = dir.normalized * Mathf.Pow(dir.magnitude + 1, 2);
+                if (dir.magnitude <= 0.1f)
+                {
+                    dir = Vector3.zero;
+                }
+                else
+                {
+                    dir = dir.normalized * Mathf.Pow(2, dir.magnitude);
+                }
                 currAcceleration = Vector3.Lerp(currAcceleration, dir * followAcceleration, followSmoothing);
                 currAcceleration.z = 0;
             }
@@ -124,11 +139,16 @@ public class TetherPlayerMove : MonoBehaviour
         if (mode == Mode.Active)
         {
             GetKeyDownInput();
+            GetKeyUpInput();
             if (inputJD)
             {
                 jumpInput = true;
                 StopCoroutine(StoreJumpInput());
                 StartCoroutine(StoreJumpInput());
+            }
+            if (inputJU)
+            {
+                jumpHeld = false;
             }
         }
     }
@@ -137,12 +157,16 @@ public class TetherPlayerMove : MonoBehaviour
     {
         inputML = Input.GetKey(KeyCode.A);
         inputMR = Input.GetKey(KeyCode.D);
-        inputJ = Input.GetKey(KeyCode.Space);
     }
 
     void GetKeyDownInput ()
     {
         inputJD = Input.GetKeyDown(KeyCode.Space);
+    }
+
+    void GetKeyUpInput()
+    {
+        inputJU = Input.GetKeyUp(KeyCode.Space);
     }
 
     float Move()
@@ -193,8 +217,9 @@ public class TetherPlayerMove : MonoBehaviour
     {
         float fallVel = rb.velocity.y;
         fallVel -= gravityMultiplier * 10 * Time.deltaTime;
-        if (rb.velocity.y >= 0 && !inputJ)
+        if (rb.velocity.y >= 0 && !jumpHeld)
         {
+
             fallVel -= lowJumpMultiplier * 10 * Time.deltaTime;
         }
         else if (rb.velocity.y < 0)
@@ -217,6 +242,7 @@ public class TetherPlayerMove : MonoBehaviour
             canJump = false;
             jumpInput = false;
             isGrounded = false;
+            jumpHeld = true;
         }
         return jumpVel;
     }
