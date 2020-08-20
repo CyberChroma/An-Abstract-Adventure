@@ -1535,6 +1535,7 @@ MonoBehaviour:
   fallMultiplier: 1.5
   gravityMultiplier: 15
   terminalVelocity: 30
+  canJump: 0
   jumpInputStoreTime: 0.25
   fallJumpDelay: 0.5
   isGrounded: 0
@@ -1553,6 +1554,8 @@ MonoBehaviour:
   wallJumpInputStoreTime: 0
   wallJumpDragH: 0
   wallJumpDragV: 0
+  glideUnlocked: 1
+  glideFallVelocity: 1.5
 --- !u!1 &1369798267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1899,6 +1902,7 @@ MonoBehaviour:
   fallMultiplier: 1.5
   gravityMultiplier: 15
   terminalVelocity: 30
+  canJump: 0
   jumpInputStoreTime: 0.25
   fallJumpDelay: 0.5
   isGrounded: 0
@@ -1917,6 +1921,8 @@ MonoBehaviour:
   wallJumpInputStoreTime: 0.1
   wallJumpDragH: 0.01
   wallJumpDragV: 0.05
+  glideUnlocked: 0
+  glideFallVelocity: 0
 --- !u!65 &1462568614
 BoxCollider:
   m_ObjectHideFlags: 0

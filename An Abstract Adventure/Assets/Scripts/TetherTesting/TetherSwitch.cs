@@ -36,6 +36,10 @@ public class TetherSwitch : MonoBehaviour
                 spherePlayer.mode = TetherPlayerMove.Mode.Active;
                 tetherCameraFollow.player = spherePlayer.GetComponent<Rigidbody>();
                 activePlayer = ActivePlayer.sphere;
+                if (!spherePlayer.isGrounded)
+                {
+                    spherePlayer.canJump = false;
+                }
             }
             else
             {
@@ -43,6 +47,10 @@ public class TetherSwitch : MonoBehaviour
                 spherePlayer.mode = TetherPlayerMove.Mode.Following;
                 tetherCameraFollow.player = cubePlayer.GetComponent<Rigidbody>();
                 activePlayer = ActivePlayer.cube;
+                if (!cubePlayer.isGrounded)
+                {
+                    cubePlayer.canJump = false;
+                }
             }
         }
     }

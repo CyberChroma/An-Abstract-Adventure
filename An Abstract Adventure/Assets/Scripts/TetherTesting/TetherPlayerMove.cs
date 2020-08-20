@@ -28,8 +28,8 @@ public class TetherPlayerMove : MonoBehaviour
     public float terminalVelocity;
 
     private bool jumpInput;
-    private bool canJump;
     private bool jumpHeld;
+    [HideInInspector] public bool canJump;
 
     [Header("Ground Detection")]
     public float jumpInputStoreTime;
@@ -72,9 +72,7 @@ public class TetherPlayerMove : MonoBehaviour
     // SPHERE ABILITIES
     [Header("Glide")]
     [HideInInspector] public bool glideUnlocked;
-    [HideInInspector] public float glideDrag;
-
-    private bool canGlide;
+    [HideInInspector] public float glideFallVelocity;
 
     // Inputs
     private bool inputML;
@@ -244,17 +242,24 @@ public class TetherPlayerMove : MonoBehaviour
     float Fall()
     {
         float fallVel = rb.velocity.y;
-        fallVel -= gravityMultiplier * 10 * Time.deltaTime;
-        if (rb.velocity.y >= 0 && !jumpHeld && currWallJumpVelocity == Vector2.zero)
+        if (glideUnlocked && !isGrounded && rb.velocity.y < 0 && jumpHeld)
         {
-            fallVel -= lowJumpMultiplier * 10 * Time.deltaTime;
+            fallVel = -glideFallVelocity;
         }
-        else if (rb.velocity.y < 0)
+        else
         {
-            fallVel -= fallMultiplier * 10 * Time.deltaTime;
-            if (wallJumpUnlocked && wallContact)
+            fallVel -= gravityMultiplier * 10 * Time.deltaTime;
+            if (rb.velocity.y >= 0 && !jumpHeld && currWallJumpVelocity == Vector2.zero)
             {
-                fallVel /= 2;
+                fallVel -= lowJumpMultiplier * 10 * Time.deltaTime;
+            }
+            else if (rb.velocity.y < 0)
+            {
+                fallVel -= fallMultiplier * 10 * Time.deltaTime;
+                if (wallJumpUnlocked && wallContact)
+                {
+                    fallVel /= 2;
+                }
             }
         }
         if (fallVel < -terminalVelocity)
@@ -432,7 +437,13 @@ public class TetherPlayerMove_Editor : Editor
         }
         else if (tetherPlayerMove.name.Contains("Sphere"))
         {
+            EditorGUILayout.LabelField("", EditorStyles.whiteLabel);
             EditorGUILayout.LabelField("Glide", EditorStyles.boldLabel);
+            tetherPlayerMove.glideUnlocked = EditorGUILayout.Toggle("Glide Unlocked", tetherPlayerMove.glideUnlocked);
+            if (tetherPlayerMove.glideUnlocked)
+            {
+                tetherPlayerMove.glideFallVelocity = EditorGUILayout.FloatField("Glide Fall Velocity", tetherPlayerMove.glideFallVelocity);
+            }
         }
     }
 }
