@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class TetherPlayerMove : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class TetherPlayerMove : MonoBehaviour
     public float speed;
     public float moveSmoothness;
     public float rotSmoothing;
+    [HideInInspector] public int frontDir;
+    private bool moveOverride;
+    private float moveDir;
 
     [Header("Jump")]
     public float jumpForce;
@@ -23,9 +27,15 @@ public class TetherPlayerMove : MonoBehaviour
     public float gravityMultiplier;
     public float terminalVelocity;
 
+    private bool jumpInput;
+    private bool canJump;
+    private bool jumpHeld;
+
     [Header("Ground Detection")]
     public float jumpInputStoreTime;
     public float fallJumpDelay;
+
+    [HideInInspector] public bool isGrounded;
 
     [Header("Tether Follow Pull")]
     public TetherPlayerMove otherPlayerMove;
@@ -35,10 +45,36 @@ public class TetherPlayerMove : MonoBehaviour
     public float followSmoothing;
     public float maxFollowSpeed;
 
+    private Vector3 pastPos;
+    private Vector3 combinedVelocity;
+    private Vector3 currAcceleration;
+    private Vector3 currActivePullAcc;
+
     [Header("Tether Active Pull")]
     public float activePullStartDis;
     public float activePullAcceleration;
     public float activePullSmoothing;
+
+    // CUBE ABILITIES
+    [Header("Wall Jump")]
+    [HideInInspector] public bool wallJumpUnlocked;
+    [HideInInspector] public float wallJumpHForce;
+    [HideInInspector] public float wallJumpVForce;
+    [HideInInspector] public float wallJumpInputStoreTime;
+    [HideInInspector] public float wallJumpDragH;
+    [HideInInspector] public float wallJumpDragV;
+
+    private bool wallJumpInput;
+    private int wallDir;
+    private GameObject wallContact;
+    private Vector2 currWallJumpVelocity;
+
+    // SPHERE ABILITIES
+    [Header("Glide")]
+    [HideInInspector] public bool glideUnlocked;
+    [HideInInspector] public float glideDrag;
+
+    private bool canGlide;
 
     // Inputs
     private bool inputML;
@@ -46,18 +82,9 @@ public class TetherPlayerMove : MonoBehaviour
     private bool inputJD;
     private bool inputJU;
 
-    private float moveDir;
-    private int frontDir;
-    private bool isGrounded;
-    private bool jumpInput;
-    private bool canJump;
-    private bool jumpHeld;
-
-    private Vector3 pastPos;
-    private Vector3 combinedVelocity;
+    // Component References
     private Rigidbody rb;
-    private Vector3 currAcceleration;
-    private Vector3 currActivePullAcc;
+    //private Animator anim;
 
     void Awake()
     {
@@ -82,7 +109,10 @@ public class TetherPlayerMove : MonoBehaviour
             {
                 combinedVelocity.y = Fall();
             }
-
+            if (wallJumpUnlocked)
+            {
+                combinedVelocity += WallJump();
+            }
             if (dir.magnitude - activePullStartDis > 0)
             {
                 dir = dir.normalized * Mathf.Pow(dir.magnitude - activePullStartDis, 2);
@@ -145,6 +175,12 @@ public class TetherPlayerMove : MonoBehaviour
                 jumpInput = true;
                 StopCoroutine(StoreJumpInput());
                 StartCoroutine(StoreJumpInput());
+                if (wallJumpUnlocked)
+                {
+                    wallJumpInput = true;
+                    StopCoroutine(StoreWallJumpInput());
+                    StartCoroutine(StoreWallJumpInput());
+                }
             }
             if (inputJU)
             {
@@ -171,27 +207,30 @@ public class TetherPlayerMove : MonoBehaviour
 
     float Move()
     {
-        if (inputMR)
+        if (!moveOverride)
         {
-            if (frontDir == -1)
+            if (inputMR)
             {
-                frontDir = 1;
+                if (frontDir == -1)
+                {
+                    frontDir = 1;
+                    moveDir = Mathf.Lerp(moveDir, 1, moveSmoothness * Time.deltaTime);
+                }
                 moveDir = Mathf.Lerp(moveDir, 1, moveSmoothness * Time.deltaTime);
             }
-            moveDir = Mathf.Lerp(moveDir, 1, moveSmoothness * Time.deltaTime);
-        }
-        else if (inputML)
-        {
-            if (frontDir == 1)
+            else if (inputML)
             {
-                frontDir = -1;
+                if (frontDir == 1)
+                {
+                    frontDir = -1;
+                    moveDir = Mathf.Lerp(moveDir, -1, moveSmoothness * Time.deltaTime);
+                }
                 moveDir = Mathf.Lerp(moveDir, -1, moveSmoothness * Time.deltaTime);
             }
-            moveDir = Mathf.Lerp(moveDir, -1, moveSmoothness * Time.deltaTime);
-        }
-        else if (moveDir != 0)
-        {
-            moveDir = Mathf.Lerp(moveDir, 0, moveSmoothness * Time.deltaTime);
+            else if (moveDir != 0)
+            {
+                moveDir = Mathf.Lerp(moveDir, 0, moveSmoothness * Time.deltaTime);
+            }
         }
         float moveVel = moveDir * speed * 10 * Time.deltaTime;
         return moveVel;
@@ -202,33 +241,36 @@ public class TetherPlayerMove : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(new Vector3(0, 270 + frontDir * 90, 0)), rotSmoothing * Time.deltaTime);
     }
 
-    float FollowFall (float addTo)
+    float Fall()
+    {
+        float fallVel = rb.velocity.y;
+        fallVel -= gravityMultiplier * 10 * Time.deltaTime;
+        if (rb.velocity.y >= 0 && !jumpHeld && currWallJumpVelocity == Vector2.zero)
+        {
+            fallVel -= lowJumpMultiplier * 10 * Time.deltaTime;
+        }
+        else if (rb.velocity.y < 0)
+        {
+            fallVel -= fallMultiplier * 10 * Time.deltaTime;
+            if (wallJumpUnlocked && wallContact)
+            {
+                fallVel /= 2;
+            }
+        }
+        if (fallVel < -terminalVelocity)
+        {
+            fallVel = -terminalVelocity;
+        }
+        return fallVel;
+    }
+
+    float FollowFall(float addTo)
     {
         float fallVel = addTo;
         fallVel -= (gravityMultiplier + fallMultiplier) * 10 * Time.deltaTime;
         if (rb.velocity.y < -maxFollowSpeed)
         {
             fallVel = -maxFollowSpeed;
-        }
-        return fallVel;
-    }
-
-    float Fall()
-    {
-        float fallVel = rb.velocity.y;
-        fallVel -= gravityMultiplier * 10 * Time.deltaTime;
-        if (rb.velocity.y >= 0 && !jumpHeld)
-        {
-
-            fallVel -= lowJumpMultiplier * 10 * Time.deltaTime;
-        }
-        else if (rb.velocity.y < 0)
-        {
-            fallVel -= fallMultiplier * 10 * Time.deltaTime;
-        }
-        if (rb.velocity.y < -terminalVelocity)
-        {
-            fallVel = -terminalVelocity;
         }
         return fallVel;
     }
@@ -243,6 +285,11 @@ public class TetherPlayerMove : MonoBehaviour
             jumpInput = false;
             isGrounded = false;
             jumpHeld = true;
+            if (wallJumpUnlocked)
+            {
+                StopCoroutine(StoreWallJumpInput());
+                wallJumpInput = false;
+            }
         }
         return jumpVel;
     }
@@ -253,22 +300,56 @@ public class TetherPlayerMove : MonoBehaviour
         jumpInput = false;
     }
 
+    IEnumerator StoreWallJumpInput()
+    {
+        yield return new WaitForSeconds(wallJumpInputStoreTime);
+        wallJumpInput = false;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
-        if (!isGrounded && collision.gameObject.layer == 8 && Mathf.Abs(collision.contacts[0].normal.x) < 0.9f)
+        // Ground Check
+        if (!isGrounded && collision.gameObject.layer == 8 && Mathf.Abs(collision.contacts[0].normal.x) < 0.9f && collision.contacts[0].point.y < transform.position.y)
         {
             isGrounded = true;
             canJump = true;
+            currWallJumpVelocity = Vector2.zero;
+        }
+
+        // Wall Jump
+        if (collision.gameObject.layer == 8 && !collision.collider.CompareTag("Slippery"))
+        {
+            if (Mathf.Abs(collision.contacts[0].normal.x) >= 0.9f)
+            {
+                wallContact = collision.gameObject;
+                if (collision.contacts[0].point.x > transform.position.x)
+                {
+                    wallDir = 1;
+                }
+                else
+                {
+                    wallDir = -1;
+                }
+            }
         }
     }
 
     void OnCollisionExit(Collision collision)
     {
+        // Ground Check
         if (isGrounded && collision.gameObject.layer == 8 && !Physics.Raycast(transform.position, -transform.up, 0.5f, 1 << 8))
         {
             isGrounded = false;
             StopCoroutine(WaitToCancelJump());
             StartCoroutine(WaitToCancelJump());
+        }
+
+        // Wall Jump
+        if (collision.gameObject == wallContact)
+        {
+            rb.useGravity = true;
+            moveOverride = false;
+            wallContact = null;
         }
     }
 
@@ -285,5 +366,73 @@ public class TetherPlayerMove : MonoBehaviour
     {
         yield return new WaitForSeconds(followDelay);
         pastPos = storedPosition;
+    }
+
+    Vector3 WallJump()
+    {
+        Vector3 wallJumpVelocity = Vector3.zero;
+        if (wallContact != null && !isGrounded && wallJumpInput)
+        {
+            frontDir = -wallDir;
+            currWallJumpVelocity = transform.up * wallJumpVForce * 10 + Vector3.right * frontDir * wallJumpHForce * 10;
+            rb.useGravity = true;
+            wallJumpInput = false;
+            wallContact = null;
+            StopCoroutine(StoreJumpInput());
+            jumpInput = false;
+            StopCoroutine("InputOveride");
+            StartCoroutine(InputOveride(0.25f, 0));
+            wallJumpVelocity = currWallJumpVelocity;
+        }
+        else if (currWallJumpVelocity != Vector2.zero && wallJumpDragH > 0 && wallJumpDragV > 0)
+        {
+            float lastWallJumpVelocityY = currWallJumpVelocity.y;
+            currWallJumpVelocity.x /= 1 + wallJumpDragH;
+            currWallJumpVelocity.y /= 1 + wallJumpDragV;
+            if (currWallJumpVelocity.magnitude <= 0.5f)
+            {
+                currWallJumpVelocity = Vector2.zero;
+            }
+            wallJumpVelocity.x = currWallJumpVelocity.x;
+            wallJumpVelocity.y = lastWallJumpVelocityY - currWallJumpVelocity.y;
+        }
+        return wallJumpVelocity;
+    }
+
+    IEnumerator InputOveride(float delay, float setMoveDir)
+    {
+        moveOverride = true;
+        moveDir = setMoveDir;
+        yield return new WaitForSeconds(delay);
+        moveOverride = false;
+    }
+}
+
+[CustomEditor(typeof(TetherPlayerMove))]
+public class TetherPlayerMove_Editor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+        TetherPlayerMove tetherPlayerMove = (TetherPlayerMove)target;
+
+        if (tetherPlayerMove.name.Contains("Cube"))
+        {
+            EditorGUILayout.LabelField("", EditorStyles.whiteLabel);
+            EditorGUILayout.LabelField("Wall Jump", EditorStyles.boldLabel);
+            tetherPlayerMove.wallJumpUnlocked = EditorGUILayout.Toggle("Wall Jump Unlocked", tetherPlayerMove.wallJumpUnlocked);
+            if (tetherPlayerMove.wallJumpUnlocked)
+            {
+                tetherPlayerMove.wallJumpHForce = EditorGUILayout.FloatField("Wall Jump H Force", tetherPlayerMove.wallJumpHForce);
+                tetherPlayerMove.wallJumpVForce = EditorGUILayout.FloatField("Wall Jump V Force", tetherPlayerMove.wallJumpVForce);
+                tetherPlayerMove.wallJumpInputStoreTime = EditorGUILayout.FloatField("Wall Jump Input Store Time", tetherPlayerMove.wallJumpInputStoreTime);
+                tetherPlayerMove.wallJumpDragH = EditorGUILayout.FloatField("Wall Jump Drag H", tetherPlayerMove.wallJumpDragH);
+                tetherPlayerMove.wallJumpDragV = EditorGUILayout.FloatField("Wall Jump Drag V", tetherPlayerMove.wallJumpDragV);
+            }
+        }
+        else if (tetherPlayerMove.name.Contains("Sphere"))
+        {
+            EditorGUILayout.LabelField("Glide", EditorStyles.boldLabel);
+        }
     }
 }
