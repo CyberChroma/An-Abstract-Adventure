@@ -28,7 +28,7 @@ public class TetherSwitch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (activePlayer == ActivePlayer.cube)
             {

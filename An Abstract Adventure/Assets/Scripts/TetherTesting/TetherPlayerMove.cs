@@ -69,16 +69,32 @@ public class TetherPlayerMove : MonoBehaviour
     private GameObject wallContact;
     private Vector2 currWallJumpVelocity;
 
+    [Header("Dash")]
+    [HideInInspector] public bool dashUnlocked;
+    [HideInInspector] public float dashDis;
+    [HideInInspector] public float dashStopTime;
+    [HideInInspector] public float dashSpeedMultiplier;
+
+    private bool dashing;
+    private bool canDash;
+    private Vector3 moveToSpot;
+
     // SPHERE ABILITIES
     [Header("Glide")]
     [HideInInspector] public bool glideUnlocked;
     [HideInInspector] public float glideFallVelocity;
+
+    [Header("Slam")]
+    [HideInInspector] public bool slamUnlocked;
+    [HideInInspector] public float slamForce;
+    [HideInInspector] public float slamStopTime;
 
     // Inputs
     private bool inputML;
     private bool inputMR;
     private bool inputJD;
     private bool inputJU;
+    private bool inputAD;
 
     // Component References
     private Rigidbody rb;
@@ -101,27 +117,34 @@ public class TetherPlayerMove : MonoBehaviour
             StartCoroutine(otherPlayerMove.FollowPastPosition(rb.position));
             pastPos = rb.position;
             GetKeyInput();
-            combinedVelocity.x = Move();
-            combinedVelocity.y = Jump();
-            if (!isGrounded && rb.useGravity && combinedVelocity.y == 0)
+            if (dashUnlocked && dashing)
             {
-                combinedVelocity.y = Fall();
-            }
-            if (wallJumpUnlocked)
-            {
-                combinedVelocity += WallJump();
-            }
-            if (dir.magnitude - activePullStartDis > 0)
-            {
-                dir = dir.normalized * Mathf.Pow(dir.magnitude - activePullStartDis, 2);
+                combinedVelocity = (moveToSpot - rb.position) * dashSpeedMultiplier;
             }
             else
             {
-                dir = Vector3.zero;
+                combinedVelocity.x = Move();
+                combinedVelocity.y = Jump();
+                if (!isGrounded && rb.useGravity && combinedVelocity.y == 0)
+                {
+                    combinedVelocity.y = Fall();
+                }
+                if (wallJumpUnlocked)
+                {
+                    combinedVelocity += WallJump();
+                }
+                if (dir.magnitude - activePullStartDis > 0)
+                {
+                    dir = dir.normalized * Mathf.Pow(dir.magnitude - activePullStartDis, 2);
+                }
+                else
+                {
+                    dir = Vector3.zero;
+                }
+                currActivePullAcc = Vector3.Lerp(currActivePullAcc, dir * activePullAcceleration, activePullSmoothing);
+                currActivePullAcc.z = 0;
+                combinedVelocity += currActivePullAcc * Time.deltaTime;
             }
-            currActivePullAcc = Vector3.Lerp(currActivePullAcc, dir * activePullAcceleration, activePullSmoothing);
-            currActivePullAcc.z = 0;
-            combinedVelocity += currActivePullAcc * Time.deltaTime;
         }
         else if (Time.deltaTime != 0)
         {
@@ -184,6 +207,10 @@ public class TetherPlayerMove : MonoBehaviour
             {
                 jumpHeld = false;
             }
+            if (dashUnlocked && canDash && inputAD)
+            {
+                StartCoroutine(Dash());
+            }
         }
     }
 
@@ -196,6 +223,7 @@ public class TetherPlayerMove : MonoBehaviour
     void GetKeyDownInput ()
     {
         inputJD = Input.GetKeyDown(KeyCode.Space);
+        inputAD = Input.GetKeyDown(KeyCode.Mouse1);
     }
 
     void GetKeyUpInput()
@@ -319,6 +347,7 @@ public class TetherPlayerMove : MonoBehaviour
             isGrounded = true;
             canJump = true;
             currWallJumpVelocity = Vector2.zero;
+            canDash = true;
         }
 
         // Wall Jump
@@ -383,6 +412,7 @@ public class TetherPlayerMove : MonoBehaviour
             rb.useGravity = true;
             wallJumpInput = false;
             wallContact = null;
+            canDash = true;
             StopCoroutine(StoreJumpInput());
             jumpInput = false;
             StopCoroutine("InputOveride");
@@ -411,6 +441,32 @@ public class TetherPlayerMove : MonoBehaviour
         yield return new WaitForSeconds(delay);
         moveOverride = false;
     }
+
+    IEnumerator Dash()
+    {
+        dashing = true;
+        canDash = false;
+        moveToSpot = new Vector3(transform.position.x + dashDis * frontDir, transform.position.y, transform.position.z);
+        rb.useGravity = false;
+        currWallJumpVelocity = Vector2.zero;
+        yield return new WaitForSeconds(dashStopTime);
+        rb.useGravity = true;
+        dashing = false;
+        moveDir = frontDir;
+        if (isGrounded)
+        {
+            yield return new WaitForSeconds(0.1f);
+            canDash = true;
+        }
+    }
+
+    private void OnTriggerStay(Collider collision)
+    {
+        if (dashing && collision.CompareTag("Dash"))
+        {
+            collision.gameObject.SetActive(false);
+        }
+    }
 }
 
 [CustomEditor(typeof(TetherPlayerMove))]
@@ -434,6 +490,16 @@ public class TetherPlayerMove_Editor : Editor
                 tetherPlayerMove.wallJumpDragH = EditorGUILayout.FloatField("Wall Jump Drag H", tetherPlayerMove.wallJumpDragH);
                 tetherPlayerMove.wallJumpDragV = EditorGUILayout.FloatField("Wall Jump Drag V", tetherPlayerMove.wallJumpDragV);
             }
+
+            EditorGUILayout.LabelField("", EditorStyles.whiteLabel);
+            EditorGUILayout.LabelField("Dash", EditorStyles.boldLabel);
+            tetherPlayerMove.dashUnlocked = EditorGUILayout.Toggle("Dash Unlocked", tetherPlayerMove.dashUnlocked);
+            if (tetherPlayerMove.dashUnlocked)
+            {
+                tetherPlayerMove.dashDis = EditorGUILayout.FloatField("Dash Dis", tetherPlayerMove.dashDis);
+                tetherPlayerMove.dashStopTime = EditorGUILayout.FloatField("Dash Stop Time", tetherPlayerMove.dashStopTime);
+                tetherPlayerMove.dashSpeedMultiplier = EditorGUILayout.FloatField("Dash Speed Multiplier", tetherPlayerMove.dashSpeedMultiplier);
+            }
         }
         else if (tetherPlayerMove.name.Contains("Sphere"))
         {
@@ -443,6 +509,15 @@ public class TetherPlayerMove_Editor : Editor
             if (tetherPlayerMove.glideUnlocked)
             {
                 tetherPlayerMove.glideFallVelocity = EditorGUILayout.FloatField("Glide Fall Velocity", tetherPlayerMove.glideFallVelocity);
+            }
+
+            EditorGUILayout.LabelField("", EditorStyles.whiteLabel);
+            EditorGUILayout.LabelField("Slam", EditorStyles.boldLabel);
+            tetherPlayerMove.slamUnlocked = EditorGUILayout.Toggle("Slam Unlocked", tetherPlayerMove.slamUnlocked);
+            if (tetherPlayerMove.slamUnlocked)
+            {
+                tetherPlayerMove.slamForce = EditorGUILayout.FloatField("Slam Force", tetherPlayerMove.slamForce);
+                tetherPlayerMove.slamStopTime = EditorGUILayout.FloatField("Slam Stop Time", tetherPlayerMove.slamStopTime);
             }
         }
     }
