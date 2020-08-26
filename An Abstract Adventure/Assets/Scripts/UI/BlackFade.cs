@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class BlackFade : MonoBehaviour
 {
-    public bool fadeBlack;
+    public bool startBlack;
     public float smoothing;
 
+    [HideInInspector] public bool fadeBlack;
     [HideInInspector] public bool fading;
 
     private Image blackScreen;
@@ -15,8 +16,17 @@ public class BlackFade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fading = true;
         blackScreen = GetComponent<Image>();
+        if (startBlack)
+        {
+            blackScreen.color = new Color(0, 0, 0, 1);
+            fadeBlack = false;
+        } else
+        {
+            blackScreen.color = new Color(0, 0, 0, 0);
+            fadeBlack = true;
+        }
+        fading = true;
     }
 
     // Update is called once per frame

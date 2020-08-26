@@ -2209,8 +2209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb8742bbe7ed504cb0f9cf8d10dce67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeBlack: 0
+  startBlack: 1
   smoothing: 10
+  fadeBlack: 1
   fading: 0
 --- !u!114 &1213659868
 MonoBehaviour:
@@ -2533,6 +2534,8 @@ MonoBehaviour:
   dashDis: 0
   dashStopTime: 0
   dashSpeedMultiplier: 0
+  dashWallJumpUnlocked: 0
+  dashWallJumpForce: 0
   glideUnlocked: 1
   glideFallVelocity: 1.5
   slamUnlocked: 1
@@ -2633,6 +2636,72 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1369798267}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1375961812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1375961815}
+  - component: {fileID: 1375961814}
+  - component: {fileID: 1375961813}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1375961813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375961812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1375961814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375961812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &1375961815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375961812}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1405622271
 GameObject:
   m_ObjectHideFlags: 0
@@ -3129,9 +3198,11 @@ MonoBehaviour:
   wallJumpDragH: 0.01
   wallJumpDragV: 0.05
   dashUnlocked: 1
-  dashDis: 5
+  dashDis: 15
   dashStopTime: 0.25
   dashSpeedMultiplier: 5
+  dashWallJumpUnlocked: 1
+  dashWallJumpForce: 5
   glideUnlocked: 0
   glideFallVelocity: 0
   slamUnlocked: 0
@@ -3676,6 +3747,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Pause Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140094187351809033, guid: d849e02d4b0c8194d973c1f74b20a768,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4140094187400481071, guid: d849e02d4b0c8194d973c1f74b20a768,
         type: 3}

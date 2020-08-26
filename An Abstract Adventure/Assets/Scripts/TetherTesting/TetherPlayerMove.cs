@@ -74,6 +74,11 @@ public class TetherPlayerMove : MonoBehaviour
     private bool canDash;
     private Vector3 moveToSpot;
 
+    [Header("Dash Wall Jump")]
+    [HideInInspector] public bool dashWallJumpUnlocked;
+    [HideInInspector] public float dashWallJumpForce;
+    private bool canDashWallJump;
+
     // SPHERE ABILITIES
     [Header("Glide")]
     [HideInInspector] public bool glideUnlocked;
@@ -114,7 +119,11 @@ public class TetherPlayerMove : MonoBehaviour
             StartCoroutine(otherPlayerMove.FollowPastPosition(rb.position));
             pastPos = rb.position;
             GetKeyInput();
-            if (dashUnlocked && isDashing)
+            if (dashWallJumpUnlocked && canDashWallJump)
+            {
+                combinedVelocity.y = DashWallJump();
+            }
+            else if (dashUnlocked && isDashing)
             {
                 combinedVelocity = (moveToSpot - rb.position) * dashSpeedMultiplier;
             }
@@ -139,7 +148,15 @@ public class TetherPlayerMove : MonoBehaviour
                 }
                 if (wallJumpUnlocked)
                 {
-                    combinedVelocity += WallJump();
+                    if (wallContact && !isGrounded && wallJumpInput)
+                    {
+                        combinedVelocity = WallJump();
+                    }
+                    else if (currWallJumpVelocity != Vector2.zero && wallJumpDragH > 0 && wallJumpDragV > 0)
+
+                    {
+                        combinedVelocity += WallJumpFall();
+                    }
                 }
                 if (dir.magnitude - activePullStartDis > 0)
                 {
@@ -330,6 +347,7 @@ public class TetherPlayerMove : MonoBehaviour
         {
             jumpVel = jumpForce * 10;
             canJump = false;
+            StopCoroutine(StoreJumpInput());
             jumpInput = false;
             isGrounded = false;
             jumpHeld = true;
@@ -356,28 +374,36 @@ public class TetherPlayerMove : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // Ground Check
-        if (!isGrounded && collision.gameObject.layer == 8 && Mathf.Abs(collision.contacts[0].normal.x) < 0.9f && collision.contacts[0].point.y < transform.position.y)
-        {
-            isGrounded = true;
-            canJump = true;
-            currWallJumpVelocity = Vector2.zero;
-            canDash = true;
-        }
-
-        // Wall Jump
-        if (collision.gameObject.layer == 8 && !collision.collider.CompareTag("Slippery"))
-        {
-            if (Mathf.Abs(collision.contacts[0].normal.x) >= 0.9f)
+        if (collision.gameObject.layer == 8) {
+            // Ground Check
+            if (!isGrounded && Mathf.Abs(collision.contacts[0].normal.x) < 0.9f && collision.contacts[0].point.y < transform.position.y)
             {
-                wallContact = collision.gameObject;
-                if (collision.contacts[0].point.x > transform.position.x)
+                isGrounded = true;
+                canJump = true;
+                currWallJumpVelocity = Vector2.zero;
+                canDash = true;
+            }
+
+            // Wall Jump
+            if (!collision.collider.CompareTag("Slippery"))
+            {
+                if (Mathf.Abs(collision.contacts[0].normal.x) >= 0.9f)
                 {
-                    wallDir = 1;
-                }
-                else
-                {
-                    wallDir = -1;
+                    wallContact = collision.gameObject;
+                    if (collision.contacts[0].point.x > transform.position.x)
+                    {
+                        wallDir = 1;
+                    }
+                    else
+                    {
+                        wallDir = -1;
+                    }
+
+                    //Dash Wall Jump
+                    if (dashWallJumpUnlocked && isDashing)
+                    {
+                        canDashWallJump = true;
+                    }
                 }
             }
         }
@@ -420,32 +446,32 @@ public class TetherPlayerMove : MonoBehaviour
     Vector3 WallJump()
     {
         Vector3 wallJumpVelocity = Vector3.zero;
-        if (wallContact != null && !isGrounded && wallJumpInput)
+        frontDir = -wallDir;
+        currWallJumpVelocity = transform.up * wallJumpVForce * 10 + Vector3.right * frontDir * wallJumpHForce * 10;
+        rb.useGravity = true;
+        wallJumpInput = false;
+        wallContact = null;
+        canDash = true;
+        StopCoroutine(StoreJumpInput());
+        jumpInput = false;
+        StopCoroutine("InputOveride");
+        StartCoroutine(InputOveride(0.25f, 0));
+        wallJumpVelocity = currWallJumpVelocity;
+        return wallJumpVelocity;
+    }
+
+    Vector3 WallJumpFall ()
+    {
+        Vector3 wallJumpVelocity = Vector3.zero;
+        float lastWallJumpVelocityY = currWallJumpVelocity.y;
+        currWallJumpVelocity.x /= 1 + wallJumpDragH;
+        currWallJumpVelocity.y /= 1 + wallJumpDragV;
+        if (currWallJumpVelocity.magnitude <= 0.5f)
         {
-            frontDir = -wallDir;
-            currWallJumpVelocity = transform.up * wallJumpVForce * 10 + Vector3.right * frontDir * wallJumpHForce * 10;
-            rb.useGravity = true;
-            wallJumpInput = false;
-            wallContact = null;
-            canDash = true;
-            StopCoroutine(StoreJumpInput());
-            jumpInput = false;
-            StopCoroutine("InputOveride");
-            StartCoroutine(InputOveride(0.25f, 0));
-            wallJumpVelocity = currWallJumpVelocity;
+            currWallJumpVelocity = Vector2.zero;
         }
-        else if (currWallJumpVelocity != Vector2.zero && wallJumpDragH > 0 && wallJumpDragV > 0)
-        {
-            float lastWallJumpVelocityY = currWallJumpVelocity.y;
-            currWallJumpVelocity.x /= 1 + wallJumpDragH;
-            currWallJumpVelocity.y /= 1 + wallJumpDragV;
-            if (currWallJumpVelocity.magnitude <= 0.5f)
-            {
-                currWallJumpVelocity = Vector2.zero;
-            }
-            wallJumpVelocity.x = currWallJumpVelocity.x;
-            wallJumpVelocity.y = lastWallJumpVelocityY - currWallJumpVelocity.y;
-        }
+        wallJumpVelocity.x = currWallJumpVelocity.x;
+        wallJumpVelocity.y = lastWallJumpVelocityY - currWallJumpVelocity.y;
         return wallJumpVelocity;
     }
 
@@ -488,6 +514,25 @@ public class TetherPlayerMove : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
         }
+    }
+
+    float DashWallJump()
+    {
+        float dashWallJumpVel = 0;
+        dashWallJumpVel = dashWallJumpForce * 10;
+        canJump = false;
+        StopCoroutine(StoreJumpInput());
+        jumpInput = false;
+        isGrounded = false;
+        jumpHeld = true;
+        StopCoroutine(StoreWallJumpInput());
+        wallJumpInput = false;
+        StopCoroutine(Dash());
+        rb.useGravity = true;
+        moveDir = 0;
+        isDashing = false;
+        canDashWallJump = false;
+        return dashWallJumpVel;
     }
 
     IEnumerator Slam()
@@ -536,6 +581,14 @@ public class TetherPlayerMove_Editor : Editor
                 tetherPlayerMove.dashDis = EditorGUILayout.FloatField("Dash Dis", tetherPlayerMove.dashDis);
                 tetherPlayerMove.dashStopTime = EditorGUILayout.FloatField("Dash Stop Time", tetherPlayerMove.dashStopTime);
                 tetherPlayerMove.dashSpeedMultiplier = EditorGUILayout.FloatField("Dash Speed Multiplier", tetherPlayerMove.dashSpeedMultiplier);
+
+                EditorGUILayout.LabelField("", EditorStyles.whiteLabel);
+                EditorGUILayout.LabelField("Dash Wall Jump", EditorStyles.boldLabel);
+                tetherPlayerMove.dashWallJumpUnlocked = EditorGUILayout.Toggle("Dash Wall Jump Unlocked", tetherPlayerMove.dashWallJumpUnlocked);
+                if (tetherPlayerMove.dashWallJumpUnlocked)
+                {
+                    tetherPlayerMove.dashWallJumpForce = EditorGUILayout.FloatField("Dash Wall Jump Force", tetherPlayerMove.dashWallJumpForce);
+                }
             }
         }
         else if (tetherPlayerMove.name.Contains("Sphere"))
