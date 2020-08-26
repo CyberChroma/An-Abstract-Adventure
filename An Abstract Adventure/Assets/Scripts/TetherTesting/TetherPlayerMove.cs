@@ -26,15 +26,13 @@ public class TetherPlayerMove : MonoBehaviour
     public float fallMultiplier;
     public float gravityMultiplier;
     public float terminalVelocity;
-
+    [HideInInspector] public bool canJump;
     private bool jumpInput;
     private bool jumpHeld;
-    [HideInInspector] public bool canJump;
 
     [Header("Ground Detection")]
     public float jumpInputStoreTime;
     public float fallJumpDelay;
-
     [HideInInspector] public bool isGrounded;
 
     [Header("Tether Follow Pull")]
@@ -44,7 +42,6 @@ public class TetherPlayerMove : MonoBehaviour
     public float followDrag;
     public float followSmoothing;
     public float maxFollowSpeed;
-
     private Vector3 pastPos;
     private Vector3 combinedVelocity;
     private Vector3 currAcceleration;
@@ -63,7 +60,6 @@ public class TetherPlayerMove : MonoBehaviour
     [HideInInspector] public float wallJumpInputStoreTime;
     [HideInInspector] public float wallJumpDragH;
     [HideInInspector] public float wallJumpDragV;
-
     private bool wallJumpInput;
     private int wallDir;
     private GameObject wallContact;
@@ -74,8 +70,7 @@ public class TetherPlayerMove : MonoBehaviour
     [HideInInspector] public float dashDis;
     [HideInInspector] public float dashStopTime;
     [HideInInspector] public float dashSpeedMultiplier;
-
-    private bool dashing;
+    private bool isDashing;
     private bool canDash;
     private Vector3 moveToSpot;
 
@@ -86,8 +81,10 @@ public class TetherPlayerMove : MonoBehaviour
 
     [Header("Slam")]
     [HideInInspector] public bool slamUnlocked;
-    [HideInInspector] public float slamForce;
+    [HideInInspector] public float slamSpeed;
     [HideInInspector] public float slamStopTime;
+    private bool isSlaming;
+    private bool isSlamPaused;
 
     // Inputs
     private bool inputML;
@@ -117,9 +114,20 @@ public class TetherPlayerMove : MonoBehaviour
             StartCoroutine(otherPlayerMove.FollowPastPosition(rb.position));
             pastPos = rb.position;
             GetKeyInput();
-            if (dashUnlocked && dashing)
+            if (dashUnlocked && isDashing)
             {
                 combinedVelocity = (moveToSpot - rb.position) * dashSpeedMultiplier;
+            }
+            else if (slamUnlocked && !isGrounded && (isSlaming || isSlamPaused))
+            {
+                if (isSlaming)
+                {
+                    combinedVelocity = Vector3.down * slamSpeed * 10;
+                }
+                else if (isSlamPaused)
+                {
+                    combinedVelocity = Vector3.zero;
+                }
             }
             else
             {
@@ -207,9 +215,16 @@ public class TetherPlayerMove : MonoBehaviour
             {
                 jumpHeld = false;
             }
-            if (dashUnlocked && canDash && inputAD)
+            if (inputAD)
             {
-                StartCoroutine(Dash());
+                if (dashUnlocked && canDash)
+                {
+                    StartCoroutine(Dash());
+                }
+                if (slamUnlocked && !isSlamPaused && !isSlaming)
+                {
+                    StartCoroutine(Slam());
+                }
             }
         }
     }
@@ -444,14 +459,14 @@ public class TetherPlayerMove : MonoBehaviour
 
     IEnumerator Dash()
     {
-        dashing = true;
+        isDashing = true;
         canDash = false;
         moveToSpot = new Vector3(transform.position.x + dashDis * frontDir, transform.position.y, transform.position.z);
         rb.useGravity = false;
         currWallJumpVelocity = Vector2.zero;
         yield return new WaitForSeconds(dashStopTime);
         rb.useGravity = true;
-        dashing = false;
+        isDashing = false;
         moveDir = frontDir;
         if (isGrounded)
         {
@@ -462,10 +477,32 @@ public class TetherPlayerMove : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        if (dashing && collision.CompareTag("Dash"))
+        // Dash
+        if (isDashing && collision.CompareTag("Dash"))
         {
             collision.gameObject.SetActive(false);
         }
+
+        // Slam
+        if (isSlaming && collision.CompareTag("Slam"))
+        {
+            collision.gameObject.SetActive(false);
+        }
+    }
+
+    IEnumerator Slam()
+    {
+        rb.useGravity = false;
+        isSlamPaused = true;
+        yield return new WaitForSeconds(slamStopTime);
+        isSlaming = true;
+        isSlamPaused = false;
+        while (!isGrounded)
+        {
+            yield return null;
+        }
+        rb.useGravity = true;
+        isSlaming = false;
     }
 }
 
@@ -516,7 +553,7 @@ public class TetherPlayerMove_Editor : Editor
             tetherPlayerMove.slamUnlocked = EditorGUILayout.Toggle("Slam Unlocked", tetherPlayerMove.slamUnlocked);
             if (tetherPlayerMove.slamUnlocked)
             {
-                tetherPlayerMove.slamForce = EditorGUILayout.FloatField("Slam Force", tetherPlayerMove.slamForce);
+                tetherPlayerMove.slamSpeed = EditorGUILayout.FloatField("Slam Speed", tetherPlayerMove.slamSpeed);
                 tetherPlayerMove.slamStopTime = EditorGUILayout.FloatField("Slam Stop Time", tetherPlayerMove.slamStopTime);
             }
         }

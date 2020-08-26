@@ -14,15 +14,18 @@ public class CollectablesUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        amount.text = playerCollect.numCollectables.ToString();
-        amountBackshadow.text = playerCollect.numCollectables.ToString();
+        if (playerCollect)
+        {
+            amount.text = playerCollect.numCollectables.ToString();
+            amountBackshadow.text = playerCollect.numCollectables.ToString();
+        }
         uiSlide = GetComponentInParent<UISlide>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerCollect.collected)
+        if (playerCollect && playerCollect.collected)
         {
             amount.text = playerCollect.numCollectables.ToString();
             amountBackshadow.text = playerCollect.numCollectables.ToString();
