@@ -91,6 +91,12 @@ public class TetherPlayerMove : MonoBehaviour
     private bool isSlaming;
     private bool isSlamPaused;
 
+    [Header("Slam Bounce")]
+    [HideInInspector] public bool slamBounceUnlocked;
+    [HideInInspector] public float slamBounceForce;
+    private bool canSlamBounce;
+    private bool isSlamBouncing;
+
     // Inputs
     private bool inputML;
     private bool inputMR;
@@ -126,6 +132,10 @@ public class TetherPlayerMove : MonoBehaviour
             else if (dashUnlocked && isDashing)
             {
                 combinedVelocity = (moveToSpot - rb.position) * dashSpeedMultiplier;
+            }
+            else if (slamBounceUnlocked && canSlamBounce)
+            {
+                combinedVelocity.y = SlamBounce();
             }
             else if (slamUnlocked && !isGrounded && (isSlaming || isSlamPaused))
             {
@@ -302,7 +312,15 @@ public class TetherPlayerMove : MonoBehaviour
     float Fall()
     {
         float fallVel = rb.velocity.y;
-        if (glideUnlocked && !isGrounded && rb.velocity.y < 0 && jumpHeld)
+        if (slamBounceUnlocked && isSlamBouncing)
+        {
+            fallVel -= gravityMultiplier * 10 * Time.deltaTime;
+            if (rb.velocity.y < 0)
+            {
+                isSlamBouncing = false;
+            }
+        }
+        else if (glideUnlocked && !isGrounded && rb.velocity.y < 0 && jumpHeld)
         {
             fallVel = -glideFallVelocity;
         }
@@ -382,6 +400,12 @@ public class TetherPlayerMove : MonoBehaviour
                 canJump = true;
                 currWallJumpVelocity = Vector2.zero;
                 canDash = true;
+                
+                // Slam Bounce
+                if (slamBounceUnlocked && isSlaming)
+                {
+                    canSlamBounce = true;
+                }
             }
 
             // Wall Jump
@@ -549,6 +573,23 @@ public class TetherPlayerMove : MonoBehaviour
         rb.useGravity = true;
         isSlaming = false;
     }
+
+    float SlamBounce()
+    {
+        float slamBounceVel = 0;
+        slamBounceVel = slamBounceForce * 10;
+        canJump = false;
+        StopCoroutine(StoreJumpInput());
+        jumpInput = false;
+        isGrounded = false;
+        jumpHeld = false;
+        StopCoroutine(Slam());
+        rb.useGravity = true;
+        isSlaming = false;
+        canSlamBounce = false;
+        isSlamBouncing = true;
+        return slamBounceVel;
+    }
 }
 
 [CustomEditor(typeof(TetherPlayerMove))]
@@ -608,6 +649,14 @@ public class TetherPlayerMove_Editor : Editor
             {
                 tetherPlayerMove.slamSpeed = EditorGUILayout.FloatField("Slam Speed", tetherPlayerMove.slamSpeed);
                 tetherPlayerMove.slamStopTime = EditorGUILayout.FloatField("Slam Stop Time", tetherPlayerMove.slamStopTime);
+
+                EditorGUILayout.LabelField("", EditorStyles.whiteLabel);
+                EditorGUILayout.LabelField("Slam Bounce", EditorStyles.boldLabel);
+                tetherPlayerMove.slamBounceUnlocked = EditorGUILayout.Toggle("Slam Bounce Unlocked", tetherPlayerMove.slamBounceUnlocked);
+                if (tetherPlayerMove.slamBounceUnlocked)
+                {
+                    tetherPlayerMove.slamBounceForce = EditorGUILayout.FloatField("Slam Bounce Force", tetherPlayerMove.slamBounceForce);
+                }
             }
         }
     }

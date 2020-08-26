@@ -2466,13 +2466,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345044288}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.015009303, y: 0, z: 0, w: 0.99988735}
   m_LocalPosition: {x: -8.5, y: 2, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1639522956}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 1.72, y: 0, z: 0}
 --- !u!54 &1345044293
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2541,6 +2541,8 @@ MonoBehaviour:
   slamUnlocked: 1
   slamSpeed: 8
   slamStopTime: 0.25
+  slamBounceUnlocked: 1
+  slamBounceForce: 5
 --- !u!1 &1369798267
 GameObject:
   m_ObjectHideFlags: 0
@@ -3208,6 +3210,8 @@ MonoBehaviour:
   slamUnlocked: 0
   slamSpeed: 0
   slamStopTime: 0
+  slamBounceUnlocked: 0
+  slamBounceForce: 0
 --- !u!65 &1462568614
 BoxCollider:
   m_ObjectHideFlags: 0
