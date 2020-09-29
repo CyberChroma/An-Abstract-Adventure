@@ -13,16 +13,16 @@ public class TetherSwitch : MonoBehaviour
     public TetherPlayerMove cubePlayer;
     public TetherPlayerMove spherePlayer;
     public ActivePlayer activePlayer;
-
-    private TetherCameraFollow tetherCameraFollow;
+    public Camera cubeCamera;
+    public Camera sphereCamera;
 
     // Start is called before the first frame update
     void Start()
     {
         cubePlayer.mode = TetherPlayerMove.Mode.Active;
         spherePlayer.mode = TetherPlayerMove.Mode.Following;
-        tetherCameraFollow = GetComponent<TetherCameraFollow>();
-        tetherCameraFollow.player = cubePlayer.GetComponent<Rigidbody>();
+        cubeCamera.depth = 1;
+        sphereCamera.depth = 0;
     }
 
     // Update is called once per frame
@@ -34,7 +34,6 @@ public class TetherSwitch : MonoBehaviour
             {
                 cubePlayer.mode = TetherPlayerMove.Mode.Following;
                 spherePlayer.mode = TetherPlayerMove.Mode.Active;
-                tetherCameraFollow.player = spherePlayer.GetComponent<Rigidbody>();
                 activePlayer = ActivePlayer.sphere;
                 if (Physics.Raycast(spherePlayer.transform.position, -transform.up, 0.5f, 1 << 8))
                 {
@@ -44,12 +43,13 @@ public class TetherSwitch : MonoBehaviour
                 {
                     spherePlayer.canJump = false;
                 }
+                cubeCamera.depth = 0;
+                sphereCamera.depth = 1;
             }
             else
             {
                 cubePlayer.mode = TetherPlayerMove.Mode.Active;
                 spherePlayer.mode = TetherPlayerMove.Mode.Following;
-                tetherCameraFollow.player = cubePlayer.GetComponent<Rigidbody>();
                 activePlayer = ActivePlayer.cube;
                 if (Physics.Raycast(cubePlayer.transform.position, -transform.up, 0.5f, 1 << 8))
                 {
@@ -59,6 +59,8 @@ public class TetherSwitch : MonoBehaviour
                 {
                     cubePlayer.canJump = false;
                 }
+                cubeCamera.depth = 1;
+                sphereCamera.depth = 0;
             }
         }
     }

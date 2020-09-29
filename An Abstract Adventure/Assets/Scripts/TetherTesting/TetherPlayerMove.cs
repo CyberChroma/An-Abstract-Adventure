@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+[CanEditMultipleObjects]
 public class TetherPlayerMove : MonoBehaviour
 {
     public enum Mode
@@ -592,6 +593,7 @@ public class TetherPlayerMove : MonoBehaviour
     }
 }
 
+[CanEditMultipleObjects]
 [CustomEditor(typeof(TetherPlayerMove))]
 public class TetherPlayerMove_Editor : Editor
 {
