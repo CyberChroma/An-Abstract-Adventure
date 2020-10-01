@@ -1649,7 +1649,7 @@ MonoBehaviour:
   velocityDisX: 0.2
   velocityDisY: 0.1
   offsetHeight: 2
-  player: {fileID: 1639522959}
+  players: {fileID: 1639522957}
 --- !u!1 &1044123155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,6 +2241,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Active Cam UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1206811280129559006, guid: 94e6c19a50a62594cb2935b05242bfa2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94e6c19a50a62594cb2935b05242bfa2, type: 3}
@@ -3155,7 +3160,18 @@ GameObject:
   m_Component:
   - component: {fileID: 1639522956}
   - component: {fileID: 1639522958}
+  - component: {fileID: 1639522963}
+  - component: {fileID: 1639522962}
+  - component: {fileID: 1639522961}
+  - component: {fileID: 1639522960}
   - component: {fileID: 1639522959}
+  - component: {fileID: 1639522969}
+  - component: {fileID: 1639522968}
+  - component: {fileID: 1639522967}
+  - component: {fileID: 1639522966}
+  - component: {fileID: 1639522965}
+  - component: {fileID: 1639522964}
+  - component: {fileID: 1639522957}
   m_Layer: 0
   m_Name: Players
   m_TagString: Player
@@ -3179,57 +3195,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1639522958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639522955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2a76c87c76a0e4299de879f85df0f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 90
-  moveSmoothness: 8
-  rotSmoothing: 10
-  frontDir: 0
-  jumpForce: 4
-  lowJumpMultiplier: 30
-  fallMultiplier: 1.5
-  gravityMultiplier: 15
-  terminalVelocity: 30
-  canJump: 0
-  jumpInputStoreTime: 0.25
-  fallJumpDelay: 0.5
-  isGrounded: 0
-  activePlayer: 0
-  switchTime: 2
-  cubeCollider: {fileID: 1462568608}
-  sphereCollider: {fileID: 1345044289}
-  cubeCamera: {fileID: 261940538}
-  sphereCamera: {fileID: 67726982}
-  wallJumpUnlocked: 1
-  wallJumpHForce: 2.5
-  wallJumpVForce: 3.5
-  wallJumpInputStoreTime: 0.1
-  wallJumpDragH: 0.01
-  wallJumpDragV: 0.05
-  dashUnlocked: 1
-  dashDis: 15
-  dashStopTime: 0.25
-  dashSpeedMultiplier: 5
-  dashWallJumpUnlocked: 1
-  dashWallJumpForce: 5
-  glideUnlocked: 1
-  glideFallVelocity: 1.5
-  slamUnlocked: 1
-  slamSpeed: 8
-  slamStopTime: 0.25
-  slamBounceUnlocked: 1
-  slamBounceForce: 5
---- !u!54 &1639522959
+--- !u!54 &1639522957
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3245,6 +3211,225 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 1
+--- !u!114 &1639522958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a2a76c87c76a0e4299de879f85df0f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activePlayer: 0
+  playerInput: {fileID: 0}
+  playerMove: {fileID: 0}
+  playerJump: {fileID: 0}
+  playerGroundDetection: {fileID: 0}
+  playerRhythmSwitch: {fileID: 0}
+  cubeWallJump: {fileID: 0}
+  cubeDash: {fileID: 0}
+  cubeDashLaunch: {fileID: 0}
+  sphereGlide: {fileID: 0}
+  sphereSlam: {fileID: 0}
+  sphereBounce: {fileID: 0}
+  rb: {fileID: 0}
+--- !u!114 &1639522959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420c2edb9b4446f40972e3cdb4ddc9bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  switchTime: 2
+  cubeCollider: {fileID: 1462568608}
+  sphereCollider: {fileID: 1345044289}
+  cubeCamera: {fileID: 261940538}
+  sphereCamera: {fileID: 67726982}
+--- !u!114 &1639522960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4a47ebcb0f34144c8f2e558dc628518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpInputStoreTime: 0.25
+  fallJumpDelay: 0.5
+  isGrounded: 0
+--- !u!114 &1639522961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b63578a4f68818541a82a5fd6d5291e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 4
+  lowJumpMultiplier: 30
+  fallMultiplier: 1.5
+  gravityMultiplier: 15
+  terminalVelocity: 30
+  canJump: 0
+  jumpInput: 0
+  jumpHeld: 0
+--- !u!114 &1639522962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa395f2b107e23440a5fd606f7553bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 90
+  moveSmoothness: 8
+  rotSmoothing: 10
+  frontDir: 0
+  moveOverride: 0
+  moveDir: 0
+--- !u!114 &1639522963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54adcd750581c5b49a9ba1a5f9f2601e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveLeft: 97
+  moveRight: 100
+  jump: 32
+  ability: 324
+  inputML: 0
+  inputMR: 0
+  inputJD: 0
+  inputJU: 0
+  inputAD: 0
+--- !u!114 &1639522964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edb6edb8973b8f44386e6267f68d9125, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slamBounceUnlocked: 1
+  force: 5
+  canSlamBounce: 0
+  isSlamBouncing: 0
+--- !u!114 &1639522965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfca6e1fb02adc44d810349171329fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slamUnlocked: 1
+  slamSpeed: 8
+  stopTime: 0.25
+  isSlaming: 0
+  isSlamPaused: 0
+--- !u!114 &1639522966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ee633b1f4e28f499b9ba1b90cb18e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glideUnlocked: 1
+  fallVelocity: 1.5
+--- !u!114 &1639522967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ffbd0a91fe9d640b0b7f8c18c02fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashLaunchUnlocked: 1
+  launchForce: 5
+  canDashLaunch: 0
+--- !u!114 &1639522968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec6ec1cf47f3406469f5fba93de8afcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashUnlocked: 1
+  dashDis: 15
+  dashTime: 0.25
+  speedMultiplier: 5
+  isDashing: 0
+  canDash: 0
+  moveToSpot: {x: 0, y: 0, z: 0}
+--- !u!114 &1639522969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639522955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a8b5a93c93dc0479a2443e58bee70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallJumpUnlocked: 1
+  horizontalForce: 2.5
+  verticalForce: 3.5
+  inputStoreTime: 0.1
+  dragH: 0.01
+  dragV: 0.05
+  wallJumpInput: 0
+  wallDir: 0
+  wallContact: {fileID: 0}
+  currWallJumpVelocity: {x: 0, y: 0}
 --- !u!1001 &1681362020
 PrefabInstance:
   m_ObjectHideFlags: 0

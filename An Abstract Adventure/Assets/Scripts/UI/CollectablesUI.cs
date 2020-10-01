@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CollectablesUI : MonoBehaviour
 {
-    public PlayerCollect playerCollect;
+    public OldPlayerCollect playerCollect;
     public Text amount;
     public Text amountBackshadow;
 

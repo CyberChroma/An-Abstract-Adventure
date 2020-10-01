@@ -17,15 +17,15 @@ public class FadeMove : MonoBehaviour
     void Start()
     {
         blackFade = FindObjectOfType<BlackFade>();
-        mCam = FindObjectOfType<CameraFollow>().transform;
+        mCam = FindObjectOfType<OldCameraFollow>().transform;
     }
 
-    public void MovePlayer (PlayerMain playerMain)
+    public void MovePlayer (OldPlayerMain playerMain)
     {
         StartCoroutine(WaitToMove(playerMain));
     }
 
-    IEnumerator WaitToMove(PlayerMain playerMain)
+    IEnumerator WaitToMove(OldPlayerMain playerMain)
     {
         playerMain.enabled = false;
         yield return new WaitForSeconds(fadeInDelay);
