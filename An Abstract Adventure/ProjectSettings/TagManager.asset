@@ -5,6 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Slippery
+  - Que Collectable
+  - Kall Collectable
+  - Hazard
+  - Reflect
+  - Push
+  - Dash
+  - Fade Move
+  - Kill
+  - Slam
+  - Destructable
+  - Moving
   layers:
   - Default
   - TransparentFX
@@ -14,11 +25,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Environment
+  - Cube
+  - Sphere
+  - Clipping To Sphere
+  - Clipping To Cube
   - 
   - 
   - 
