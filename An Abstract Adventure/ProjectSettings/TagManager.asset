@@ -28,8 +28,8 @@ TagManager:
   - Environment
   - Cube
   - Sphere
-  - Clipping To Sphere
-  - Clipping To Cube
+  - Clipping Main
+  - Clipping Revert
   - 
   - 
   - 

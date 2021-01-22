@@ -4,9 +4,6 @@
     "m_ObjectId": "8dd950f910c54982b884265b2cf0dab3",
     "m_Properties": [
         {
-            "m_Id": "510029fbd4bc406c831a116067ca6027"
-        },
-        {
             "m_Id": "8f1a06e2f43c43eca74e4b2aa85c670e"
         },
         {
@@ -17,6 +14,9 @@
         },
         {
             "m_Id": "98c94039dcad4869898df0ff87c36483"
+        },
+        {
+            "m_Id": "510029fbd4bc406c831a116067ca6027"
         }
     ],
     "m_Keywords": [],
@@ -1045,7 +1045,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
     "m_ObjectId": "1f746bcd2eab4b059ea1f2cba29bdf64",
     "m_Id": 0,
-    "m_DisplayName": "Base (RGB)",
+    "m_DisplayName": "Camera Texture",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -1502,7 +1502,7 @@
     "m_Guid": {
         "m_GuidSerialized": "e4da71e2-99bc-4db2-8c8f-01ca8c348ee3"
     },
-    "m_Name": "Render Texture",
+    "m_Name": "Render Texture Main",
     "m_DefaultReferenceName": "Texture2D_4bd6c2704a0e4d26b63eb3532ee4424b",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -1594,7 +1594,7 @@
     "m_Guid": {
         "m_GuidSerialized": "304fdf91-e701-46de-a9a9-4f3a3448479e"
     },
-    "m_Name": "Base (RGB)",
+    "m_Name": "Camera Texture",
     "m_DefaultReferenceName": "Texture2D_510029fbd4bc406c831a116067ca6027",
     "m_OverrideReferenceName": "_MainTex",
     "m_GeneratePropertyBlock": true,
@@ -2246,7 +2246,7 @@
     "m_Guid": {
         "m_GuidSerialized": "94583919-616a-4a70-8f3a-716c0dea273c"
     },
-    "m_Name": "Mask Color",
+    "m_Name": "Mask Color Main",
     "m_DefaultReferenceName": "Color_8f1a06e2f43c43eca74e4b2aa85c670e",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
@@ -2799,7 +2799,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
     "m_ObjectId": "bf85fcfa30e4413a95a7ef7daef285ea",
     "m_Id": 0,
-    "m_DisplayName": "Render Texture",
+    "m_DisplayName": "Render Texture Main",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -3066,7 +3066,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "dc65477b5ffb46089efb3bd4425870e8",
     "m_Id": 0,
-    "m_DisplayName": "Mask Color",
+    "m_DisplayName": "Mask Color Main",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

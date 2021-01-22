@@ -36,7 +36,7 @@ public class PlayerRhythmSwitch : MonoBehaviour
     IEnumerator WaitToSwitch()
     {
         yield return new WaitForSeconds(switchTime);
-        Switch();
+        //Switch();
     }
 
     void Switch()

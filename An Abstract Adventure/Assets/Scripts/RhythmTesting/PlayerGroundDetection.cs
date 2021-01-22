@@ -18,7 +18,7 @@ public class PlayerGroundDetection : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 9 || collision.gameObject.layer == 10)
         {
             // Wall Jump
             playerMain.cubeWallJump.currWallJumpVelocity = Vector2.zero;
@@ -45,7 +45,7 @@ public class PlayerGroundDetection : MonoBehaviour
     void OnCollisionExit(Collision collision)
     {
         // Ground Check
-        if (isGrounded && collision.gameObject.layer == 8 && !Physics.Raycast(transform.position, -transform.up, 0.5f, 1 << 8))
+        if (isGrounded && (collision.gameObject.layer == 9 || collision.gameObject.layer == 10) && !Physics.Raycast(transform.position, -transform.up, 0.5f, 1 << 8))
         {
             isGrounded = false;
             StopCoroutine(WaitToCancelJump());
@@ -55,8 +55,11 @@ public class PlayerGroundDetection : MonoBehaviour
 
     IEnumerator WaitToCancelJump()
     {
+        int layermask1 = 1 << 9;
+        int layermask2 = 1 << 10;
+        int finalmask = layermask1 | layermask2;
         yield return new WaitForSeconds(fallJumpDelay);
-        if (!Physics.Raycast(transform.position, -Vector3.up, 0.6f, 1 << 8))
+        if (!Physics.Raycast(transform.position, -Vector3.up, 0.6f, finalmask))
         {
             playerMain.playerJump.canJump = false;
         }
@@ -64,7 +67,10 @@ public class PlayerGroundDetection : MonoBehaviour
 
     public void SwitchGroundCheck ()
     {
-        if (Physics.Raycast(transform.position, -Vector3.up, 0.6f, 1 << 8))
+        int layermask1 = 1 << 9;
+        int layermask2 = 1 << 10;
+        int finalmask = layermask1 | layermask2;
+        if (Physics.Raycast(transform.position, -Vector3.up, 0.6f, finalmask))
         {
             isGrounded = true;
         }

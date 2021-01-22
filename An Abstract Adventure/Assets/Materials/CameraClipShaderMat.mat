@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CameraClipShaderCubeMat
+  m_Name: CameraClipShaderMat
   m_Shader: {fileID: -6465566751694194690, guid: 02bdab6b2a8f7834cac1bf44961a4474,
     type: 3}
   m_ShaderKeywords: 

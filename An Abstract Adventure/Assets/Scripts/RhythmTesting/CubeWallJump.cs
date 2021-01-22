@@ -64,7 +64,7 @@ public class CubeWallJump : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 9)
         {
             if (!collision.collider.CompareTag("Slippery"))
             {
